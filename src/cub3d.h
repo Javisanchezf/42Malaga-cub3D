@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/06/07 20:55:03 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/06/15 21:03:50 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,21 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 
 /*----------------------------STRUCTS----------------------------*/
+
+typedef struct s_ids
+{
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	char		*f;
+	char		*c;
+}				t_ids;
+
 typedef struct s_cub3data
 {
+	t_ids		ids;
+
 	mlx_image_t	*img;
 	mlx_image_t	*menu;
 	mlx_t		*mlx;

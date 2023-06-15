@@ -6,7 +6,7 @@
 #    By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/18 18:02:29 by javiersa          #+#    #+#              #
-#    Updated: 2023/06/06 19:02:47 by javiersa         ###   ########.fr        #
+#    Updated: 2023/06/15 20:18:14 by javiersa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ CFLAGS = -Wall -Werror -Wextra
 PERSONALNAME = Minishell
 LIBFTPLUS = libftplus
 LIBFTPLUS_LIB = $(LIBFTPLUS)/libftplus.a
-MLX_LIB = MLX42/libmlx42.a -lm -I include -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+MLX42 = MLX42
+MLX_LIB = MLX42/libmlx42.a
+MLX_FLAGS = -lm -I include -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 CC = gcc
 CLEAN = rm -Rf
 SRC = $(wildcard src/*.c)
@@ -35,8 +37,8 @@ GITIGNORE = .gitignore
 all: $(PROGRAM)
 
 
-$(PROGRAM): $(LIBFTPLUS_LIB) $(NAME)
-	@$(CC) $(CFLAGS) $(NAME) $(LIBFTPLUS_LIB) $(MLX_LIB) -o $(PROGRAM)
+$(PROGRAM): $(LIBFTPLUS_LIB) $(MLX_LIB) $(NAME)
+	@$(CC) $(CFLAGS) $(NAME) $(LIBFTPLUS_LIB) $(MLX_LIB) $(MLX_FLAGS) -o $(PROGRAM)
 	@echo "$(MAGENTA)Program $(PERSONALNAME) created successfully.$(DEFAULT)"
 
 .c.o:
@@ -46,14 +48,14 @@ $(PROGRAM): $(LIBFTPLUS_LIB) $(NAME)
 $(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
 	@echo "$(MAGENTA)Library $(NAME) created successfully.$(DEFAULT)"
-clean: libftplusclean
+clean: libftplusclean mlx42clean mlx42fclean
 	@$(CLEAN) ./$(OBJS)
 	@echo "$(RED)Removing:$(DEFAULT) All objects from $(PERSONALNAME)."
-fclean: libftplusfclean clean
+fclean: libftplusfclean mlx42fclean clean
 	@$(CLEAN) ./$(NAME) ./$(PROGRAM)
 	@echo "$(RED)Removing:$(DEFAULT) Library $(NAME)."
 	@echo "$(RED)Removing:$(DEFAULT) Program $(PROGRAM)."
-re: fclean libftplusclean all libftplusmake
+re: fclean all
 
 # Lib rules
 
@@ -66,6 +68,15 @@ libftplusclean:
 libftplusfclean:
 	@make fclean -C $(LIBFTPLUS)
 libftplusre: libftplusclean libftplusmake
+
+$(MLX_LIB):
+	@make -C $(MLX42)
+	@echo "$(MAGENTA)Library $(MLX_LIB) created successfully.$(DEFAULT)"
+mlx42clean:
+	@make clean -C $(MLX42)
+mlx42fclean:
+	@make fclean -C $(MLX42)
+mlx42re: libftplusclean libftplusmake
 
 #Personal use
 git: fclean $(GITIGNORE)
