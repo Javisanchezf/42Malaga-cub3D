@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/06/15 21:03:50 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/03 19:22:13 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,9 @@
 
 /*----------------------------STRUCTS----------------------------*/
 
-typedef struct s_ids
-{
-	char		*no;
-	char		*so;
-	char		*we;
-	char		*ea;
-	char		*f;
-	char		*c;
-}				t_ids;
-
 typedef struct s_cub3data
 {
-	t_ids		ids;
+	char		*ids[6];
 
 	mlx_image_t	*img;
 	mlx_image_t	*menu;
@@ -77,5 +67,7 @@ typedef struct s_cub3data
 	double		radians2;
 	char		view;
 }					t_cub3data;
+
+void	ft_map_construct(char *file, t_cub3data	*data);
 
 #endif

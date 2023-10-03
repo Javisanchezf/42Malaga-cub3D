@@ -6,11 +6,25 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/06/15 20:44:15 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/03 21:36:19 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+// void	init(int narg, char	**argv)
+// {
+	
+// }
+
+void	cleaner(t_cub3data	*data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 5)
+		ft_free_and_null((void **)&data->ids[i]);
+}
 
 int32_t	main(int narg, char **argv)
 {
@@ -18,8 +32,9 @@ int32_t	main(int narg, char **argv)
 
 	if (narg != 2 || !argv[1])
 		ft_error ("Error\nInvalid number of arguments", 0);
-	ft_printf("%s", &(HEADER));
 	// ft_map_construct(argv[1], &fdf);
+	ft_map_construct(argv[1], &data);
+	ft_printf("%s", &(HEADER));
 	data.mlx = mlx_init(WIDTH, HEIGHT, "CUB3D - javiersa", true);
 	// if (!data.mlx)
 	// 	ft_error("MLX INIT FAIL.", 1, data.map);
@@ -38,6 +53,7 @@ int32_t	main(int narg, char **argv)
 	// ft_multiple_free(1, fdf.map);
 	// mlx_delete_image(fdf.mlx, fdf.img);
 	mlx_terminate(data.mlx);
+	cleaner(&data);
 	return (EXIT_SUCCESS);
 }
 
