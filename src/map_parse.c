@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 21:07:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/04 19:51:52 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:37:51 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	ft_check_map(char *m, t_cub3data *data)
 			flag++;
 		else if (m[i] == '\n')
 		{
-			if (i - j > data->map_width)
-				data->map_width = i - j;
+			if (i - j > data->map_width - 1)
+				data->map_width = i - j + 1;
 			j = i;
 		}
 		else if (m[i] != '0' && m[i] != '1' && m[i] != ' ')
@@ -86,22 +86,27 @@ void	ft_check_map(char *m, t_cub3data *data)
 	if (flag != 1)
 		ft_error("Error\nInvalid map", 7, m, data->ids[0], \
 data->ids[1], data->ids[2], data->ids[3], data->ids[4], data->ids[5]);
-	data->map_height = i;
 }
 
 void	ft_map_normalize(char *m, t_cub3data *data)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	*aux;
 
 	data->map = ft_split(m, '\n');
+	data->map_height = ft_split_size(data->map);
 	i = -1;
 	while (data->map[++i])
 	{
+		aux = ft_calloc(data->map_width + 2, sizeof(char));
+		aux[0] = ' ';
+		ft_strlcpy(&aux[1], data->map[i], data->map_width);
 		j = ft_strlen(data->map[i]);
-		data->map[i] = ft_freeandjoin(ft_strdup(" "), data->map[i]);
-		while (j++ < data->map_width)
-			data->map[i] = ft_freeandjoin(data->map[i], ft_strdup(" "));
+		while (++j < data->map_width)
+			aux[j] = ' ';
+		ft_free_and_null((void **)&data->map[i]);
+		data->map[i] = aux;
 	}
 }
 
