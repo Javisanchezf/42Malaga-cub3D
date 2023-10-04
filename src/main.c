@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/03 21:36:19 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/04 11:38:48 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,23 @@ void	cleaner(t_cub3data	*data)
 	i = -1;
 	while (++i < 5)
 		ft_free_and_null((void **)&data->ids[i]);
+	ft_split_free(data->map);
+}
+
+void	init(t_cub3data	*data)
+{
+	data->map_width = 0;
+	data->ids[0] = NULL;
+	data->ids[1] = NULL;
+	data->ids[2] = NULL;
+	data->ids[3] = NULL;
+	data->ids[4] = NULL;
+	data->ids[5] = NULL;
+}
+
+void	ft_leaks(void)
+{
+	system("leaks -q cub3D");
 }
 
 int32_t	main(int narg, char **argv)
@@ -31,11 +48,13 @@ int32_t	main(int narg, char **argv)
 	t_cub3data	data;
 
 	if (narg != 2 || !argv[1])
-		ft_error ("Error\nInvalid number of arguments", 0);
+		ft_error ("Error: Invalid number of arguments", 0);
 	// ft_map_construct(argv[1], &fdf);
+	atexit(ft_leaks);
+	init(&data);
 	ft_map_construct(argv[1], &data);
 	ft_printf("%s", &(HEADER));
-	data.mlx = mlx_init(WIDTH, HEIGHT, "CUB3D - javiersa", true);
+	// data.mlx = mlx_init(WIDTH, HEIGHT, "CUB3D - javiersa", true);
 	// if (!data.mlx)
 	// 	ft_error("MLX INIT FAIL.", 1, data.map);
 	// fdf.img = mlx_new_image(fdf.mlx, fdf.window_width, fdf.window_height);
@@ -52,7 +71,7 @@ int32_t	main(int narg, char **argv)
 	// mlx_loop(fdf.mlx);
 	// ft_multiple_free(1, fdf.map);
 	// mlx_delete_image(fdf.mlx, fdf.img);
-	mlx_terminate(data.mlx);
+	// mlx_terminate(data.mlx);
 	cleaner(&data);
 	return (EXIT_SUCCESS);
 }
