@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/04 20:13:12 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:47:56 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	printfdata(t_cub3data	*data)
 
 	i = -1;
 	while (++i < 6)
-		ft_printf("ID Nº%d: %s\n", i, data->ids[i]);
-	ft_printf("Width of map: %d | Height of map: %d\n", data->map_width, data->map_height);
+		ft_printf("ID Nº%d: %s", i, data->ids[i]);
+	ft_printf("\nWidth of map: %d | Height of map: %d\n\n", data->map_width, data->map_height);
 	i = -1;
 	while (data->map[++i])
 		ft_printf("Line %d (Size %d) : %s\n", i, ft_strlen(data->map[i]), data->map[i]);

@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 21:07:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/04 20:37:51 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:46:24 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	ft_map_normalize(char *m, t_cub3data *data)
 	i = -1;
 	while (data->map[++i])
 	{
-		aux = ft_calloc(data->map_width + 2, sizeof(char));
+		aux = ft_calloc(data->map_width + 1, sizeof(char));
 		aux[0] = ' ';
 		ft_strlcpy(&aux[1], data->map[i], data->map_width);
 		j = ft_strlen(data->map[i]);
