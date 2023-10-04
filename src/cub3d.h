@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/04 11:36:42 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/04 21:20:23 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@
 
 typedef struct s_cub3data
 {
-	char		*ids[6];
-	int			map_width;
-	int			map_height;
-	char		**map;
+	char			*ids[6];
+	size_t			map_width;
+	size_t			map_height;
+	char			**map;
 
 	mlx_image_t	*img;
 	mlx_image_t	*menu;
