@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 21:07:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/04 11:54:10 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:51:52 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_extract_ids_aux(char *line, t_cub3data *data)
 		return (4);
 	else if (ft_strncmp("C ", line, 2) == 0 && !data->ids[5])
 		return (5);
-	ft_error("Error: Repeated parameters or incorrect lines", 7, line, \
+	ft_error("Error\nRepeated parameters or incorrect lines", 7, line, \
 data->ids[0], data->ids[1], data->ids[2], data->ids[3], data->ids[4], \
 data->ids[5]);
 	return (-2);
@@ -50,14 +50,13 @@ char	*ft_extract_ids(int fd, t_cub3data *data, char *line)
 			while (line[j] == ' ')
 				j++;
 			data->ids[pos] = ft_strdup(line + j);
-			ft_printf("%s\n", data->ids[pos]);
 			i++;
 		}
 		ft_free_and_null((void **)&line);
 		line = get_next_line(fd);
 	}
 	if (!line)
-		ft_error("Error: File doesn't contain valid map", 7, line, \
+		ft_error("Error\nFile doesn't contain valid map", 7, line, \
 data->ids[0], data->ids[1], data->ids[2], data->ids[3], data->ids[4], \
 data->ids[5]);
 	return (line);
@@ -85,7 +84,7 @@ void	ft_check_map(char *m, t_cub3data *data)
 			flag = 2;
 	}
 	if (flag != 1)
-		ft_error("Error: Invalid map", 7, m, data->ids[0], \
+		ft_error("Error\nInvalid map", 7, m, data->ids[0], \
 data->ids[1], data->ids[2], data->ids[3], data->ids[4], data->ids[5]);
 	data->map_height = i;
 }
@@ -103,9 +102,7 @@ void	ft_map_normalize(char *m, t_cub3data *data)
 		data->map[i] = ft_freeandjoin(ft_strdup(" "), data->map[i]);
 		while (j++ < data->map_width)
 			data->map[i] = ft_freeandjoin(data->map[i], ft_strdup(" "));
-		ft_printf("Linea %d, tamaño %d\n%s\n", i, ft_strlen(data->map[i]), data->map[i]);
 	}
-	ft_printf_split(data->map);
 }
 
 void	ft_readmap(int fd, t_cub3data *data)
@@ -120,7 +117,7 @@ void	ft_readmap(int fd, t_cub3data *data)
 		line = get_next_line(fd);
 	}
 	if (!line)
-		ft_error("Error: File doesn't contain valid map", 7, line, data->ids[0], \
+		ft_error("Error\nFile doesn't contain valid map", 7, line, data->ids[0], \
 data->ids[1], data->ids[2], data->ids[3], data->ids[4], data->ids[5]);
 	aux = ft_strdup("\n \n");
 	while (line)
@@ -145,10 +142,10 @@ void	ft_map_construct(char *file, t_cub3data	*data)
 	while (file[i])
 		i++;
 	if (i < 5 || ft_strncmp(".cub", &file[i - 4], 4) != 0)
-		ft_error("Error: Invalid extension.", 0);
+		ft_error("Error\nInvalid extension.", 0);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		ft_error("Error: Could not read the file", 0);
+		ft_error("Error\nCould not read the file", 0);
 	ft_readmap(fd, data);
 	close(fd);
 }
