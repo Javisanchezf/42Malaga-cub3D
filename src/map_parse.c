@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 21:07:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 12:44:27 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:28:12 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_extract_ids_aux(char *line, t_cub3data *data)
+int	ft_extract_ids_aux(char *line, t_cub3data *data, int *j)
 {
-	// *j = 0;
-	// while (line[*j] == ' ')
-	// 	(*j)++;
+	*j = 0;
+	while (line[*j] == ' ')
+		(*j)++;
 	if (line[0] == '\n')
 		return (-1);
-	else if (ft_strncmp("NO ", line, 3) == 0 && !data->ids[0])
+	else if (ft_strncmp("NO ", &line[*j], 3) == 0 && !data->ids[0])
 		return (0);
-	else if (ft_strncmp("SO ", line, 3) == 0 && !data->ids[1])
+	else if (ft_strncmp("SO ", &line[*j], 3) == 0 && !data->ids[1])
 		return (1);
-	else if (ft_strncmp("WE ", line, 3) == 0 && !data->ids[2])
+	else if (ft_strncmp("WE ", &line[*j], 3) == 0 && !data->ids[2])
 		return (2);
-	else if (ft_strncmp("EA ", line, 3) == 0 && !data->ids[3])
+	else if (ft_strncmp("EA ", &line[*j], 3) == 0 && !data->ids[3])
 		return (3);
-	else if (ft_strncmp("F ", line, 2) == 0 && !data->ids[4])
+	else if (ft_strncmp("F ", &line[*j], 2) == 0 && !data->ids[4])
 		return (4);
-	else if (ft_strncmp("C ", line, 2) == 0 && !data->ids[5])
+	else if (ft_strncmp("C ", &line[*j], 2) == 0 && !data->ids[5])
 		return (5);
 	ft_error("Error\nRepeated parameters or incorrect lines", 7, line, \
 data->ids[0], data->ids[1], data->ids[2], data->ids[3], data->ids[4], \
@@ -46,10 +46,10 @@ char	*ft_extract_ids(int fd, t_cub3data *data, char *line)
 	i = 0;
 	while (line && i < 6)
 	{
-		pos = ft_extract_ids_aux(line, data);
+		pos = ft_extract_ids_aux(line, data, &j);
 		if (pos >= 0 && pos <= 5)
 		{
-			j = 2;
+			j += 2;
 			while (line[j] == ' ')
 				j++;
 			data->ids[pos] = ft_strdup(line + j);
