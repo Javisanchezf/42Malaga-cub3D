@@ -6,7 +6,7 @@
 /*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 18:39:31 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/10/05 19:13:00 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_cub3data
 }					t_cub3data;
 
 void	ft_map_construct(char *file, t_cub3data	*data);
-int 	ft_check_wall(t_cub3data data);
+void 	ft_check_wall(t_cub3data data);
+void	cleaner(t_cub3data	*data);
 
 #endif
