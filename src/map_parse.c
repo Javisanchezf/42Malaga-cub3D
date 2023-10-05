@@ -6,7 +6,7 @@
 /*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 21:07:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 18:44:04 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/10/05 19:16:50 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_extract_ids_aux(char *line, t_cub3data *data, int *j)
 		return (4);
 	else if (ft_strncmp("C ", &line[*j], 2) == 0 && !data->ids[5])
 		return (5);
-	ft_error("Error\nRepeated parameters or incorrect lines", 7, line, \
+	ft_error("Error\nRepeated parameters or incorrect lines\n", 7, line, \
 data->ids[0], data->ids[1], data->ids[2], data->ids[3], data->ids[4], \
 data->ids[5]);
 	return (-2);
@@ -59,7 +59,7 @@ char	*ft_extract_ids(int fd, t_cub3data *data, char *line)
 		line = get_next_line(fd);
 	}
 	if (!line)
-		ft_error("Error\nFile doesn't contain valid map", 7, line, \
+		ft_error("Error\nFile doesn't contain valid map\n", 7, line, \
 data->ids[0], data->ids[1], data->ids[2], data->ids[3], data->ids[4], \
 data->ids[5]);
 	return (line);
@@ -89,7 +89,7 @@ void	ft_check_map(char *m, t_cub3data *data)
 		i++;
 	}
 	if (flag != 1)
-		ft_error("Error\nInvalid map", 7, m, data->ids[0], \
+		ft_error("Error\nInvalid map\n", 7, m, data->ids[0], \
 data->ids[1], data->ids[2], data->ids[3], data->ids[4], data->ids[5]);
 }
 
@@ -128,7 +128,7 @@ void	ft_readmap(int fd, t_cub3data *data)
 		line = get_next_line(fd);
 	}
 	if (!line)
-		ft_error("Error\nFile doesn't contain valid map", 7, line, data->ids[0], \
+		ft_error("Error\nFile doesn't contain valid map\n", 7, line, data->ids[0], \
 data->ids[1], data->ids[2], data->ids[3], data->ids[4], data->ids[5]);
 	aux = ft_strdup(" \n");
 	while (line)
@@ -156,7 +156,7 @@ void	ft_map_construct(char *file, t_cub3data	*data)
 		ft_error("Error\nInvalid extension.", 0);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		ft_error("Error\nCould not read the file", 0);
+		ft_error("Error\nCould not read the file\n", 0);
 	ft_readmap(fd, data);
 	close(fd);
 
