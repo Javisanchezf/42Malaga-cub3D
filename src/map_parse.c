@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 21:07:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 18:28:12 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:44:04 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ data->ids[5]);
 
 void	ft_check_map(char *m, t_cub3data *data)
 {
-	size_t			i;
-	size_t			j;
+	int			i;
+	int			j;
 	short int		flag;
 
 	i = 0;
@@ -95,8 +95,8 @@ data->ids[1], data->ids[2], data->ids[3], data->ids[4], data->ids[5]);
 
 void	ft_map_normalize(char *m, t_cub3data *data)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 	char	*aux;
 
 	data->map = ft_split(m, '\n');
@@ -159,4 +159,5 @@ void	ft_map_construct(char *file, t_cub3data	*data)
 		ft_error("Error\nCould not read the file", 0);
 	ft_readmap(fd, data);
 	close(fd);
+
 }

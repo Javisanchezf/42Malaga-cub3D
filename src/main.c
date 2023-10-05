@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/04 20:47:56 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:55:01 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ int32_t	main(int narg, char **argv)
 	atexit(ft_leaks);
 	init(&data);
 	ft_map_construct(argv[1], &data);
-	ft_printf("%s", &(HEADER));
-	printfdata(&data);
+	ft_check_wall(data);
+	// ft_printf("%s", &(HEADER));
+	// printfdata(&data);
 	cleaner(&data);
 	return (EXIT_SUCCESS);
 }
