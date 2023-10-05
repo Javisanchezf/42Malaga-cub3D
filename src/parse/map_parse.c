@@ -6,13 +6,13 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:45:00 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 20:49:09 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/05 21:10:55 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	ft_vertical(t_cub3data data, int i, int j, int i1)
+static int	ft_vertical(t_cub3data data, int i, int j, int i1)
 {
 	while (--i >= 0)
 	{
@@ -38,7 +38,7 @@ int	ft_vertical(t_cub3data data, int i, int j, int i1)
 	return (0);
 }
 
-int	ft_horiz(t_cub3data data, int i, int j, int j1)
+static int	ft_horiz(t_cub3data data, int i, int j, int j1)
 {
 	while (--j >= 0)
 	{
@@ -64,7 +64,7 @@ int	ft_horiz(t_cub3data data, int i, int j, int j1)
 	return (0);
 }
 
-int	check_enviroment(t_cub3data data, int i, int j)
+static int	check_enviroment(t_cub3data data, int i, int j)
 {
 	int	j1;
 

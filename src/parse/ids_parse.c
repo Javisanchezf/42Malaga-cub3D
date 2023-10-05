@@ -6,13 +6,13 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:37:43 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 21:00:06 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/05 21:10:27 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	ft_access_directions(char *line, t_cub3data *data)
+static void	ft_access_directions(char *line, t_cub3data *data)
 {
 	int		i;
 	int		fd;
@@ -36,7 +36,7 @@ data->ids[5], aux);
 	}
 }
 
-int	ft_extract_ids_aux(char *line, t_cub3data *data, int *j)
+static int	ft_extract_ids_aux(char *line, t_cub3data *data, int *j)
 {
 	*j = 0;
 	while (line[*j] == ' ')

@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 21:07:19 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/05 22:06:23 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define CUB3D_H
 # define WIDTH 1920
 # define HEIGHT 1024
+# define MINIMAP_WIDTH 300
+# define MINIMAP_HEIGHT 300
+# define BLOCKSIZE 60
 
 /*----------------------------HEADER----------------------------*/
 
@@ -57,6 +60,8 @@ typedef struct s_cub3data
 	int			map_height;
 	char		**map;
 	mlx_t		*mlx;
+	int			x_person;
+	int			y_person;
 
 	mlx_image_t	*img;
 	mlx_image_t	*menu;

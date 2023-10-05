@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 21:08:31 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/05 22:28:23 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	printfdata(t_cub3data	*data)
 	i = -1;
 	while (++i < 6)
 		ft_printf("ID Nº%d: %s", i, data->ids[i]);
-	ft_printf("\nWidth of map: %d | Height of map: %d\n\n", data->map_width, data->map_height);
+	ft_printf("\nWidth of map: %d | Height of map: %d | Position person: %d,%d\n\n", data->map_width, data->map_height,data->x_person, data->y_person);
 	i = -1;
 	while (data->map[++i])
 		ft_printf("Line %d (Size %d) : %s\n", i, ft_strlen(data->map[i]), data->map[i]);
@@ -59,16 +59,49 @@ void	keyboard_hooks(void *param)
 		mlx_close_window(data->mlx);
 }
 
+void	drawSquare(t_cub3data	*data, int x, int y)
+{
+	int	startx;
+	int	starty;
+	int	index;
+	int	i;
+	int	j;
+
+	startx = x - 10;
+	starty = y - 10;
+	if (startx < 0)
+		startx = 0;
+	if (starty < 0)
+		starty = 0;
+	if (startx + 20 > MINIMAP_WIDTH)
+		startx = WIDTH - 20;
+	if (starty + 20 > MINIMAP_HEIGHT)
+		starty = MINIMAP_HEIGHT - 20;
+	i = starty - 1;
+	while (++i < starty + 20)
+	{
+		j = startx - 1;
+		while (++j < startx + 20)
+		{
+			index = (i * MINIMAP_WIDTH + j) * 4;
+			data->img->pixels[index + 0] = 0;
+			data->img->pixels[index + 1] = 0;
+			data->img->pixels[index + 2] = 139;
+			data->img->pixels[index + 3] = 255;
+		}
+	}
+}
+
 void	init_window(t_cub3data	*data)
 {
-	data->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D - antdelga javiersa", true);
+	data->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D 42", true);
 	if (!data->mlx)
 	{
 		cleaner(data);
 		puts(mlx_strerror(mlx_errno));
 		exit(EXIT_FAILURE);
 	}
-	data->img = mlx_new_image(data->mlx, 300, 200);
+	data->img = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 	if (!data->img)
 	{
 		mlx_close_window(data->mlx);
@@ -76,7 +109,8 @@ void	init_window(t_cub3data	*data)
 		cleaner(data);
 		exit(EXIT_FAILURE);
 	}
-	ft_memset(data->img->pixels, 255, 300 * 200 * sizeof(int));
+	ft_memset(data->img->pixels, 142, MINIMAP_WIDTH * MINIMAP_HEIGHT * sizeof(int));
+	drawSquare(data, MINIMAP_WIDTH / 2, MINIMAP_HEIGHT / 2);
 	if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
 	{
 		mlx_close_window(data->mlx);

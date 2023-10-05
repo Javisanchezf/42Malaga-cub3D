@@ -6,15 +6,14 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:43:40 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 20:50:14 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/05 22:00:50 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../cub3d.h"
 
-
-void	ft_check_map(char *m, t_cub3data *data)
+static void	ft_check_map(char *m, t_cub3data *data)
 {
 	int				i;
 	int				j;
@@ -42,7 +41,7 @@ void	ft_check_map(char *m, t_cub3data *data)
 data->ids[1], data->ids[2], data->ids[3], data->ids[4], data->ids[5]);
 }
 
-void	ft_map_normalize(char *m, t_cub3data *data)
+static void	ft_map_normalize(char *m, t_cub3data *data)
 {
 	int		i;
 	int		j;
@@ -65,7 +64,7 @@ void	ft_map_normalize(char *m, t_cub3data *data)
 	}
 }
 
-void	ft_readmap(int fd, t_cub3data *data)
+static void	ft_readmap(int fd, t_cub3data *data)
 {
 	char	*line;
 	char	*aux;
@@ -94,6 +93,28 @@ data->ids[5]);
 	ft_multiple_free(2, aux, line);
 }
 
+static void	ft_extract_person_position(t_cub3data *data)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (data->map[++i])
+	{
+		j = -1;
+		while (data->map[i][++j])
+		{
+			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || \
+			data->map[i][j] == 'W' || data->map[i][j] == 'E')
+			{
+				data->x_person = j * BLOCKSIZE - BLOCKSIZE / 2;
+				data->y_person = i * BLOCKSIZE - BLOCKSIZE / 2;
+				return ;
+			}
+		}
+	}
+}
+
 void	ft_parse_data(char *file, t_cub3data	*data)
 {
 	int		fd;
@@ -108,6 +129,7 @@ void	ft_parse_data(char *file, t_cub3data	*data)
 	if (fd == -1)
 		ft_error("Error\nCould not read the file\n", 0);
 	ft_readmap(fd, data);
-	ft_map_parse(data);
 	close(fd);
+	ft_map_parse(data);
+	ft_extract_person_position(data);
 }
