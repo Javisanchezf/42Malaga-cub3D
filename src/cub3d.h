@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 20:48:39 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/05 21:07:19 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@
 # include "../libftplus/libftplus.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <stdio.h>
+# include <math.h>
 
 /*----------------------------STRUCTS----------------------------*/
 
 typedef struct s_cub3data
 {
-	char			*ids[6];
+	char		*ids[6];
 	int			map_width;
 	int			map_height;
 	char		**map;
@@ -70,10 +71,10 @@ typedef struct s_cub3data
 	char		view;
 }					t_cub3data;
 
-void	ft_parse_data(char *file, t_cub3data	*data);
-void 	ft_map_parse(t_cub3data *data);
-void	cleaner(t_cub3data	*data);
 char	*ft_ids_parse(int fd, t_cub3data *data, char *line);
+void	ft_parse_data(char *file, t_cub3data	*data);
+void	ft_map_parse(t_cub3data *data);
+void	cleaner(t_cub3data	*data);
 
 
 #endif

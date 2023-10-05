@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 20:46:58 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/05 21:08:31 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@ void	cleaner(t_cub3data	*data)
 
 void	init(t_cub3data	*data)
 {
+	int	i;
+
+	i = -1;
+	while (++i < 6)
+		data->ids[i] = NULL;
 	data->map_width = 0;
-	data->ids[0] = NULL;
-	data->ids[1] = NULL;
-	data->ids[2] = NULL;
-	data->ids[3] = NULL;
-	data->ids[4] = NULL;
-	data->ids[5] = NULL;
 }
 
 void	printfdata(t_cub3data	*data)
@@ -56,8 +55,8 @@ void	keyboard_hooks(void *param)
 	t_cub3data	*data;
 
 	data = param;
-	// if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
-	// 	mlx_close_window(data->mlx);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(data->mlx);
 }
 
 void	init_window(t_cub3data	*data)
@@ -84,7 +83,7 @@ void	init_window(t_cub3data	*data)
 		puts(mlx_strerror(mlx_errno));
 		exit(EXIT_FAILURE);
 	}
-	mlx_loop_hook(data->mlx, &keyboard_hooks, (void *)&data);
+	mlx_loop_hook(data->mlx, &keyboard_hooks, (void *)data);
 	mlx_loop(data->mlx);
 }
 
