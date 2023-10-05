@@ -6,7 +6,7 @@
 /*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 18:34:03 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/05 19:12:38 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/10/05 19:16:13 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,6 @@ void ft_check_wall(t_cub3data data)
 	if (error)
 	{
 		cleaner(&data);
-		ft_error("ERROR\n", 0);
+		ft_error("ERROR\n This map is not valid\n", 0);
 	}
 }
