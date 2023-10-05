@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 19:13:00 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:48:39 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ typedef struct s_cub3data
 	char			*ids[6];
 	int			map_width;
 	int			map_height;
-	char			**map;
+	char		**map;
+	mlx_t		*mlx;
 
 	mlx_image_t	*img;
 	mlx_image_t	*menu;
-	mlx_t		*mlx;
 	int			window_width;
 	int			window_height;
 	int			z_max;
@@ -70,8 +70,10 @@ typedef struct s_cub3data
 	char		view;
 }					t_cub3data;
 
-void	ft_map_construct(char *file, t_cub3data	*data);
-void 	ft_check_wall(t_cub3data data);
+void	ft_parse_data(char *file, t_cub3data	*data);
+void 	ft_map_parse(t_cub3data *data);
 void	cleaner(t_cub3data	*data);
+char	*ft_ids_parse(int fd, t_cub3data *data, char *line);
+
 
 #endif

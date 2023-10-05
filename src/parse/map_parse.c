@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 18:34:03 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/05 19:16:13 by antdelga         ###   ########.fr       */
+/*   Created: 2023/10/05 20:45:00 by javiersa          #+#    #+#             */
+/*   Updated: 2023/10/05 20:49:09 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	ft_vertical(t_cub3data data, int i, int j, int i1)
 {
@@ -76,7 +76,7 @@ int	check_enviroment(t_cub3data data, int i, int j)
 	return (0);
 }
 
-void ft_check_wall(t_cub3data data)
+void	ft_map_parse(t_cub3data *data)
 {
 	int	i;
 	int	j;
@@ -86,18 +86,18 @@ void ft_check_wall(t_cub3data data)
 	j = -1;
 	error = 0;
 
-	while (++i < data.map_height && !error)
+	while (++i < data->map_height && !error)
 	{
-		while (++j < data.map_width && !error)
+		while (++j < data->map_width && !error)
 		{
-			if (data.map[i][j] == ' ')
-				error = check_enviroment(data, i, j);
+			if (data->map[i][j] == ' ')
+				error = check_enviroment(*data, i, j);
 		}
 		j = -1;
 	}
 	if (error)
 	{
-		cleaner(&data);
+		cleaner(data);
 		ft_error("ERROR\n This map is not valid\n", 0);
 	}
 }
