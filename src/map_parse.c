@@ -6,7 +6,7 @@
 /*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 21:07:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 19:16:50 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/10/05 19:49:15 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,27 @@ data->ids[1], data->ids[2], data->ids[3], data->ids[4], data->ids[5]);
 	ft_multiple_free(2, aux, line);
 }
 
+void	ft_access_directions(t_cub3data data)
+{
+	int		i;
+	int		fd;
+	char	*aux;
+
+	i = -1;
+	while (++i < 4)
+	{
+		aux = ft_substr(data.ids[i], 2, \
+			ft_strlen(data.ids[i])-3);
+		fd = open(aux, O_RDONLY);
+		if (fd == -1)
+		{
+			free(aux);
+			ft_error("Error\nCould not read the file\n", 0);
+		}
+		free(aux);
+	}
+}
+
 void	ft_map_construct(char *file, t_cub3data	*data)
 {
 	int		fd;
@@ -159,5 +180,5 @@ void	ft_map_construct(char *file, t_cub3data	*data)
 		ft_error("Error\nCould not read the file\n", 0);
 	ft_readmap(fd, data);
 	close(fd);
-
+	ft_access_directions(*data);
 }
