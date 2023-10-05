@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 21:07:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/04 21:27:19 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/05 12:44:27 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	ft_extract_ids_aux(char *line, t_cub3data *data)
 {
+	// *j = 0;
+	// while (line[*j] == ' ')
+	// 	(*j)++;
 	if (line[0] == '\n')
 		return (-1);
 	else if (ft_strncmp("NO ", line, 3) == 0 && !data->ids[0])
