@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/04 21:20:23 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:39:31 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,15 @@
 /*----------------------------LIBRARIES----------------------------*/
 # include "../libftplus/libftplus.h"
 # include "../MLX42/include/MLX42/MLX42.h"
+# include <stdio.h>
 
 /*----------------------------STRUCTS----------------------------*/
 
 typedef struct s_cub3data
 {
 	char			*ids[6];
-	size_t			map_width;
-	size_t			map_height;
+	int			map_width;
+	int			map_height;
 	char			**map;
 
 	mlx_image_t	*img;
@@ -70,5 +71,6 @@ typedef struct s_cub3data
 }					t_cub3data;
 
 void	ft_map_construct(char *file, t_cub3data	*data);
+int 	ft_check_wall(t_cub3data data);
 
 #endif
