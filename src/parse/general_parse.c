@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:43:40 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 22:00:50 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/06 20:13:01 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ static void	ft_extract_person_position(t_cub3data *data)
 			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || \
 			data->map[i][j] == 'W' || data->map[i][j] == 'E')
 			{
-				data->x_person = j * BLOCKSIZE - BLOCKSIZE / 2;
-				data->y_person = i * BLOCKSIZE - BLOCKSIZE / 2;
+				data->person_pos.x = j * BLOCKSIZE - BLOCKSIZE / 2;
+				data->person_pos.y = i * BLOCKSIZE - BLOCKSIZE / 2;
 				return ;
 			}
 		}

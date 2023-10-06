@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 22:06:23 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/06 20:12:06 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,19 @@
 # include <math.h>
 
 /*----------------------------STRUCTS----------------------------*/
+typedef struct s_pixels
+{
+	uint8_t		r;
+	uint8_t		g;
+	uint8_t		b;
+	uint8_t		a;
+}		t_pixels;
+
+typedef struct s_coords
+{
+	int	x;
+	int	y;
+}		t_coords;
 
 typedef struct s_cub3data
 {
@@ -60,8 +73,10 @@ typedef struct s_cub3data
 	int			map_height;
 	char		**map;
 	mlx_t		*mlx;
-	int			x_person;
-	int			y_person;
+	t_coords	person_pos;
+	uint8_t		*minimap;
+	t_pixels	color1;
+	t_pixels	color2;
 
 	mlx_image_t	*img;
 	mlx_image_t	*menu;

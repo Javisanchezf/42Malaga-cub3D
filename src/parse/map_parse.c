@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:45:00 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 21:10:55 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/06 18:32:56 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,6 @@ static int	ft_horiz(t_cub3data data, int i, int j, int j1)
 
 static int	check_enviroment(t_cub3data data, int i, int j)
 {
-	int	j1;
-
-	j1 = j;
 	if (ft_vertical(data, i, j, i))
 		return (1);
 	if (ft_horiz(data, i, j, j))
