@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/09 17:51:22 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:56:06 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,26 +133,26 @@ void	init_window(t_cub3data	*data)
 		puts(mlx_strerror(mlx_errno));
 		exit(EXIT_FAILURE);
 	}
-	data->minimap = mlx_new_image(data->mlx, data->map_width, data->map_height);
-	if (!data->minimap)
-	{
-		mlx_close_window(data->mlx);
-		puts(mlx_strerror(mlx_errno));
-		cleaner(data);
-		exit(EXIT_FAILURE);
-	}
-	ft_memset(data->img->pixels, 0, data->map_width * data->map_height * sizeof(int));
-	draw_minimap(data);
-	// data->img = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
-	// if (!data->img)
+	// data->minimap = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	// if (!data->minimap)
 	// {
 	// 	mlx_close_window(data->mlx);
 	// 	puts(mlx_strerror(mlx_errno));
 	// 	cleaner(data);
 	// 	exit(EXIT_FAILURE);
 	// }
-	// ft_memset(data->img->pixels, 142, MINIMAP_WIDTH * MINIMAP_HEIGHT * sizeof(int));
-	// drawSquare(data->img->pixels, MINIMAP_WIDTH / 2, MINIMAP_HEIGHT / 2, data->color1);
+	// ft_memset(data->minimap->pixels, 142, MINIMAP_WIDTH * MINIMAP_HEIGHT * sizeof(int));
+	// draw_minimap(data);
+	data->img = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	if (!data->img)
+	{
+		mlx_close_window(data->mlx);
+		puts(mlx_strerror(mlx_errno));
+		cleaner(data);
+		exit(EXIT_FAILURE);
+	}
+	ft_memset(data->img->pixels, 142, MINIMAP_WIDTH * MINIMAP_HEIGHT * sizeof(int));
+	drawSquare(data->img->pixels, MINIMAP_WIDTH / 2, MINIMAP_HEIGHT / 2, data->color1);
 	if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
 	{
 		mlx_close_window(data->mlx);
