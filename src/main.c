@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/09 17:49:05 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:51:22 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	draw_minimap(t_cub3data	*data)
 	int	j;
 
 	i = -1;
-	data->minimap = ft_calloc(4 * data->map_width * data->map_height * BLOCKSIZE, sizeof(int));
+	// data->minimap = ft_calloc(4 * data->map_width * data->map_height * BLOCKSIZE, sizeof(int));
 	while (data->map[++i])
 	{
 		j = -1;
@@ -133,7 +133,17 @@ void	init_window(t_cub3data	*data)
 		puts(mlx_strerror(mlx_errno));
 		exit(EXIT_FAILURE);
 	}
-	// data->minimap = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	data->minimap = mlx_new_image(data->mlx, data->map_width, data->map_height);
+	if (!data->minimap)
+	{
+		mlx_close_window(data->mlx);
+		puts(mlx_strerror(mlx_errno));
+		cleaner(data);
+		exit(EXIT_FAILURE);
+	}
+	ft_memset(data->img->pixels, 0, data->map_width * data->map_height * sizeof(int));
+	draw_minimap(data);
+	// data->img = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 	// if (!data->img)
 	// {
 	// 	mlx_close_window(data->mlx);
@@ -141,17 +151,8 @@ void	init_window(t_cub3data	*data)
 	// 	cleaner(data);
 	// 	exit(EXIT_FAILURE);
 	// }
-	data->img = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
-	if (!data->img)
-	{
-		mlx_close_window(data->mlx);
-		puts(mlx_strerror(mlx_errno));
-		cleaner(data);
-		exit(EXIT_FAILURE);
-	}
-	ft_memset(data->img->pixels, 142, MINIMAP_WIDTH * MINIMAP_HEIGHT * sizeof(int));
-	drawSquare(data->img->pixels, MINIMAP_WIDTH / 2, MINIMAP_HEIGHT / 2, data->color1);
-	// draw_minimap(data);
+	// ft_memset(data->img->pixels, 142, MINIMAP_WIDTH * MINIMAP_HEIGHT * sizeof(int));
+	// drawSquare(data->img->pixels, MINIMAP_WIDTH / 2, MINIMAP_HEIGHT / 2, data->color1);
 	if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
 	{
 		mlx_close_window(data->mlx);
@@ -176,7 +177,8 @@ int32_t	main(int narg, char **argv)
 
 	init_window(&data);
 
-	mlx_delete_image(data.mlx, data.img);
+	// mlx_delete_image(data.mlx, data.img);
+	mlx_delete_image(data.mlx, data.minimap);
 	mlx_terminate(data.mlx);
 
 	cleaner(&data);
