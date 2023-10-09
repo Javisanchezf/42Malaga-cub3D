@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/06 20:13:16 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:49:05 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,27 +77,26 @@ void	put_rgb(uint8_t *pixels, t_pixels color)
 
 void	drawSquare(uint8_t *pixels, int x, int y, t_pixels color)
 {
-	int	startx;
-	int	starty;
-	int	index;
-	int	i;
-	int	j;
+	t_coords	start;
+	int			index;
+	int			i;
+	int			j;
 
-	startx = x - BLOCKSIZE / 2;
-	starty = y - BLOCKSIZE / 2;
-	if (startx < 0)
-		startx = 0;
-	if (starty < 0)
-		starty = 0;
-	if (startx + BLOCKSIZE > MINIMAP_WIDTH)
-		startx = WIDTH - BLOCKSIZE;
-	if (starty + BLOCKSIZE > MINIMAP_HEIGHT)
-		starty = MINIMAP_HEIGHT - BLOCKSIZE;
-	i = starty - 1;
-	while (++i < starty + BLOCKSIZE)
+	start.x = x - BLOCKSIZE / 2;
+	start.y = y - BLOCKSIZE / 2;
+	if (start.x < 0)
+		start.x = 0;
+	if (start.y < 0)
+		start.y = 0;
+	if (start.x + BLOCKSIZE > MINIMAP_WIDTH)
+		start.x = WIDTH - BLOCKSIZE;
+	if (start.y + BLOCKSIZE > MINIMAP_HEIGHT)
+		start.y = MINIMAP_HEIGHT - BLOCKSIZE;
+	i = start.y - 1;
+	while (++i < start.y + BLOCKSIZE)
 	{
-		j = startx - 1;
-		while (++j < startx + BLOCKSIZE)
+		j = start.x - 1;
+		while (++j < start.x + BLOCKSIZE)
 		{
 			index = (i * MINIMAP_WIDTH + j) * 4;
 			put_rgb(&pixels[index], color);
@@ -105,25 +104,25 @@ void	drawSquare(uint8_t *pixels, int x, int y, t_pixels color)
 	}
 }
 
-// void	draw_minimap(t_cub3data	*data)
-// {
-// 	int	i;
-// 	int	j;
+void	draw_minimap(t_cub3data	*data)
+{
+	int	i;
+	int	j;
 
-// 	i = -1;
-// 	data->minimap = ft_calloc(4 * data->map_width * data->map_height * BLOCKSIZE);
-// 	while (data->map[++i])
-// 	{
-// 		j = -1;
-// 		while (data->map[i][++j])
-// 		{
-// 			if (data->map[i][j] == '1')
-// 				drawSquare(data->minimap);
-// 			else if (data->map[i][j] == '0')
-// 				put_rgb(data->minimap[4 * i * j], 125, 125, 125);
-// 		}
-// 	}
-// }
+	i = -1;
+	data->minimap = ft_calloc(4 * data->map_width * data->map_height * BLOCKSIZE, sizeof(int));
+	while (data->map[++i])
+	{
+		j = -1;
+		while (data->map[i][++j])
+		{
+			if (data->map[i][j] == '1')
+				drawSquare(data->minimap->pixels, j, i, data->color1);
+			else if (data->map[i][j] == '0')
+				drawSquare(data->minimap->pixels, j, i, data->color2);
+		}
+	}
+}
 
 void	init_window(t_cub3data	*data)
 {
@@ -134,6 +133,14 @@ void	init_window(t_cub3data	*data)
 		puts(mlx_strerror(mlx_errno));
 		exit(EXIT_FAILURE);
 	}
+	// data->minimap = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	// if (!data->img)
+	// {
+	// 	mlx_close_window(data->mlx);
+	// 	puts(mlx_strerror(mlx_errno));
+	// 	cleaner(data);
+	// 	exit(EXIT_FAILURE);
+	// }
 	data->img = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 	if (!data->img)
 	{
@@ -144,6 +151,7 @@ void	init_window(t_cub3data	*data)
 	}
 	ft_memset(data->img->pixels, 142, MINIMAP_WIDTH * MINIMAP_HEIGHT * sizeof(int));
 	drawSquare(data->img->pixels, MINIMAP_WIDTH / 2, MINIMAP_HEIGHT / 2, data->color1);
+	// draw_minimap(data);
 	if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
 	{
 		mlx_close_window(data->mlx);

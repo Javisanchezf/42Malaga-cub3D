@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/06 20:12:06 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:39:11 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_cub3data
 	char		**map;
 	mlx_t		*mlx;
 	t_coords	person_pos;
-	uint8_t		*minimap;
+	mlx_image_t	*minimap;
 	t_pixels	color1;
 	t_pixels	color2;
 
