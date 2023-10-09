@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:45:00 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/06 18:32:56 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:23:13 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,28 @@ static int	check_enviroment(t_cub3data data, int i, int j)
 	return (0);
 }
 
+static void	ft_extract_player_position(t_cub3data *data)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (data->map[++i])
+	{
+		j = -1;
+		while (data->map[i][++j])
+		{
+			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || \
+			data->map[i][j] == 'W' || data->map[i][j] == 'E')
+			{
+				data->player_pos.x = j * BLOCKSIZE - BLOCKSIZE / 2;
+				data->player_pos.y = i * BLOCKSIZE - BLOCKSIZE / 2;
+				return ;
+			}
+		}
+	}
+}
+
 void	ft_map_parse(t_cub3data *data)
 {
 	int	i;
@@ -82,7 +104,6 @@ void	ft_map_parse(t_cub3data *data)
 	i = -1;
 	j = -1;
 	error = 0;
-
 	while (++i < data->map_height && !error)
 	{
 		while (++j < data->map_width && !error)
@@ -97,4 +118,7 @@ void	ft_map_parse(t_cub3data *data)
 		cleaner(data);
 		ft_error("ERROR\n This map is not valid\n", 0);
 	}
+	ft_extract_player_position(data);
+	data->minimap.width = data->map_width * BLOCKSIZE;
+	data->minimap.height = data->map_height * BLOCKSIZE;
 }

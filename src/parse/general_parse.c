@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:43:40 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/06 20:13:01 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:20:16 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,28 +93,6 @@ data->ids[5]);
 	ft_multiple_free(2, aux, line);
 }
 
-static void	ft_extract_person_position(t_cub3data *data)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (data->map[++i])
-	{
-		j = -1;
-		while (data->map[i][++j])
-		{
-			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || \
-			data->map[i][j] == 'W' || data->map[i][j] == 'E')
-			{
-				data->person_pos.x = j * BLOCKSIZE - BLOCKSIZE / 2;
-				data->person_pos.y = i * BLOCKSIZE - BLOCKSIZE / 2;
-				return ;
-			}
-		}
-	}
-}
-
 void	ft_parse_data(char *file, t_cub3data	*data)
 {
 	int		fd;
@@ -131,5 +109,4 @@ void	ft_parse_data(char *file, t_cub3data	*data)
 	ft_readmap(fd, data);
 	close(fd);
 	ft_map_parse(data);
-	ft_extract_person_position(data);
 }
