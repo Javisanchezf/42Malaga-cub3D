@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:45:00 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/09 19:23:13 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/10 11:38:45 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,4 @@ void	ft_map_parse(t_cub3data *data)
 		ft_error("ERROR\n This map is not valid\n", 0);
 	}
 	ft_extract_player_position(data);
-	data->minimap.width = data->map_width * BLOCKSIZE;
-	data->minimap.height = data->map_height * BLOCKSIZE;
 }

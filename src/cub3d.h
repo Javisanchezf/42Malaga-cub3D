@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/09 19:21:25 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:28:44 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,6 @@ typedef struct s_coords
 	int	y;
 }		t_coords;
 
-typedef struct s_img
-{
-	mlx_image_t	*img;
-	int			width;
-	int			height;
-}		t_img;
-
 typedef struct s_cub3data
 {
 	char		*ids[6];
@@ -81,21 +74,11 @@ typedef struct s_cub3data
 	char		**map;
 	mlx_t		*mlx;
 	t_coords	player_pos;
-	t_img		minimap;
 	t_pixels	color1;
 	t_pixels	color2;
+	t_pixels	color3;
 
 	mlx_image_t	*img;
-	mlx_image_t	*menu;
-	int			window_width;
-	int			window_height;
-	int			z_max;
-	int			zoom;
-	float		z_zoom;
-	float		x_zoom;
-	double		radians;
-	double		radians2;
-	char		view;
 }					t_cub3data;
 
 char	*ft_ids_parse(int fd, t_cub3data *data, char *line);
