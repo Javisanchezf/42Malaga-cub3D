@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/10 16:30:12 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:52:30 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,32 +103,29 @@ void	drawSquare(t_cub3data *data, t_coords p, t_pixels color)
 	}
 }
 
-void drawCircle(t_cub3data *data, t_coords center, t_pixels color)
+void	drawCircle(t_cub3data *data, t_coords center, t_pixels color)
 {
-    int radius = BLOCKSIZE / 3;
+	center.x += BLOCKSIZE;
+	center.y += BLOCKSIZE;
+	int	radius = BLOCKSIZE / 3;
+	int i = center.y - radius - 2;
 
-    int i = center.y - radius;
-    while (i <= center.y + radius)
-    {
-        int j = center.x - radius;
-        while (j <= center.x + radius)
-        {
-            int dx = j - center.x;
-            int dy = i - center.y;
-            double distance = sqrt(dx * dx + dy * dy);
-
-            if (distance <= radius)
-            {
-                int x = j / BLOCKSIZE;
-                int y = i / BLOCKSIZE;
-                if (x >= 0 && x < data->map_width && y >= 0 && y < data->map_height)
-                {
-                    put_rgb(&(data->img->pixels[(i * data->map_width * BLOCKSIZE + j) * 4]), color);
-                }
-            }
-            j++;
-        }
-        i++;
+	while (++i <= center.y + radius)
+	{
+		int j = center.x - radius - 1;
+		while (++j <= center.x + radius)
+		{
+			int dx = j - center.x;
+			int dy = i - center.y;
+			double distance = sqrt(dx * dx + dy * dy);
+			if (distance <= radius)
+			{
+				int x = j / BLOCKSIZE;
+				int y = i / BLOCKSIZE;
+				if (x >= 0 && x < data->map_width && y >= 0 && y < data->map_height)
+					put_rgb(&(data->img->pixels[(i * data->map_width * BLOCKSIZE + j) * 4]), color);
+			}
+		}
     }
 }
 
