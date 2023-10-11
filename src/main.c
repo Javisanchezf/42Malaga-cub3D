@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/11 13:52:30 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/11 13:59:04 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ void	keyboard_hooks(void *param)
 	data = param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
-		;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
-		;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-		;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-		;
+	// if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
+	// 	;
+	// if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
+	// 	;
+	// if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+	// 	;
+	// if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	// 	;
 }
 
 int32_t	main(int narg, char **argv)
