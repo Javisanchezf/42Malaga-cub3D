@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/11 20:50:06 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/11 22:01:01 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void	init_images(t_cub3data *data)
 		cleaner(data);
 		exit(EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(data->mlx, data->minimap.img, 0, 0) == -1)
-	{
-		mlx_close_window(data->mlx);
-		puts(mlx_strerror(mlx_errno));
-		cleaner(data);
-		exit(EXIT_FAILURE);
-	}
+	// if (mlx_image_to_window(data->mlx, data->minimap.img, 0, 0) == -1)
+	// {
+	// 	mlx_close_window(data->mlx);
+	// 	puts(mlx_strerror(mlx_errno));
+	// 	cleaner(data);
+	// 	exit(EXIT_FAILURE);
+	// }
 }
 
 void	init_values(t_cub3data	*data)

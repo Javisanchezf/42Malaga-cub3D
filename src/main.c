@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/11 21:22:07 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/11 22:03:41 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,32 @@ void	keyboard_hooks(void *param)
 		mlx_close_window(data->mlx);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 	{
-		data->player.pos.y--;
+		data->player.pos.x += 7 * cos(data->player.orientation + PI);
+		data->player.pos.y += 7 * sin(data->player.orientation + PI);
 		draw_minimapfixed(data);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 	{
-		data->player.pos.y++;
+		data->player.pos.x += 7 * cos(data->player.orientation);
+		data->player.pos.y += 7 * sin(data->player.orientation);
 		draw_minimapfixed(data);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 	{
-		data->player.pos.x--;
+		data->player.pos.x += 7 * sin(data->player.orientation + PI);
+		data->player.pos.y -= 7 * cos(data->player.orientation + PI);
 		draw_minimapfixed(data);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 	{
-		data->player.pos.x++;
+		data->player.pos.x += 7 * sin(data->player.orientation);
+		data->player.pos.y -= 7 * cos(data->player.orientation);
 		draw_minimapfixed(data);
 	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+		data->player.orientation -= 0.1;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+		data->player.orientation += 0.1;
 }
 
 int32_t	main(int narg, char **argv)

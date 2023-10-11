@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/11 20:57:46 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/11 22:03:25 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 # define CUB3D_H
 # define WIDTH 1920
 # define HEIGHT 1024
-# define MINIMAP_WIDTH 300
-# define MINIMAP_HEIGHT 300
+# define MINIMAP_WIDTH 400
+# define MINIMAP_HEIGHT 400
 # define PLAYER_SIZE 8
-# define BLOCKSIZE 42
+# define BLOCKSIZE 200
+# define PI 3.14159265359
 
 /*----------------------------HEADER----------------------------*/
 
@@ -88,7 +89,7 @@ typedef struct s_img
 typedef struct s_player
 {
 	t_coords	pos;
-	int			orientation;
+	double		orientation;
 	t_img		img;
 }		t_player;
 
