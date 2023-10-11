@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/10 16:28:44 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/11 11:13:45 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define CUB3D_H
 # define WIDTH 1920
 # define HEIGHT 1024
-# define MINIMAP_WIDTH 700
-# define MINIMAP_HEIGHT 320
+# define MINIMAP_WIDTH 300
+# define MINIMAP_HEIGHT 300
 # define BLOCKSIZE 20
 
 /*----------------------------HEADER----------------------------*/
@@ -66,6 +66,14 @@ typedef struct s_coords
 	int	y;
 }		t_coords;
 
+typedef struct s_img
+{
+	mlx_image_t	*img;
+	int			width;
+	int			rwidth;
+	int			height;
+}		t_img;
+
 typedef struct s_cub3data
 {
 	char		*ids[6];
@@ -78,13 +86,14 @@ typedef struct s_cub3data
 	t_pixels	color2;
 	t_pixels	color3;
 
-	mlx_image_t	*img;
+	t_img		minimap;
+	t_img		minimapfixed;
 }					t_cub3data;
 
 char	*ft_ids_parse(int fd, t_cub3data *data, char *line);
 void	ft_parse_data(char *file, t_cub3data	*data);
 void	ft_map_parse(t_cub3data *data);
 void	cleaner(t_cub3data	*data);
-
+void	minimap(t_cub3data	*data);
 
 #endif

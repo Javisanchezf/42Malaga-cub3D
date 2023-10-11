@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:45:00 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/10 11:38:45 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/11 10:39:04 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ static void	ft_extract_player_position(t_cub3data *data)
 			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || \
 			data->map[i][j] == 'W' || data->map[i][j] == 'E')
 			{
-				data->player_pos.x = j * BLOCKSIZE - BLOCKSIZE / 2;
-				data->player_pos.y = i * BLOCKSIZE - BLOCKSIZE / 2;
+				data->player_pos.x = j * BLOCKSIZE + BLOCKSIZE / 2;
+				data->player_pos.y = i * BLOCKSIZE + BLOCKSIZE / 2;
 				return ;
 			}
 		}
