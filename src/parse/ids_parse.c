@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ids_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:37:43 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/05 21:10:27 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:03:32 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	ft_access_directions(char *line, t_cub3data *data)
 data->ids[0], data->ids[1], data->ids[2], data->ids[3], data->ids[4], \
 data->ids[5]);
 		aux = ft_substr(data->ids[i], 2, ft_strlen(data->ids[i]) - 3);
-		ft_printf("Data %d: %s, tam: %d\n", i, aux, ft_strlen(data->ids[i]) - 2);
 		fd = open(aux, O_RDONLY);
 		if (fd == -1)
 			ft_error("Error\nFile doesn't contain valid map\n", 8, line, \
