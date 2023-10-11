@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:12:59 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/11 11:32:09 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:41:07 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	drawsquare(t_cub3data *data, t_coords p, t_pixels color)
 	{
 		j = p.x - 1;
 		while (++j < p.x + BLOCKSIZE)
-			put_rgb(&(data->minimap.img->pixels[(i * data->minimap.width + j) * 4]), color);
+			put_rgb(&(data->minimap.img->pixels[(i * \
+			data->minimap.width + j) * 4]), color);
 	}
 }
 
@@ -80,29 +81,37 @@ void	draw_minimap(t_cub3data	*data)
 		{
 			if (data->map[p.y][p.x] == '1')
 				drawsquare(data, p, data->color1);
-			else if (data->map[p.y][p.x] == '0' || data->map[p.y][p.x] == 'N' \
-|| data->map[p.y][p.x] == 'S' || data->map[p.y][p.x] == 'W' || data->map[p.y][p.x] == 'E')
+			else if (data->map[p.y][p.x] == '0' || \
+data->map[p.y][p.x] == 'N' || data->map[p.y][p.x] == 'S' || \
+data->map[p.y][p.x] == 'W' || data->map[p.y][p.x] == 'E')
 				drawsquare(data, p, data->color2);
 		}
 	}
 	drawcircle(data, data->player_pos, data->color3);
 }
 
-void convertToCircle(t_img *image, int radius)
+void	converttocircle(t_img *image, int radius)
 {
-	int centerX = image->width / 2;
-	int centerY = image->height / 2;
+	t_coords	center;
+	t_coords	index;
+	int			distance;
+	int			pixelindex;
 
-	for (int y = 0; y < image->height; y++)
+	center.x = image->width / 2;
+	center.y = image->height / 2;
+	index.y = -1;
+	while (++index.y < image->height)
 	{
-		for (int x = 0; x < image->width; x++)
+		index.x = -1;
+		while (++index.x < image->width)
 		{
-			int distance = (x - centerX) * (x - centerX) + (y - centerY) * (y - centerY);
-			int pixelIndex = (y * image->width + x) * 4;
+			distance = (index.x - center.x) * (index.x - \
+center.x) + (index.y - center.y) * (index.y - center.y);
+			pixelindex = (index.y * image->width + index.x) * 4;
 			if (distance > radius * radius)
-				image->img->pixels[pixelIndex + 3] = 0;
+				image->img->pixels[pixelindex + 3] = 0;
 			else
-				image->img->pixels[pixelIndex + 3] = 255;
+				image->img->pixels[pixelindex + 3] = 255;
 		}
 	}
 }
@@ -134,7 +143,7 @@ void	locuraminimap(t_cub3data *data)
 		else if (start + data->minimap.rwidth * 2 + p.y * data->minimap.rwidth >= data->minimap.height * data->minimap.rwidth)
 			break ;
 	}
-	convertToCircle(&data->minimapfixed, data->minimapfixed.img->width / 2);
+	converttocircle(&data->minimapfixed, data->minimapfixed.img->width / 2);
 }
 
 void	draw_minimapfixed(t_cub3data *data)
@@ -183,6 +192,6 @@ void	minimap(t_cub3data	*data)
 		cleaner(data);
 		exit(EXIT_FAILURE);
 	}
-	
+
 	draw_minimapfixed(data);
 }
