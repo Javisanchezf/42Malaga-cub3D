@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/12 16:17:17 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/12 21:29:50 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define MINIMAP_WIDTH 400
 # define MINIMAP_HEIGHT 400
 # define PLAYER_SIZE 16
-# define BLOCKSIZE 200
+# define BLOCKSIZE 150
 # define PI 3.141592653589793
 
 /*----------------------------HEADER----------------------------*/
@@ -88,7 +88,7 @@ typedef struct s_img
 
 typedef struct s_falseimg
 {
-	uint8_t 	*img;
+	uint8_t		*img;
 	int			width;
 	int			rwidth;
 	int			height;
@@ -96,9 +96,11 @@ typedef struct s_falseimg
 
 typedef struct s_player
 {
-	t_coords	pos;
-	double		orientation;
-	t_img		img;
+	t_coords		pos;
+	double			orientation;
+	mlx_texture_t	*texture;
+	t_img			img;
+	t_img			img_oriented;
 }		t_player;
 
 typedef struct s_cub3data
@@ -110,7 +112,7 @@ typedef struct s_cub3data
 	mlx_t		*mlx;
 	t_player	player;
 	t_colors	color;
-	t_img		minimap;
+	t_falseimg	minimap;
 	t_img		minimapfixed;
 	mlx_image_t	*time;
 	int			time_counter;

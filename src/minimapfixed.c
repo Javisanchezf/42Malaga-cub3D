@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimapfixed.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:44:13 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/11 20:50:15 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:33:35 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	locuraminimap(t_cub3data *data)
 			while (++p.x < data->minimapfixed.rwidth)
 			{
 				if (startx + p.x > 0 && startx + p.x < data->minimap.rwidth)
-					data->minimapfixed.img->pixels[p.y * data->minimapfixed.rwidth + p.x] = data->minimap.img->pixels[start + p.y * data->minimap.rwidth + p.x];
+					data->minimapfixed.img->pixels[p.y * data->minimapfixed.rwidth + p.x] = data->minimap.img[start + p.y * data->minimap.rwidth + p.x];
 				else if (startx + p.x >= data->minimap.rwidth)
 					break ;
 			}
