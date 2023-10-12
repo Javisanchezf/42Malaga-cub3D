@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/11 13:59:04 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:16:55 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,44 +22,46 @@ void	cleaner(t_cub3data	*data)
 	ft_split_free(data->map);
 }
 
-void	init(t_cub3data	*data)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 6)
-		data->ids[i] = NULL;
-	data->map_width = 0;
-	data->color1.r = 255;
-	data->color1.g = 255;
-	data->color1.b = 255;
-	data->color1.a = 255;
-	data->color2.r = 125;
-	data->color2.g = 125;
-	data->color2.b = 125;
-	data->color2.a = 255;
-	data->color3.r = 212;
-	data->color3.g = 175;
-	data->color3.b = 55;
-	data->color3.a = 255;
-}
-
-void	printfdata(t_cub3data	*data)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 6)
-		ft_printf("ID Nº%d: %s", i, data->ids[i]);
-	ft_printf("\nWidth of map: %d | Height of map: %d | Position person: %d,%d\n\n", data->map_width, data->map_height,data->player_pos.x, data->player_pos.y);
-	i = -1;
-	while (data->map[++i])
-		ft_printf("Line %d (Size %d) : %s\n", i, ft_strlen(data->map[i]), data->map[i]);
-}
-
 void	ft_leaks(void)
 {
 	system("leaks -q cub3D");
+}
+
+void	check_collision(t_cub3data *data, double x, double y)
+{
+	int			vx;
+	int 		vy;
+	int			index;
+	bool		flag;
+	int			i;
+	t_coords	player_abroad[4];
+
+	flag = 1;
+	player_abroad[0].x = data->player.pos.x + PLAYER_SIZE;
+	player_abroad[0].y = data->player.pos.y;
+	player_abroad[1].x = data->player.pos.x - PLAYER_SIZE / 4;
+	player_abroad[1].y = data->player.pos.y;
+	player_abroad[2].x = data->player.pos.x;
+	player_abroad[2].y = data->player.pos.y + PLAYER_SIZE;
+	player_abroad[3].x = data->player.pos.x;
+	player_abroad[3].y = data->player.pos.y - PLAYER_SIZE / 4;
+	vx = x * PLAYER_SIZE / 2;
+	vy = y * PLAYER_SIZE / 2;
+	i = -1;
+	while (++i < 4)
+	{
+		index = ((player_abroad[i].y + vy) * data->minimap.rwidth + (player_abroad[i].x + vx) * 4);
+		if (index < 0 || index > data->minimap.height * data->minimap.rwidth)
+			return ;
+		if (data->minimap.img->pixels[index] == 255)
+			flag = 0;
+	}
+	if (flag == 1)
+	{
+		data->player.pos.x += vx;
+		data->player.pos.y += vy;
+		draw_minimapfixed(data);
+	}
 }
 
 void	keyboard_hooks(void *param)
@@ -69,41 +71,57 @@ void	keyboard_hooks(void *param)
 	data = param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
-	// if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
-	// 	;
-	// if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
-	// 	;
-	// if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-	// 	;
-	// if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-	// 	;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		check_collision(data, cos(data->player.orientation + PI), sin(data->player.orientation + PI));
+	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+		check_collision(data, cos(data->player.orientation), sin(data->player.orientation));
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		check_collision(data, sin(data->player.orientation + PI), -cos(data->player.orientation + PI));
+	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		check_collision(data, sin(data->player.orientation), -cos(data->player.orientation));
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+		data->player.orientation -= 10 * 0.01745;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+		data->player.orientation += 10 * 0.01745;
+}
+
+void	time_hook(void *param)
+{
+	t_cub3data	*data;
+	char		*str;
+
+	data = param;
+	data->time_counter++;
+	if (data->time_counter % 30 == 0)
+	{
+		mlx_delete_image(data->mlx, data->time);
+		str = ft_freeandjoin(ft_strdup("TIME: "), ft_itoa(data->time_counter / 30));
+		data->time = mlx_put_string(data->mlx, str, WIDTH - MINIMAP_WIDTH / 2 - 40, MINIMAP_HEIGHT + 10);
+		ft_free_and_null((void **)&str);
+	}
 }
 
 int32_t	main(int narg, char **argv)
 {
 	t_cub3data	data;
 
+	atexit(ft_leaks);
+	ft_printf("%s", &(HEADER));
 	if (narg != 2 || !argv[1])
 		ft_error ("Error: Invalid number of arguments", 0);
-	atexit(ft_leaks);
-	init(&data);
+	init_values(&data);
 	ft_parse_data(argv[1], &data);
-	ft_printf("%s", &(HEADER));
-	printfdata(&data);
-	data.mlx = mlx_init(WIDTH, HEIGHT, "CUB3D 42", true);
-	if (!data.mlx)
-	{
-		puts(mlx_strerror(mlx_errno));
-		cleaner(&data);
-		exit(EXIT_FAILURE);
-	}
+	init_images(&data);
 	minimap(&data);
 
 	mlx_loop_hook(data.mlx, &keyboard_hooks, (void *)&data);
+	mlx_loop_hook(data.mlx, &time_hook, (void *)&data);
 	mlx_loop(data.mlx);
 	mlx_delete_image(data.mlx, data.minimap.img);
+	mlx_delete_image(data.mlx, data.time);
 	mlx_terminate(data.mlx);
 
 	cleaner(&data);
+	
 	return (EXIT_SUCCESS);
 }

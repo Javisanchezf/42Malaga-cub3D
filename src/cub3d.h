@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/11 11:13:45 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:17:17 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 # define CUB3D_H
 # define WIDTH 1920
 # define HEIGHT 1024
-# define MINIMAP_WIDTH 300
-# define MINIMAP_HEIGHT 300
-# define BLOCKSIZE 20
+# define MINIMAP_WIDTH 400
+# define MINIMAP_HEIGHT 400
+# define PLAYER_SIZE 16
+# define BLOCKSIZE 200
+# define PI 3.141592653589793
 
 /*----------------------------HEADER----------------------------*/
 
@@ -52,6 +54,13 @@
 # include <math.h>
 
 /*----------------------------STRUCTS----------------------------*/
+
+typedef struct s_coords
+{
+	int	x;
+	int	y;
+}		t_coords;
+
 typedef struct s_pixels
 {
 	uint8_t		r;
@@ -60,11 +69,14 @@ typedef struct s_pixels
 	uint8_t		a;
 }		t_pixels;
 
-typedef struct s_coords
+typedef struct s_colors
 {
-	int	x;
-	int	y;
-}		t_coords;
+	t_pixels	white;
+	t_pixels	gray;
+	t_pixels	blue;
+	t_pixels	black;
+	t_pixels	golden;
+}		t_colors;
 
 typedef struct s_img
 {
@@ -74,6 +86,21 @@ typedef struct s_img
 	int			height;
 }		t_img;
 
+typedef struct s_falseimg
+{
+	uint8_t 	*img;
+	int			width;
+	int			rwidth;
+	int			height;
+}		t_falseimg;
+
+typedef struct s_player
+{
+	t_coords	pos;
+	double		orientation;
+	t_img		img;
+}		t_player;
+
 typedef struct s_cub3data
 {
 	char		*ids[6];
@@ -81,13 +108,12 @@ typedef struct s_cub3data
 	int			map_height;
 	char		**map;
 	mlx_t		*mlx;
-	t_coords	player_pos;
-	t_pixels	color1;
-	t_pixels	color2;
-	t_pixels	color3;
-
+	t_player	player;
+	t_colors	color;
 	t_img		minimap;
 	t_img		minimapfixed;
+	mlx_image_t	*time;
+	int			time_counter;
 }					t_cub3data;
 
 char	*ft_ids_parse(int fd, t_cub3data *data, char *line);
@@ -95,5 +121,10 @@ void	ft_parse_data(char *file, t_cub3data	*data);
 void	ft_map_parse(t_cub3data *data);
 void	cleaner(t_cub3data	*data);
 void	minimap(t_cub3data	*data);
+void	draw_minimapfixed(t_cub3data *data);
+void	init_values(t_cub3data	*data);
+void	init_images(t_cub3data *data);
+void	converttocircle(t_img *image, int radius);
+void	draw_minimapfixed(t_cub3data *data);
 
 #endif
