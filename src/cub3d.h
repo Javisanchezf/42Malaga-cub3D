@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/11 22:03:25 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:17:17 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # define HEIGHT 1024
 # define MINIMAP_WIDTH 400
 # define MINIMAP_HEIGHT 400
-# define PLAYER_SIZE 8
+# define PLAYER_SIZE 16
 # define BLOCKSIZE 200
-# define PI 3.14159265359
+# define PI 3.141592653589793
 
 /*----------------------------HEADER----------------------------*/
 
@@ -86,6 +86,14 @@ typedef struct s_img
 	int			height;
 }		t_img;
 
+typedef struct s_falseimg
+{
+	uint8_t 	*img;
+	int			width;
+	int			rwidth;
+	int			height;
+}		t_falseimg;
+
 typedef struct s_player
 {
 	t_coords	pos;
@@ -104,6 +112,8 @@ typedef struct s_cub3data
 	t_colors	color;
 	t_img		minimap;
 	t_img		minimapfixed;
+	mlx_image_t	*time;
+	int			time_counter;
 }					t_cub3data;
 
 char	*ft_ids_parse(int fd, t_cub3data *data, char *line);

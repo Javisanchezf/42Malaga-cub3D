@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/12 14:33:55 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:16:55 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,43 @@ void	ft_leaks(void)
 	system("leaks -q cub3D");
 }
 
+void	check_collision(t_cub3data *data, double x, double y)
+{
+	int			vx;
+	int 		vy;
+	int			index;
+	bool		flag;
+	int			i;
+	t_coords	player_abroad[4];
+
+	flag = 1;
+	player_abroad[0].x = data->player.pos.x + PLAYER_SIZE;
+	player_abroad[0].y = data->player.pos.y;
+	player_abroad[1].x = data->player.pos.x - PLAYER_SIZE / 4;
+	player_abroad[1].y = data->player.pos.y;
+	player_abroad[2].x = data->player.pos.x;
+	player_abroad[2].y = data->player.pos.y + PLAYER_SIZE;
+	player_abroad[3].x = data->player.pos.x;
+	player_abroad[3].y = data->player.pos.y - PLAYER_SIZE / 4;
+	vx = x * PLAYER_SIZE / 2;
+	vy = y * PLAYER_SIZE / 2;
+	i = -1;
+	while (++i < 4)
+	{
+		index = ((player_abroad[i].y + vy) * data->minimap.rwidth + (player_abroad[i].x + vx) * 4);
+		if (index < 0 || index > data->minimap.height * data->minimap.rwidth)
+			return ;
+		if (data->minimap.img->pixels[index] == 255)
+			flag = 0;
+	}
+	if (flag == 1)
+	{
+		data->player.pos.x += vx;
+		data->player.pos.y += vy;
+		draw_minimapfixed(data);
+	}
+}
+
 void	keyboard_hooks(void *param)
 {
 	t_cub3data	*data;
@@ -35,33 +72,33 @@ void	keyboard_hooks(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-	{
-		data->player.pos.x += 7 * cos(data->player.orientation + PI);
-		data->player.pos.y += 7 * sin(data->player.orientation + PI);
-		draw_minimapfixed(data);
-	}
+		check_collision(data, cos(data->player.orientation + PI), sin(data->player.orientation + PI));
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-	{
-		data->player.pos.x += 7 * cos(data->player.orientation);
-		data->player.pos.y += 7 * sin(data->player.orientation);
-		draw_minimapfixed(data);
-	}
+		check_collision(data, cos(data->player.orientation), sin(data->player.orientation));
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-	{
-		data->player.pos.x += 7 * sin(data->player.orientation + PI);
-		data->player.pos.y -= 7 * cos(data->player.orientation + PI);
-		draw_minimapfixed(data);
-	}
+		check_collision(data, sin(data->player.orientation + PI), -cos(data->player.orientation + PI));
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-	{
-		data->player.pos.x += 7 * sin(data->player.orientation);
-		data->player.pos.y -= 7 * cos(data->player.orientation);
-		draw_minimapfixed(data);
-	}
+		check_collision(data, sin(data->player.orientation), -cos(data->player.orientation));
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-		data->player.orientation -= 0.1;
+		data->player.orientation -= 10 * 0.01745;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-		data->player.orientation += 0.1;
+		data->player.orientation += 10 * 0.01745;
+}
+
+void	time_hook(void *param)
+{
+	t_cub3data	*data;
+	char		*str;
+
+	data = param;
+	data->time_counter++;
+	if (data->time_counter % 30 == 0)
+	{
+		mlx_delete_image(data->mlx, data->time);
+		str = ft_freeandjoin(ft_strdup("TIME: "), ft_itoa(data->time_counter / 30));
+		data->time = mlx_put_string(data->mlx, str, WIDTH - MINIMAP_WIDTH / 2 - 40, MINIMAP_HEIGHT + 10);
+		ft_free_and_null((void **)&str);
+	}
 }
 
 int32_t	main(int narg, char **argv)
@@ -78,10 +115,13 @@ int32_t	main(int narg, char **argv)
 	minimap(&data);
 
 	mlx_loop_hook(data.mlx, &keyboard_hooks, (void *)&data);
+	mlx_loop_hook(data.mlx, &time_hook, (void *)&data);
 	mlx_loop(data.mlx);
 	mlx_delete_image(data.mlx, data.minimap.img);
+	mlx_delete_image(data.mlx, data.time);
 	mlx_terminate(data.mlx);
 
 	cleaner(&data);
+	
 	return (EXIT_SUCCESS);
 }
