@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:12:59 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/12 21:33:42 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:38:37 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	put_rgb(uint8_t *pixels, t_pixels color)
 	pixels[0] = color.r;
 	pixels[1] = color.g;
 	pixels[2] = color.b;
-	pixels[3] = color.a;
+	pixels[3] = rand() % 106 + 150;
 }
 
 static void	drawsquare(t_cub3data *data, t_coords p, t_pixels color)
@@ -73,4 +73,5 @@ void	minimap(t_cub3data *data)
 	data->minimap.height * sizeof(int));
 	draw_minimap(data);
 	draw_minimapfixed(data);
+	ufo_rays(data, &data->player.ray_img, data->player.orientation, data->color.golden);
 }

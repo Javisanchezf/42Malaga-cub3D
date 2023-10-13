@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/13 11:54:35 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:52:09 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,32 @@ static void	img_failure(t_cub3data *data)
 	exit(EXIT_FAILURE);
 }
 
-void	ufo_rays(t_img *img, double angle)
+void	ufo_rays(t_cub3data *data, t_img *img, double angle, t_pixels color)
 {
 	t_coords	p;
 	double		i;
 	int			t;
 
 	ft_memset(img->img->pixels, 0, img->rwidth * img->height);
-	i = 165;
-	while (++i < 195)
+	i = 175;
+	while (i < 185)
 	{
 		t = 1;
 		p.x = img->width / 2 + t * cos(angle + i * PI / 180);
 		p.y = img->height / 2 + t * sin(angle + i * PI / 180);
 		while (p.x >= 0 && p.y >= 0 && p.x < img->width && p.y < img->height && ++t)
 		{
-			img->img->pixels[p.y * img->rwidth + p.x * 4 + 0] = 22;
-			img->img->pixels[p.y * img->rwidth + p.x * 4 + 1] = 160;
-			img->img->pixels[p.y * img->rwidth + p.x * 4 + 2] = 133;
-			img->img->pixels[p.y * img->rwidth + p.x * 4 + 3] = 255;
+			if (data->minimapfixed.img->pixels[p.y * img->rwidth + p.x * 4] == 255 || data->minimapfixed.img->pixels[p.y * img->rwidth + p.x * 4 + 3] == 0)
+				break ;
+			img->img->pixels[p.y * img->rwidth + p.x * 4 + 0] = color.r;
+			img->img->pixels[p.y * img->rwidth + p.x * 4 + 1] = color.g;
+			img->img->pixels[p.y * img->rwidth + p.x * 4 + 2] = color.b;
+			img->img->pixels[p.y * img->rwidth + p.x * 4 + 3] = color.a;
 			p.x = img->width / 2 + t * cos(angle + i * PI / 180);
 			p.y = img->height / 2 + t * sin(angle + i * PI / 180);
 		}
+		i += 0.2;
 	}
-	converttocircle(img, img->height / 2);
 }
 
 void	init_images(t_cub3data *data)
@@ -75,13 +77,12 @@ void	init_images(t_cub3data *data)
 		exit(EXIT_FAILURE);
 	}
 
-	data->player.ray_img.width = 100;
-	data->player.ray_img.rwidth = 100 * 4;
-	data->player.ray_img.height = 100;
+	data->player.ray_img.width = MINIMAP_WIDTH;
+	data->player.ray_img.rwidth = MINIMAP_WIDTH * 4;
+	data->player.ray_img.height = MINIMAP_WIDTH;
 	data->player.ray_img.img = mlx_new_image(data->mlx, data->player.ray_img.width, data->player.ray_img.height);
 	if (!data->player.ray_img.img)
 		img_failure(data);
-	ufo_rays(&data->player.ray_img, data->player.orientation);
 	if (mlx_image_to_window(data->mlx, data->player.ray_img.img, WIDTH - MINIMAP_WIDTH / 2 - data->player.ray_img.width / 2, MINIMAP_HEIGHT / 2 - data->player.ray_img.height / 2) == -1)
 	{
 		mlx_close_window(data->mlx);

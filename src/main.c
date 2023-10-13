@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/13 11:56:15 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:06:33 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	check_collision(t_cub3data *data, double x, double y)
 		data->player.pos.x += vx;
 		data->player.pos.y += vy;
 		draw_minimapfixed(data);
+		ufo_rays(data, &data->player.ray_img, data->player.orientation, data->color.golden);
 	}
 }
 
@@ -87,12 +88,12 @@ void	keyboard_hooks(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
 		data->player.orientation -= 10 * 0.01745;
-		ufo_rays(&data->player.ray_img, data->player.orientation);
+		ufo_rays(data, &data->player.ray_img, data->player.orientation, data->color.golden);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
 		data->player.orientation += 10 * 0.01745;
-		ufo_rays(&data->player.ray_img, data->player.orientation);
+		ufo_rays(data, &data->player.ray_img, data->player.orientation, data->color.golden);
 	}
 }
 
@@ -112,21 +113,6 @@ void	time_hook(void *param)
 			MINIMAP_HEIGHT + 10);
 	ft_free_and_null((void **)&str);
 }
-
-// void	asaber(t_cub3data *data)
-// {
-// 	data->player.img_oriented = mlx_new_image(data->mlx, 50, 38);
-// 	if (!data->minimapfixed.img)
-// 		img_failure(data);
-// 	if (mlx_image_to_window(data->mlx, data->minimapfixed.img, WIDTH
-// 			- MINIMAP_WIDTH, 0) == -1)
-// 	{
-// 		mlx_close_window(data->mlx);
-// 		puts(mlx_strerror(mlx_errno));
-// 		cleaner(data);
-// 		exit(EXIT_FAILURE);
-// 	}
-// }
 
 int32_t	main(int narg, char **argv)
 {

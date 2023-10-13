@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/13 11:46:09 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:54:44 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define CUB3D_H
 # define WIDTH 1920
 # define HEIGHT 1024
-# define MINIMAP_WIDTH 400
-# define MINIMAP_HEIGHT 400
+# define MINIMAP_WIDTH 700
+# define MINIMAP_HEIGHT 700
 # define PLAYER_SIZE 16
-# define BLOCKSIZE 200
+# define BLOCKSIZE 130
 # define PI 3.141592653589793
 
 /*----------------------------HEADER----------------------------*/
@@ -128,6 +128,6 @@ void	init_values(t_cub3data	*data);
 void	init_images(t_cub3data *data);
 void	converttocircle(t_img *image, int radius);
 void	draw_minimapfixed(t_cub3data *data);
-void	ufo_rays(t_img *img, double angle);
+void	ufo_rays(t_cub3data *data, t_img *img, double angle, t_pixels color);
 
 #endif
