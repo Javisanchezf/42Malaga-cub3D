@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimapfixed.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:44:13 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/12 18:33:35 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/13 11:45:40 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ center.x) + (index.y - center.y) * (index.y - center.y);
 			pixelindex = (index.y * image->width + index.x) * 4;
 			if (distance > radius * radius)
 				image->img->pixels[pixelindex + 3] = 0;
-			else
-				image->img->pixels[pixelindex + 3] = 255;
+			// else
+			// 	image->img->pixels[pixelindex + 3] = 255;
 		}
 	}
 }

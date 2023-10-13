@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/12 21:36:30 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/13 11:56:15 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,15 @@ void	keyboard_hooks(void *param)
 		check_collision(data, sin(data->player.orientation),
 				-cos(data->player.orientation));
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+	{
 		data->player.orientation -= 10 * 0.01745;
+		ufo_rays(&data->player.ray_img, data->player.orientation);
+	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	{
 		data->player.orientation += 10 * 0.01745;
+		ufo_rays(&data->player.ray_img, data->player.orientation);
+	}
 }
 
 void	time_hook(void *param)
