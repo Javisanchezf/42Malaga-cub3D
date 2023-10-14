@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 20:40:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 14:40:06 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:44:57 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		ft_iswall(t_coords p, t_cub3data *data)
 
 void	finish(t_cub3data *data)
 {
+	char		*str;
+
 	data->finish = 1;
 	data->player.img.img->enabled = 0;
 	data->galaxy_i->enabled = 0;
@@ -42,6 +44,13 @@ void	finish(t_cub3data *data)
 	data->time->instances->x = WIDTH / 2 - 30;
 	data->time->instances->y = HEIGHT / 2;
 	data->victory_i->enabled = 1;
+	mlx_delete_image(data->mlx, data->time);
+	str = ft_freeandjoin(ft_strdup("TIME: "), ft_itoa(data->time_counter
+				/ 100));
+	str = ft_freeandjoin(str, ft_strdup("."));
+	str = ft_freeandjoin(str, ft_itoa(data->time_counter % 100));
+	data->time = mlx_put_string(data->mlx, str, WIDTH / 2 - 30, HEIGHT / 2);
+	ft_free_and_null((void **)&str);
 }
 
 void	check_collision(t_cub3data *data, double x, double y)
