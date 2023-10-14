@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 12:56:41 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 14:19:37 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_colors
 	t_pixels	blue;
 	t_pixels	green;
 	t_pixels	golden;
+	t_pixels	purple;
 }		t_colors;
 
 typedef struct s_img
@@ -114,6 +115,7 @@ typedef struct s_cub3data
 	t_player		player;
 	t_colors		color;
 	t_falseimg		minimap;
+	t_falseimg		minimap_open;
 	t_img			minimapfixed;
 	mlx_image_t		*time;
 	mlx_texture_t	*chest_tex;
@@ -125,7 +127,8 @@ typedef struct s_cub3data
 	mlx_texture_t	*victory_tex;
 	mlx_image_t		*victory_i;
 	bool			finish;
-
+	bool			door_open;
+	bool			pass_door;
 }					t_cub3data;
 
 /*----------------------------PARSE FUNCTIONS----------------------------*/
@@ -154,6 +157,7 @@ void	check_collision(t_cub3data *data, double x, double y);
 /*----------------------------HOOKS FUNCTIONS----------------------------*/
 void	keyboard_hooks(void *param);
 void	time_hook(void *param);
+void	close_door_hook(void *param);
 
 /*----------------------------? FUNCTIONS----------------------------*/
 

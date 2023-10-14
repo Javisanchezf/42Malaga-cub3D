@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:12:59 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 12:54:05 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 14:08:48 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,39 @@ static void	draw_map(t_cub3data *data)
 		{
 			if (data->map[p.y][p.x] == '1')
 				drawsquare(data, p, data->color.white);
-			else if (data->map[p.y][p.x] == '0' || data->map[p.y][p.x] == '2' ||
+			else if (data->map[p.y][p.x] == '0' ||
 data->map[p.y][p.x] == 'N' || data->map[p.y][p.x] == 'S'
 || data->map[p.y][p.x] == 'W' || data->map[p.y][p.x] == 'E')
 				drawsquare(data, p, data->color.blue);
 			else if (data->map[p.y][p.x] == 'F')
 				drawchest(data, p);
+			else if (data->map[p.y][p.x] == '2')
+				drawsquare(data, p, data->color.purple);
 		}
 	}
 }
 
 void	map_construct(t_cub3data *data)
 {
+	int	i;
+
 	ft_memset(data->minimap.img, 200, data->minimap.width * \
 	data->minimap.height * sizeof(int));
 	draw_map(data);
+	i = 0;
+	while (i < data->minimap.height * data->minimap.rwidth)
+	{
+		if (data->minimap.img[i] != 104)
+		{
+			data->minimap_open.img[i] = data->minimap.img[i];
+			data->minimap_open.img[i + 1] = data->minimap.img[i + 1];
+			data->minimap_open.img[i + 2] = data->minimap.img[i + 2];
+			data->minimap_open.img[i + 3] = data->minimap.img[i + 3];
+		}
+		else
+			put_rgb(&data->minimap_open.img[i], data->color.green);
+		i += 4;
+	}
 	draw_minimapfixed(data);
 	ufo_rays(data, &data->player.ray_img, data->player.orientation, data->color.golden);
 }

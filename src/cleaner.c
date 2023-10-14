@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 10:41:54 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 11:38:42 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 13:53:25 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	initial_cleaner(t_cub3data *data)
 		ft_free_and_null((void **)&data->ids[i]);
 	ft_split_free(data->map);
 	ft_free_and_null((void **)&data->minimap.img);
+	ft_free_and_null((void **)&data->minimap_open.img);
 }
 
 void	final_cleaner(t_cub3data *data)

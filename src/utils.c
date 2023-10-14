@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 20:40:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 12:45:58 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 14:40:06 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	check_collision(t_cub3data *data, double x, double y)
 	while (++i < 4)
 	{
 		j = ft_iswall(player_abroad[i], data);
-		if (j == 1)
+		if (j == 1 || (j == 2 && data->door_open == 0))
 			return;
 		else if (j == 3)
 			return (finish(data));
@@ -71,4 +71,6 @@ void	check_collision(t_cub3data *data, double x, double y)
 	data->player.pos.y += y * PLAYER_SIZE / 2;
 	draw_minimapfixed(data);
 	ufo_rays(data, &data->player.ray_img, data->player.orientation, data->color.golden);
+	if (j == 2)
+		data->pass_door = 1;
 }

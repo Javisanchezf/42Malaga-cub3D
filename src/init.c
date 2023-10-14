@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 12:52:55 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 14:15:24 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	init_images(t_cub3data *data)
 	data->minimap.rwidth = data->map_width * BLOCKSIZE * 4;
 	data->minimap.height = data->map_height * BLOCKSIZE;
 	data->minimap.img = ft_calloc(data->minimap.rwidth * data->minimap.height, sizeof(uint8_t));
+	data->minimap_open.img = ft_calloc(data->minimap.rwidth * data->minimap.height, sizeof(uint8_t));
 
 	data->galaxy_tex = mlx_load_png("./src/imgs/galaxy.png");
 	if (!data->galaxy_tex)
@@ -104,7 +105,10 @@ void	init_values(t_cub3data	*data)
 	while (++i < 6)
 		data->ids[i] = NULL;
 	data->minimap.img = NULL;
+	data->minimap_open.img = NULL;
 	data->finish = 0;
+	data->door_open = 0;
+	data->pass_door = 0;
 	data->map_width = 0;
 	data->color.white.r = 255;
 	data->color.white.g = 255;
@@ -122,8 +126,12 @@ void	init_values(t_cub3data	*data)
 	data->color.blue.g = 32;
 	data->color.blue.b = 73;
 	data->color.blue.a = 255;
-	data->color.green.r = 40;
+	data->color.green.r = 27;
 	data->color.green.g = 114;
 	data->color.green.b = 51;
 	data->color.green.a = 255;
+	data->color.purple.r = 104;
+	data->color.purple.g = 52;
+	data->color.purple.b = 117;
+	data->color.purple.a = 255;
 }

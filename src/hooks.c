@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:55:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 12:55:42 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 14:38:26 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,53 @@ void	keyboard_hooks(void *param)
 		else if (data->galaxy_i->enabled == 1)
 			data->galaxy_i->enabled = 0;
 	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_SPACE))
+	{
+		if (data->door_open == 0)
+		{
+			uint8_t *temp_img = data->minimap.img;
+			data->minimap.img = data->minimap_open.img;
+			data->minimap_open.img = temp_img;
+			check_collision(data, 0, 0);
+			data->door_open = 1;
+		}
+	}
 }
 
+void	close_door_hook(void *param)
+{
+	t_cub3data	*data;
+
+	data = param;
+	if (data->finish == 1)
+		return ;
+	if (data->pass_door == 1 && data->door_open == 1)
+	{
+		int			i;
+		t_coords	player_abroad[4];
+
+		player_abroad[0].x = data->player.pos.x + PLAYER_SIZE;
+		player_abroad[0].y = data->player.pos.y;
+		player_abroad[1].x = data->player.pos.x - PLAYER_SIZE;
+		player_abroad[1].y = data->player.pos.y;
+		player_abroad[2].x = data->player.pos.x;
+		player_abroad[2].y = data->player.pos.y + PLAYER_SIZE;
+		player_abroad[3].x = data->player.pos.x;
+		player_abroad[3].y = data->player.pos.y - PLAYER_SIZE;
+		i = -1;
+		while (++i < 4)
+		{
+			if (ft_iswall(player_abroad[i], data) != 0)
+				return ;
+		}
+		data->door_open = 0;
+		data->pass_door = 0;
+		uint8_t *temp_img = data->minimap.img;
+		data->minimap.img = data->minimap_open.img;
+		data->minimap_open.img = temp_img;
+		check_collision(data, 0, 0);
+	}
+}
 void	time_hook(void *param)
 {
 	t_cub3data	*data;
