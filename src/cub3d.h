@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 12:25:00 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 12:56:41 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,18 +128,37 @@ typedef struct s_cub3data
 
 }					t_cub3data;
 
+/*----------------------------PARSE FUNCTIONS----------------------------*/
+
 char	*ft_ids_parse(int fd, t_cub3data *data, char *line);
 void	ft_parse_data(char *file, t_cub3data	*data);
 void	ft_map_parse(t_cub3data *data);
-void	initial_cleaner(t_cub3data	*data);
-void	minimap(t_cub3data	*data);
-void	draw_minimapfixed(t_cub3data *data);
+void	map_construct(t_cub3data	*data);
+
+/*----------------------------INIT FUNCTIONS----------------------------*/
+
 void	init_values(t_cub3data	*data);
 void	init_images(t_cub3data *data);
-void	converttocircle(t_img *image, int radius);
+
+/*----------------------------CLEANER FUNCTIONS----------------------------*/
+
+void	initial_cleaner(t_cub3data	*data);
+void	final_cleaner(t_cub3data *data);
+
+
+/*----------------------------UTILS FUNCTIONS----------------------------*/
+
+int		ft_iswall(t_coords p, t_cub3data *data);
+void	check_collision(t_cub3data *data, double x, double y);
+
+/*----------------------------HOOKS FUNCTIONS----------------------------*/
+void	keyboard_hooks(void *param);
+void	time_hook(void *param);
+
+/*----------------------------? FUNCTIONS----------------------------*/
+
 void	draw_minimapfixed(t_cub3data *data);
 void	ufo_rays(t_cub3data *data, t_img *img, double angle, t_pixels color);
-int		ft_iswall(t_coords p, t_cub3data *data);
-void	final_cleaner(t_cub3data *data);
+
 
 #endif

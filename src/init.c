@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 12:25:21 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 12:52:55 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,6 @@ static void	img_failure(t_cub3data *data)
 	puts(mlx_strerror(mlx_errno));
 	initial_cleaner(data);
 	exit(EXIT_FAILURE);
-}
-
-void	ufo_rays(t_cub3data *data, t_img *img, double angle, t_pixels color)
-{
-	t_coords	p;
-	double		i;
-	int			t;
-
-	ft_memset(img->img->pixels, 0, img->rwidth * img->height);
-	i = 175;
-	while (i < 185)
-	{
-		t = 1;
-		p.x = img->width / 2 + t * cos(angle + i * PI / 180);
-		p.y = img->height / 2 + t * sin(angle + i * PI / 180);
-		while (p.x >= 0 && p.y >= 0 && p.x < img->width && p.y < img->height && ++t)
-		{
-			if (data->minimapfixed.img->pixels[p.y * img->rwidth + p.x * 4] != 27 || data->minimapfixed.img->pixels[p.y * img->rwidth + p.x * 4 + 3] == 0)
-				break ;
-			img->img->pixels[p.y * img->rwidth + p.x * 4 + 0] = color.r;
-			img->img->pixels[p.y * img->rwidth + p.x * 4 + 1] = color.g;
-			img->img->pixels[p.y * img->rwidth + p.x * 4 + 2] = color.b;
-			img->img->pixels[p.y * img->rwidth + p.x * 4 + 3] = color.a;
-			p.x = img->width / 2 + t * cos(angle + i * PI / 180);
-			p.y = img->height / 2 + t * sin(angle + i * PI / 180);
-		}
-		i += 0.2;
-	}
 }
 
 void	init_images(t_cub3data *data)
