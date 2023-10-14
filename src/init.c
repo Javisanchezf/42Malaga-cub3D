@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 14:15:24 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:31:59 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ void	init_images(t_cub3data *data)
 		img_failure(data);
 
 	data->time_counter = 0;
-	data->time = mlx_put_string(data->mlx, "TIME: 0", WIDTH - MINIMAP_WIDTH / 2 - 40, MINIMAP_HEIGHT + 10);
+	data->open_coldown = -30000;
+	data->time = mlx_put_string(data->mlx, "TIME: 0", WIDTH - MINIMAP_WIDTH / 2 - 100, MINIMAP_HEIGHT + 10);
 }
 
 void	init_values(t_cub3data	*data)
@@ -130,8 +131,8 @@ void	init_values(t_cub3data	*data)
 	data->color.green.g = 114;
 	data->color.green.b = 51;
 	data->color.green.a = 255;
-	data->color.purple.r = 104;
-	data->color.purple.g = 52;
-	data->color.purple.b = 117;
-	data->color.purple.a = 255;
+	data->color.red.r = 104;
+	data->color.red.g = 0;
+	data->color.red.b = 0;
+	data->color.red.a = 255;
 }

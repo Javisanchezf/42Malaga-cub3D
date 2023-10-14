@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:12:59 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 14:08:48 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 16:49:37 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ data->map[p.y][p.x] == 'N' || data->map[p.y][p.x] == 'S'
 			else if (data->map[p.y][p.x] == 'F')
 				drawchest(data, p);
 			else if (data->map[p.y][p.x] == '2')
-				drawsquare(data, p, data->color.purple);
+				drawsquare(data, p, data->color.red);
 		}
 	}
 }
