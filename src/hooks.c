@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:55:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 17:41:37 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:46:59 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	time_hook(void *param)
 				/ 100));
 	str = ft_freeandjoin(str, ft_strdup("."));
 	str = ft_freeandjoin(str, ft_itoa(data->time_counter % 100));
-	str = ft_freeandjoin(str, ft_strdup(" | COLDOWN: "));
+	str = ft_freeandjoin(str, ft_strdup(" | COOLDOWN: "));
 	i = data->open_coldown - data->time_counter;
 	if ( i < 0)
 	{
