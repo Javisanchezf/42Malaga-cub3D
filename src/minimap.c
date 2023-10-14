@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:12:59 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/13 13:38:37 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 12:17:07 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,30 @@ static void	drawsquare(t_cub3data *data, t_coords p, t_pixels color)
 	}
 }
 
+static void	drawchest(t_cub3data *data, t_coords p)
+{
+	t_coords	i;
+
+	drawsquare(data, p, data->color.blue);
+	p.x = p.x * BLOCKSIZE - 1 + (BLOCKSIZE / 2 - CHEST_SIZE / 2);
+	p.y = p.y * BLOCKSIZE - 1 + (BLOCKSIZE / 2 - CHEST_SIZE / 2);
+	i.y = -1;
+	while (++i.y < CHEST_SIZE)
+	{
+		i.x = -1;
+		while (++i.x < CHEST_SIZE)
+		{
+			if (data->chest_i->pixels[(i.y * CHEST_SIZE + i.x) * 4 + 3] != 0)
+			{
+				data->minimap.img[((p.y + i.y) * data->minimap.width + p.x + i.x) * 4] = data->chest_i->pixels[(i.y * CHEST_SIZE + i.x) * 4];
+				data->minimap.img[((p.y + i.y) * data->minimap.width + p.x + i.x) * 4 + 1] = data->chest_i->pixels[(i.y * CHEST_SIZE + i.x) * 4 + 1];
+				data->minimap.img[((p.y + i.y) * data->minimap.width + p.x + i.x) * 4 + 2] = data->chest_i->pixels[(i.y * CHEST_SIZE + i.x) * 4 + 2];
+				data->minimap.img[((p.y + i.y) * data->minimap.width + p.x + i.x) * 4 + 3] = data->chest_i->pixels[(i.y * CHEST_SIZE + i.x) * 4 + 3];
+			}
+		}
+	}
+}
+
 static void	draw_minimap(t_cub3data *data)
 {
 	t_coords	p;
@@ -57,12 +81,12 @@ static void	draw_minimap(t_cub3data *data)
 		{
 			if (data->map[p.y][p.x] == '1')
 				drawsquare(data, p, data->color.white);
-			else if (data->map[p.y][p.x] == '0' ||
-						data->map[p.y][p.x] == 'N' || data->map[p.y][p.x] == 'S'
-							||
-						data->map[p.y][p.x] == 'W'
-							|| data->map[p.y][p.x] == 'E')
+			else if (data->map[p.y][p.x] == '0' || data->map[p.y][p.x] == '2' ||
+data->map[p.y][p.x] == 'N' || data->map[p.y][p.x] == 'S'
+|| data->map[p.y][p.x] == 'W' || data->map[p.y][p.x] == 'E')
 				drawsquare(data, p, data->color.blue);
+			else if (data->map[p.y][p.x] == 'F')
+				drawchest(data, p);
 		}
 	}
 }

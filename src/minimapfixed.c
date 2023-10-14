@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:44:13 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/13 12:43:47 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 10:44:45 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,5 @@ void	locuraminimap(t_cub3data *data)
 void	draw_minimapfixed(t_cub3data *data)
 {
 	ft_memset(data->minimapfixed.img->pixels, 200, data->minimapfixed.width * data->minimapfixed.height * sizeof(int));
-	// if (mlx_image_to_window(data->mlx, data->minimapfixed.img, WIDTH - MINIMAP_WIDTH, 0) == -1)
-	// {
-	// 	mlx_close_window(data->mlx);
-	// 	puts(mlx_strerror(mlx_errno));
-	// 	cleaner(data);
-	// 	exit(EXIT_FAILURE);
-	// }
 	locuraminimap(data);
-	// if (mlx_image_to_window(data->mlx, data->player.img.img, WIDTH - MINIMAP_WIDTH / 2, MINIMAP_HEIGHT / 2) == -1)
-	// {
-	// 	mlx_close_window(data->mlx);
-	// 	puts(mlx_strerror(mlx_errno));
-	// 	cleaner(data);
-	// 	exit(EXIT_FAILURE);
-	// }
-	// converttocircle(&data->player.img, data->player.img.width / 2);
 }
