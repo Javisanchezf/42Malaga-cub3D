@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 19:44:01 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 19:46:43 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,13 @@ typedef struct s_cub3data
 	int				width;
 	int				height;
 
-	t_falseimg		minimap;  //map_close
-	t_falseimg		minimap_open; //map_open
+	t_falseimg		map_close;  //map_close
+	t_falseimg		map_open; //map_open
 	bool			door_open;
 	bool			pass_door;
 
 	t_player		player;
-	mlx_image_t		*minimapfixed; //minimap
+	mlx_image_t		*minimap; //map_close
 
 	mlx_image_t		*time;
 	int				open_coldown;
@@ -156,7 +156,7 @@ void	time_hook2(void *param);
 
 /*----------------------------? FUNCTIONS----------------------------*/
 
-void	draw_minimapfixed(t_cub3data *data);
+void	draw_minimap(t_cub3data *data);
 void	ufo_rays(t_cub3data *data, mlx_image_t *img, double angle, t_pixels color);
 mlx_image_t	*create_imgtext(t_cub3data *data, char *file, int x, int y);
 

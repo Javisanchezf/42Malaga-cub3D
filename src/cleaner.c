@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 10:41:54 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 19:30:54 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 19:46:43 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	initial_cleaner(t_cub3data *data)
 	while (++i < 6)
 		ft_free_and_null((void **)&data->ids[i]);
 	ft_split_free(data->map);
-	ft_free_and_null((void **)&data->minimap.img);
-	ft_free_and_null((void **)&data->minimap_open.img);
+	ft_free_and_null((void **)&data->map_close.img);
+	ft_free_and_null((void **)&data->map_open.img);
 }
 
 void	img_failure(t_cub3data *data)
@@ -39,7 +39,7 @@ void	final_cleaner(t_cub3data *data)
 	mlx_delete_image(data->mlx, data->galaxy_i);
 	mlx_delete_image(data->mlx, data->chest_i);
 	mlx_delete_image(data->mlx, data->victory_i);
-	mlx_delete_image(data->mlx, data->minimapfixed);
+	mlx_delete_image(data->mlx, data->minimap);
 	mlx_delete_image(data->mlx, data->time);
 	mlx_delete_image(data->mlx, data->player.ray_img);
 	mlx_terminate(data->mlx);

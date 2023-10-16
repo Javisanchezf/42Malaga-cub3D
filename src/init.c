@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 19:43:21 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 19:46:43 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	init_images(t_cub3data *data)
 		exit(EXIT_FAILURE);
 	}
 
-	data->minimap.width = data->width * BLOCKSIZE;
-	data->minimap.rwidth = data->width * BLOCKSIZE * 4;
-	data->minimap.height = data->height * BLOCKSIZE;
-	data->minimap.img = ft_calloc(data->minimap.rwidth * data->minimap.height, sizeof(uint8_t));
-	data->minimap_open.img = ft_calloc(data->minimap.rwidth * data->minimap.height, sizeof(uint8_t));
+	data->map_close.width = data->width * BLOCKSIZE;
+	data->map_close.rwidth = data->width * BLOCKSIZE * 4;
+	data->map_close.height = data->height * BLOCKSIZE;
+	data->map_close.img = ft_calloc(data->map_close.rwidth * data->map_close.height, sizeof(uint8_t));
+	data->map_open.img = ft_calloc(data->map_close.rwidth * data->map_close.height, sizeof(uint8_t));
 
 
 	data->galaxy_i = create_imgtext(data, "./src/imgs/galaxy.png", 0, 0);
@@ -35,10 +35,10 @@ void	init_images(t_cub3data *data)
 	data->victory_i->enabled = 0;
 
 
-	data->minimapfixed = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
-	if (!data->minimapfixed)
+	data->minimap = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	if (!data->minimap)
 		img_failure(data);
-	if (mlx_image_to_window(data->mlx, data->minimapfixed, WIDTH - MINIMAP_WIDTH, 0) == -1)
+	if (mlx_image_to_window(data->mlx, data->minimap, WIDTH - MINIMAP_WIDTH, 0) == -1)
 		img_failure(data);
 
 	
@@ -64,8 +64,8 @@ void	init_values(t_cub3data	*data)
 	i = -1;
 	while (++i < 6)
 		data->ids[i] = NULL;
-	data->minimap.img = NULL;
-	data->minimap_open.img = NULL;
+	data->map_close.img = NULL;
+	data->map_open.img = NULL;
 	data->finish = 0;
 	data->door_open = 0;
 	data->pass_door = 0;
