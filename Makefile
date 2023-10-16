@@ -6,7 +6,7 @@
 #    By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/18 18:02:29 by javiersa          #+#    #+#              #
-#    Updated: 2023/10/05 20:42:04 by javiersa         ###   ########.fr        #
+#    Updated: 2023/10/16 17:07:40 by javiersa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC = $(wildcard src/*.c src/parse/*.c)
 OBJS := $(SRC:.c=.o)
 
 # Personal use variables
-PARAMS = 4 2 3 4 5
+PARAMS = maps/minimalist.cub
 DATETIME := $(shell date +%Y-%m-%d' '%H:%M:%S)
 GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 USER := $(shell whoami)

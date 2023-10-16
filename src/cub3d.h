@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 17:27:19 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 17:06:05 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define MINIMAP_HEIGHT 400
 # define PLAYER_SIZE 16
 # define CHEST_SIZE 60
-# define BLOCKSIZE 130
+# define BLOCKSIZE 150
 # define PI 3.141592653589793
 
 /*----------------------------HEADER----------------------------*/
