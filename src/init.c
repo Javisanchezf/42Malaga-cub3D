@@ -6,19 +6,11 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 18:41:11 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 19:33:18 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void	img_failure(t_cub3data *data)
-{
-	mlx_close_window(data->mlx);
-	puts(mlx_strerror(mlx_errno));
-	initial_cleaner(data);
-	exit(EXIT_FAILURE);
-}
 
 void	init_images(t_cub3data *data)
 {
@@ -36,25 +28,12 @@ void	init_images(t_cub3data *data)
 	data->minimap.img = ft_calloc(data->minimap.rwidth * data->minimap.height, sizeof(uint8_t));
 	data->minimap_open.img = ft_calloc(data->minimap.rwidth * data->minimap.height, sizeof(uint8_t));
 
-	data->galaxy_tex = mlx_load_png("./src/imgs/galaxy.png");
-	if (!data->galaxy_tex)
-		img_failure(data);
-	data->galaxy_i = mlx_texture_to_image(data->mlx, data->galaxy_tex);
-	if (!data->galaxy_i)
-		img_failure(data);
-	if (mlx_image_to_window(data->mlx, data->galaxy_i, 0, 0) == -1)
-		img_failure(data);
-	data->galaxy_i->enabled = 0;
 
-	data->victory_tex = mlx_load_png("./src/imgs/victory.png");
-	if (!data->galaxy_tex)
-		img_failure(data);
-	data->victory_i = mlx_texture_to_image(data->mlx, data->victory_tex);
-	if (!data->victory_i)
-		img_failure(data);
-	if (mlx_image_to_window(data->mlx, data->victory_i, 0, 0) == -1)
-		final_cleaner(data);
+	data->galaxy_i = create_imgtext(data, "./src/imgs/galaxy.png", 0, 0);
+
+	data->victory_i = create_imgtext(data, "./src/imgs/victory.png", 0, 0);
 	data->victory_i->enabled = 0;
+
 
 	data->minimapfixed = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 	if (!data->minimapfixed)
@@ -69,21 +48,9 @@ void	init_images(t_cub3data *data)
 	if (mlx_image_to_window(data->mlx, data->player.ray_img, WIDTH - MINIMAP_WIDTH / 2 - data->player.ray_img->width / 2, MINIMAP_HEIGHT / 2 - data->player.ray_img->height / 2) == -1)
 		img_failure(data);
 
-	data->player.texture = mlx_load_png("./src/imgs/ufo.png");
-	if (!data->player.texture)
-		img_failure(data);
-	data->player.img = mlx_texture_to_image(data->mlx, data->player.texture);
-	if (!data->player.img)
-		img_failure(data);
-	if (mlx_image_to_window(data->mlx, data->player.img, WIDTH - MINIMAP_WIDTH / 2 - 25, MINIMAP_HEIGHT / 2 - 25) == -1)
-		img_failure(data);
-
-	data->chest_tex = mlx_load_png("./src/imgs/chest.png");
-	if (!data->chest_tex)
-		img_failure(data);
-	data->chest_i = mlx_texture_to_image(data->mlx, data->chest_tex);
-	if (!data->player.img)
-		img_failure(data);
+	data->player.img = create_imgtext(data, "./src/imgs/ufo.png", WIDTH - MINIMAP_WIDTH / 2 - 25, MINIMAP_HEIGHT / 2 - 25);
+	data->chest_i = create_imgtext(data, "./src/imgs/chest.png", 0, 0);
+	data->chest_i->enabled = 0;
 
 	data->time_counter = 0;
 	data->open_coldown = -30000;

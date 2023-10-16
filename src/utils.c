@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 20:40:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 19:01:00 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 19:31:06 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,19 @@ void	check_collision(t_cub3data *data, double x, double y)
 	ufo_rays(data, data->player.ray_img, data->player.orientation, data->color.golden);
 	if (j == 2)
 		data->pass_door = 1;
+}
+
+mlx_image_t	*create_imgtext(t_cub3data *data, char *file, int x, int y)
+{
+	mlx_texture_t	*texture;
+	mlx_image_t		*img;
+
+	texture = mlx_load_png(file);
+	if (!texture)
+		img_failure(data);
+	img = mlx_texture_to_image(data->mlx, texture);
+	if (mlx_image_to_window(data->mlx, img, x, y) == -1)
+		img_failure(data);
+	mlx_delete_texture(texture);
+	return (img);
 }

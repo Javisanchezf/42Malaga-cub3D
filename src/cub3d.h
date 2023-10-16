@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 18:29:08 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 19:19:33 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,6 @@ typedef struct s_colors
 	t_pixels	red;
 }		t_colors;
 
-// typedef struct s_img
-// {
-// 	mlx_image_t	*img;
-// 	int			width;
-// 	int			rwidth;
-// 	int			height;
-// }		t_img;
-
 typedef struct s_falseimg
 {
 	uint8_t		*img;
@@ -98,9 +90,9 @@ typedef struct s_falseimg
 
 typedef struct s_player
 {
-	t_coords		pos;
-	double			orientation;
-	mlx_texture_t	*texture;
+	t_coords			pos;
+	double				orientation;
+	mlx_texture_t		*texture;
 	mlx_image_t			*img;
 	mlx_image_t			*ray_img;
 }		t_player;
@@ -108,9 +100,10 @@ typedef struct s_player
 typedef struct s_cub3data
 {
 	char			*ids[6];
+	char			**map;
 	int				map_width;
 	int				map_height;
-	char			**map;
+
 	mlx_t			*mlx;
 	t_player		player;
 	t_colors		color;
@@ -118,13 +111,13 @@ typedef struct s_cub3data
 	t_falseimg		minimap_open;
 	mlx_image_t		*minimapfixed;
 	mlx_image_t		*time;
-	mlx_texture_t	*chest_tex;
+	// mlx_texture_t	*chest_tex;
 	mlx_image_t		*chest_i;
 	int				time_counter;
 
-	mlx_texture_t	*galaxy_tex;
+	// mlx_texture_t	*galaxy_tex;
 	mlx_image_t		*galaxy_i;
-	mlx_texture_t	*victory_tex;
+	// mlx_texture_t	*victory_tex;
 	mlx_image_t		*victory_i;
 
 	bool			finish;
@@ -149,6 +142,7 @@ void	init_images(t_cub3data *data);
 
 void	initial_cleaner(t_cub3data	*data);
 void	final_cleaner(t_cub3data *data);
+void	img_failure(t_cub3data *data);
 
 /*----------------------------UTILS FUNCTIONS----------------------------*/
 
@@ -165,5 +159,6 @@ void	time_hook2(void *param);
 
 void	draw_minimapfixed(t_cub3data *data);
 void	ufo_rays(t_cub3data *data, mlx_image_t *img, double angle, t_pixels color);
+mlx_image_t	*create_imgtext(t_cub3data *data, char *file, int x, int y);
 
 #endif
