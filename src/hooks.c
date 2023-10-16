@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:55:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 20:55:09 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 21:07:51 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,7 @@ void	time_hook(void *param)
 		return ;
 	data->time_counter++;
 	mlx_delete_image(data->mlx, data->time);
-	str = ft_freeandjoin(ft_strdup("TIME: "), ft_itoa(data->time_counter
-				/ 100));
+	str = ft_freeandjoin(ft_strdup("TIME:"), ft_itoa(data->time_counter / 100));
 	str = ft_freeandjoin(str, ft_strdup("."));
 	str = ft_freeandjoin(str, ft_itoa(data->time_counter % 100));
 	str = ft_freeandjoin(str, ft_strdup(" | COOLDOWN: "));
@@ -128,7 +127,7 @@ void	time_hook(void *param)
 	str = ft_freeandjoin(str, ft_itoa(i / 100));
 	str = ft_freeandjoin(str, ft_strdup("."));
 	str = ft_freeandjoin(str, ft_itoa(i % 100));
-	data->time = mlx_put_string(data->mlx, str, WIDTH - MINIMAP_WIDTH / 2 - 100,
-			MINIMAP_HEIGHT + 10);
+	data->time = mlx_put_string(data->mlx, str, WIDTH - MINIMAP_SIZE / 2 - 100,
+			MINIMAP_SIZE + 10);
 	ft_free_and_null((void **)&str);
 }

@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 20:39:42 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 21:03:16 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_images(t_cub3data *data)
 	data->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D 42", true);
 	if (!data->mlx)
 	{
-		puts(mlx_strerror(mlx_errno));
+		ft_error("Error\nMLX init failure", 0);
 		initial_cleaner(data);
 		exit(EXIT_FAILURE);
 	}
@@ -33,26 +33,26 @@ void	init_images(t_cub3data *data)
 	data->victory_i = create_imgtext(data, "./src/imgs/victory.png", 0, 0);
 	data->victory_i->enabled = 0;
 
-	data->minimap = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	data->minimap = mlx_new_image(data->mlx, MINIMAP_SIZE, MINIMAP_SIZE);
 	if (!data->minimap)
 		img_failure(data);
-	if (mlx_image_to_window(data->mlx, data->minimap, WIDTH - MINIMAP_WIDTH, 0) == -1)
+	if (mlx_image_to_window(data->mlx, data->minimap, WIDTH - MINIMAP_SIZE, 0) == -1)
 		img_failure(data);
 
 	
-	data->player.ray_img = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	data->player.ray_img = mlx_new_image(data->mlx, MINIMAP_SIZE, MINIMAP_SIZE);
 	if (!data->player.ray_img)
 		img_failure(data);
-	if (mlx_image_to_window(data->mlx, data->player.ray_img, WIDTH - MINIMAP_WIDTH / 2 - data->player.ray_img->width / 2, MINIMAP_HEIGHT / 2 - data->player.ray_img->height / 2) == -1)
+	if (mlx_image_to_window(data->mlx, data->player.ray_img, WIDTH - MINIMAP_SIZE / 2 - data->player.ray_img->width / 2, MINIMAP_SIZE / 2 - data->player.ray_img->height / 2) == -1)
 		img_failure(data);
 
-	data->player.img = create_imgtext(data, "./src/imgs/ufo.png", WIDTH - MINIMAP_WIDTH / 2 - 25, MINIMAP_HEIGHT / 2 - 25);
+	data->player.img = create_imgtext(data, "./src/imgs/ufo.png", WIDTH - MINIMAP_SIZE / 2 - 25, MINIMAP_SIZE / 2 - 25);
 	data->chest_i = create_imgtext(data, "./src/imgs/chest.png", 0, 0);
 	data->chest_i->enabled = 0;
 
 	data->time_counter = 0;
 	data->open_coldown = -30000;
-	data->time = mlx_put_string(data->mlx, "TIME: 0", WIDTH - MINIMAP_WIDTH / 2 - 100, MINIMAP_HEIGHT + 10);
+	data->time = mlx_put_string(data->mlx, "TIME: 0", WIDTH - MINIMAP_SIZE / 2 - 100, MINIMAP_SIZE + 10);
 }
 
 void	init_values(t_cub3data	*data)

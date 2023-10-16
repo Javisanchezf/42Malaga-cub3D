@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 20:54:00 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 21:03:26 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 # define CUB3D_H
 # define WIDTH 1920
 # define HEIGHT 1024
-# define MINIMAP_WIDTH 800
-# define MINIMAP_HEIGHT 800
+# define MINIMAP_SIZE 800
 # define PLAYER_SIZE 16
 # define CHEST_SIZE 60
-# define BLOCKSIZE 150
+# define BLOCKSIZE 200
 # define PI 3.141592653589793
 
 /*----------------------------HEADER----------------------------*/
@@ -51,7 +50,6 @@
 /*----------------------------LIBRARIES----------------------------*/
 # include "../libftplus/libftplus.h"
 # include "../MLX42/include/MLX42/MLX42.h"
-# include <stdio.h>
 # include <math.h>
 
 /*----------------------------STRUCTS----------------------------*/

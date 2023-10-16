@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 10:41:54 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 19:46:43 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 21:02:45 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	initial_cleaner(t_cub3data *data)
 void	img_failure(t_cub3data *data)
 {
 	mlx_close_window(data->mlx);
-	puts(mlx_strerror(mlx_errno));
+	ft_error("Error\nImage/Texture failure", 0);
 	initial_cleaner(data);
 	exit(EXIT_FAILURE);
 }
