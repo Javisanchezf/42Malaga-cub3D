@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 19:46:43 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 20:54:00 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,13 @@ typedef struct s_cub3data
 	int				width;
 	int				height;
 
-	t_falseimg		map_close;  //map_close
-	t_falseimg		map_open; //map_open
+	t_falseimg		map_close;
+	t_falseimg		map_open;
 	bool			door_open;
 	bool			pass_door;
 
 	t_player		player;
-	mlx_image_t		*minimap; //map_close
+	mlx_image_t		*minimap;
 
 	mlx_image_t		*time;
 	int				open_coldown;
@@ -127,37 +127,39 @@ typedef struct s_cub3data
 
 /*----------------------------PARSE FUNCTIONS----------------------------*/
 
-char	*ft_ids_parse(int fd, t_cub3data *data, char *line);
-void	ft_parse_data(char *file, t_cub3data	*data);
-void	ft_map_parse(t_cub3data *data);
-void	map_construct(t_cub3data	*data);
+char		*ft_ids_parse(int fd, t_cub3data *data, char *line);
+void		ft_parse_data(char *file, t_cub3data	*data);
+void		ft_map_parse(t_cub3data *data);
+void		map_construct(t_cub3data	*data);
 
 /*----------------------------INIT FUNCTIONS----------------------------*/
 
-void	init_values(t_cub3data	*data);
-void	init_images(t_cub3data *data);
+void		init_values(t_cub3data	*data);
+void		init_images(t_cub3data *data);
 
 /*----------------------------CLEANER FUNCTIONS----------------------------*/
 
-void	initial_cleaner(t_cub3data	*data);
-void	final_cleaner(t_cub3data *data);
-void	img_failure(t_cub3data *data);
+void		initial_cleaner(t_cub3data	*data);
+void		final_cleaner(t_cub3data *data);
+void		img_failure(t_cub3data *data);
 
 /*----------------------------UTILS FUNCTIONS----------------------------*/
 
-int		ft_iswall(t_coords p, t_cub3data *data);
-void	check_collision(t_cub3data *data, double x, double y);
+int			ft_iswall(t_coords p, t_cub3data *data);
+void		check_collision(t_cub3data *data, double x, double y);
+void		put_rgbcolor(uint8_t *pixels, t_pixels color, bool random);
+void		put_rgbimg(uint8_t *dest, uint8_t *or);
 
 /*----------------------------HOOKS FUNCTIONS----------------------------*/
-void	keyboard_hooks(void *param);
-void	time_hook(void *param);
-void	close_door_hook(void *param);
-void	time_hook2(void *param);
+void		keyboard_hooks(void *param);
+void		time_hook(void *param);
+void		close_door_hook(void *param);
+void		time_hook2(void *param);
 
 /*----------------------------? FUNCTIONS----------------------------*/
 
-void	draw_minimap(t_cub3data *data);
-void	ufo_rays(t_cub3data *data, mlx_image_t *img, double angle, t_pixels color);
+void		draw_minimap(t_cub3data *data);
+void		ufo_rays(t_cub3data *data, mlx_image_t *img, double angle);
 mlx_image_t	*create_imgtext(t_cub3data *data, char *file, int x, int y);
 
 #endif

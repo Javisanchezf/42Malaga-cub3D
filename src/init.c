@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 19:46:43 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 20:39:42 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,10 @@ void	init_images(t_cub3data *data)
 	data->map_close.img = ft_calloc(data->map_close.rwidth * data->map_close.height, sizeof(uint8_t));
 	data->map_open.img = ft_calloc(data->map_close.rwidth * data->map_close.height, sizeof(uint8_t));
 
-
 	data->galaxy_i = create_imgtext(data, "./src/imgs/galaxy.png", 0, 0);
 
 	data->victory_i = create_imgtext(data, "./src/imgs/victory.png", 0, 0);
 	data->victory_i->enabled = 0;
-
 
 	data->minimap = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 	if (!data->minimap)

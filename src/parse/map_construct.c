@@ -6,19 +6,11 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:12:59 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 19:46:43 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 20:52:33 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-static void	put_rgb(uint8_t *pixels, t_pixels color)
-{
-	pixels[0] = color.r;
-	pixels[1] = color.g;
-	pixels[2] = color.b;
-	pixels[3] = rand() % 106 + 150;
-}
 
 static void	drawsquare(t_cub3data *data, t_coords p, t_pixels color)
 {
@@ -40,8 +32,8 @@ static void	drawsquare(t_cub3data *data, t_coords p, t_pixels color)
 	{
 		j = p.x - 1;
 		while (++j < p.x + BLOCKSIZE)
-			put_rgb(&(data->map_close.img[(i * \
-		data->map_close.width + j) * 4]), color);
+			put_rgbcolor(&(data->map_close.img[(i * \
+		data->map_close.width + j) * 4]), color, 1);
 	}
 }
 
@@ -60,10 +52,9 @@ static void	drawchest(t_cub3data *data, t_coords p)
 		{
 			if (data->chest_i->pixels[(i.y * CHEST_SIZE + i.x) * 4 + 3] != 0)
 			{
-				data->map_close.img[((p.y + i.y) * data->map_close.width + p.x + i.x) * 4] = data->chest_i->pixels[(i.y * CHEST_SIZE + i.x) * 4];
-				data->map_close.img[((p.y + i.y) * data->map_close.width + p.x + i.x) * 4 + 1] = data->chest_i->pixels[(i.y * CHEST_SIZE + i.x) * 4 + 1];
-				data->map_close.img[((p.y + i.y) * data->map_close.width + p.x + i.x) * 4 + 2] = data->chest_i->pixels[(i.y * CHEST_SIZE + i.x) * 4 + 2];
-				data->map_close.img[((p.y + i.y) * data->map_close.width + p.x + i.x) * 4 + 3] = data->chest_i->pixels[(i.y * CHEST_SIZE + i.x) * 4 + 3];
+				put_rgbimg(&data->map_close.img[((p.y + i.y) * \
+data->map_close.width + p.x + i.x) * 4], &data->chest_i->pixels[(i.y * \
+CHEST_SIZE + i.x) * 4]);
 			}
 		}
 	}
@@ -82,8 +73,8 @@ static void	draw_map(t_cub3data *data)
 			if (data->map[p.y][p.x] == '1')
 				drawsquare(data, p, data->color.white);
 			else if (data->map[p.y][p.x] == '0' ||
-data->map[p.y][p.x] == 'N' || data->map[p.y][p.x] == 'S'
-|| data->map[p.y][p.x] == 'W' || data->map[p.y][p.x] == 'E')
+data->map[p.y][p.x] == 'N' || data->map[p.y][p.x] == 'S' ||
+data->map[p.y][p.x] == 'W' || data->map[p.y][p.x] == 'E')
 				drawsquare(data, p, data->color.blue);
 			else if (data->map[p.y][p.x] == 'F')
 				drawchest(data, p);
@@ -111,9 +102,9 @@ void	map_construct(t_cub3data *data)
 			data->map_open.img[i + 3] = data->map_close.img[i + 3];
 		}
 		else
-			put_rgb(&data->map_open.img[i], data->color.green);
+			put_rgbcolor(&data->map_open.img[i], data->color.green, 1);
 		i += 4;
 	}
 	draw_minimap(data);
-	ufo_rays(data, data->player.ray_img, data->player.orientation, data->color.golden);
+	ufo_rays(data, data->player.ray_img, data->player.orientation);
 }

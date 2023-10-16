@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 20:40:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 19:46:43 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 20:56:07 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ void	check_collision(t_cub3data *data, double x, double y)
 	{
 		j = ft_iswall(player_abroad[i], data);
 		if (j == 1 || (j == 2 && data->door_open == 0))
-			return;
+			return ;
 		else if (j == 3)
 			return (finish(data));
 	}
 	data->player.pos.x += x * PLAYER_SIZE / 2;
 	data->player.pos.y += y * PLAYER_SIZE / 2;
 	draw_minimap(data);
-	ufo_rays(data, data->player.ray_img, data->player.orientation, data->color.golden);
+	ufo_rays(data, data->player.ray_img, data->player.orientation);
 	if (j == 2)
 		data->pass_door = 1;
 }
@@ -97,4 +97,22 @@ mlx_image_t	*create_imgtext(t_cub3data *data, char *file, int x, int y)
 		img_failure(data);
 	mlx_delete_texture(texture);
 	return (img);
+}
+
+void	put_rgbcolor(uint8_t *pixels, t_pixels color, bool random)
+{
+	pixels[0] = color.r;
+	pixels[1] = color.g;
+	pixels[2] = color.b;
+	pixels[3] = color.a;
+	if (random)
+		pixels[3] = rand() % 106 + 150;
+}
+
+void	put_rgbimg(uint8_t *dest, uint8_t *or)
+{
+	dest[0] = or[0];
+	dest[1] = or[1];
+	dest[2] = or[2];
+	dest[3] = or[3];
 }

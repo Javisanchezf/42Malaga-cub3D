@@ -36,7 +36,7 @@ center.x) + (index.y - center.y) * (index.y - center.y);
 	}
 }
 
-void	ufo_rays(t_cub3data *data, mlx_image_t *img, double angle, t_pixels color)
+void	ufo_rays(t_cub3data *data, mlx_image_t *img, double angle)
 {
 	t_coords	p;
 	double		i;
@@ -53,10 +53,7 @@ void	ufo_rays(t_cub3data *data, mlx_image_t *img, double angle, t_pixels color)
 		{
 			if (data->minimap->pixels[p.y * img->width * 4 + p.x * 4] != 27 || data->minimap->pixels[p.y * img->width * 4 + p.x * 4 + 3] == 0)
 				break ;
-			img->pixels[p.y * img->width * 4 + p.x * 4 + 0] = color.r;
-			img->pixels[p.y * img->width * 4 + p.x * 4 + 1] = color.g;
-			img->pixels[p.y * img->width * 4 + p.x * 4 + 2] = color.b;
-			img->pixels[p.y * img->width * 4 + p.x * 4 + 3] = color.a;
+			put_rgbcolor(&img->pixels[p.y * img->width * 4 + p.x * 4], data->color.golden, 0);
 			p.x = img->width / 2 + t * cos(angle + i * PI / 180);
 			p.y = img->height / 2 + t * sin(angle + i * PI / 180);
 		}

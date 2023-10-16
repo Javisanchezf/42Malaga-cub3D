@@ -6,39 +6,42 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:43:40 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 19:43:39 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 20:37:28 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../cub3d.h"
+
+static bool	ft_isinvalidvalue(char c)
+{
+	return (c != '0' && c != '1' && c != ' ' && c != '2');
+}
 
 static void	ft_check_map(char *m, t_cub3data *data)
 {
 	t_coords		p;
-	short int		flag;
-	short int		final_flag;
+	short int		flag[2];
 
 	p.x = -1;
 	p.y = 0;
-	flag = 0;
-	final_flag = 0;
-	while (m[++p.x] && flag <= 1 && final_flag < 2 )
+	flag[0] = 0;
+	flag[1] = 0;
+	while (m[++p.x] && flag[0] < 2 && flag[1] < 2)
 	{
 		if (m[p.x] == 'N' || m[p.x] == 'S' || m[p.x] == 'W' || m[p.x] == 'E')
-			flag++;
+			flag[0]++;
 		else if (m[p.x] == 'F')
-			final_flag++;
+			flag[1]++;
 		else if (m[p.x] == '\n')
 		{
 			if (p.x - p.y + 1 > data->width)
 				data->width = p.x - p.y + 1;
 			p.y = p.x;
 		}
-		else if (m[p.x] != '0' && m[p.x] != '1' && m[p.x] != ' ' && m[p.x] != '2')
-			flag = 2;
+		else if (ft_isinvalidvalue(m[p.x]))
+			flag[0] = 2;
 	}
-	if (flag != 1 || final_flag > 1)
+	if (flag[0] != 1 || flag[1] > 1)
 		ft_error("Error\nInvalid map\n", 7, m, data->ids[0], \
 data->ids[1], data->ids[2], data->ids[3], data->ids[4], data->ids[5]);
 }
