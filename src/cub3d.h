@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 19:19:33 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 19:44:01 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,29 +101,28 @@ typedef struct s_cub3data
 {
 	char			*ids[6];
 	char			**map;
-	int				map_width;
-	int				map_height;
+	int				width;
+	int				height;
 
-	mlx_t			*mlx;
-	t_player		player;
-	t_colors		color;
-	t_falseimg		minimap;
-	t_falseimg		minimap_open;
-	mlx_image_t		*minimapfixed;
-	mlx_image_t		*time;
-	// mlx_texture_t	*chest_tex;
-	mlx_image_t		*chest_i;
-	int				time_counter;
-
-	// mlx_texture_t	*galaxy_tex;
-	mlx_image_t		*galaxy_i;
-	// mlx_texture_t	*victory_tex;
-	mlx_image_t		*victory_i;
-
-	bool			finish;
+	t_falseimg		minimap;  //map_close
+	t_falseimg		minimap_open; //map_open
 	bool			door_open;
 	bool			pass_door;
+
+	t_player		player;
+	mlx_image_t		*minimapfixed; //minimap
+
+	mlx_image_t		*time;
 	int				open_coldown;
+	int				time_counter;
+
+	mlx_image_t		*chest_i;
+	mlx_image_t		*galaxy_i;
+	mlx_image_t		*victory_i;
+
+	mlx_t			*mlx;
+	t_colors		color;
+	bool			finish;
 }					t_cub3data;
 
 /*----------------------------PARSE FUNCTIONS----------------------------*/

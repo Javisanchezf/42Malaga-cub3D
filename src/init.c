@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 19:33:18 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 19:43:21 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	init_images(t_cub3data *data)
 		exit(EXIT_FAILURE);
 	}
 
-	data->minimap.width = data->map_width * BLOCKSIZE;
-	data->minimap.rwidth = data->map_width * BLOCKSIZE * 4;
-	data->minimap.height = data->map_height * BLOCKSIZE;
+	data->minimap.width = data->width * BLOCKSIZE;
+	data->minimap.rwidth = data->width * BLOCKSIZE * 4;
+	data->minimap.height = data->height * BLOCKSIZE;
 	data->minimap.img = ft_calloc(data->minimap.rwidth * data->minimap.height, sizeof(uint8_t));
 	data->minimap_open.img = ft_calloc(data->minimap.rwidth * data->minimap.height, sizeof(uint8_t));
 
@@ -69,7 +69,7 @@ void	init_values(t_cub3data	*data)
 	data->finish = 0;
 	data->door_open = 0;
 	data->pass_door = 0;
-	data->map_width = 0;
+	data->width = 0;
 	data->color.white.r = 255;
 	data->color.white.g = 255;
 	data->color.white.b = 255;

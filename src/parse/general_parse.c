@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_parse.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:43:40 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 12:14:29 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 19:43:39 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	ft_check_map(char *m, t_cub3data *data)
 			final_flag++;
 		else if (m[p.x] == '\n')
 		{
-			if (p.x - p.y + 1 > data->map_width)
-				data->map_width = p.x - p.y + 1;
+			if (p.x - p.y + 1 > data->width)
+				data->width = p.x - p.y + 1;
 			p.y = p.x;
 		}
 		else if (m[p.x] != '0' && m[p.x] != '1' && m[p.x] != ' ' && m[p.x] != '2')
@@ -50,15 +50,15 @@ static void	ft_map_normalize(char *m, t_cub3data *data)
 	char	*aux;
 
 	data->map = ft_split(m, '\n');
-	data->map_height = ft_split_size(data->map);
+	data->height = ft_split_size(data->map);
 	i = 0;
 	while (data->map[i])
 	{
-		aux = ft_calloc(data->map_width + 1, sizeof(char));
+		aux = ft_calloc(data->width + 1, sizeof(char));
 		aux[0] = ' ';
-		ft_strlcpy(&aux[1], data->map[i], data->map_width);
+		ft_strlcpy(&aux[1], data->map[i], data->width);
 		j = ft_strlen(data->map[i]);
-		while (++j < data->map_width)
+		while (++j < data->width)
 			aux[j] = ' ';
 		ft_free_and_null((void **)&data->map[i]);
 		data->map[i] = aux;

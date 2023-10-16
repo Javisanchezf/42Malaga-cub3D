@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:45:00 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 10:46:52 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 19:43:45 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_vertical(t_cub3data data, int i, int j, int i1)
 		}
 	}
 	i = i1;
-	while (++i < data.map_height)
+	while (++i < data.height)
 	{
 		if (!(data.map[i][j] == ' '))
 		{
@@ -51,7 +51,7 @@ static int	ft_horiz(t_cub3data data, int i, int j, int j1)
 		}
 	}
 	j = j1;
-	while (++j < (data.map_width))
+	while (++j < (data.width))
 	{
 		if (!(data.map[i][j] == ' '))
 		{
@@ -111,9 +111,9 @@ void	ft_map_parse(t_cub3data *data)
 	i = -1;
 	j = -1;
 	error = 0;
-	while (++i < data->map_height && !error)
+	while (++i < data->height && !error)
 	{
-		while (++j < data->map_width && !error)
+		while (++j < data->width && !error)
 		{
 			if (data->map[i][j] == ' ')
 				error = check_enviroment(*data, i, j);

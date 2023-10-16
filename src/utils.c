@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 20:40:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 19:31:06 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 19:43:35 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_iswall(t_coords p, t_cub3data *data)
 
 	pcasted.x = p.x / BLOCKSIZE;
 	pcasted.y = p.y / BLOCKSIZE;
-	if (pcasted.x > data->map_width || pcasted.y > data->map_height)
+	if (pcasted.x > data->width || pcasted.y > data->height)
 		return (0);
 	else if (data->map[pcasted.y][pcasted.x] == '1')
 		return (1);
