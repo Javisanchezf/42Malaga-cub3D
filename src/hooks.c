@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:55:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 17:12:19 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:31:02 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	keyboard_hooks(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
 		data->player.orientation -= 10 * 0.01745;
-		ufo_rays(data, &data->player.ray_img, data->player.orientation, data->color.golden);
+		ufo_rays(data, data->player.ray_img, data->player.orientation, data->color.golden);
 		data->galaxy_i->instances->x-=50;
 		if (data->galaxy_i->instances->x < (int32_t)(1920 - data->galaxy_i->width))
 			data->galaxy_i->instances->x = 0;
@@ -45,7 +45,7 @@ void	keyboard_hooks(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
 		data->player.orientation += 10 * 0.01745;
-		ufo_rays(data, &data->player.ray_img, data->player.orientation, data->color.golden);
+		ufo_rays(data, data->player.ray_img, data->player.orientation, data->color.golden);
 		data->galaxy_i->instances->x+=50;
 		if (data->galaxy_i->instances->x > 0)
 			data->galaxy_i->instances->x = 1920 - data->galaxy_i->width;

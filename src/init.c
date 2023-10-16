@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 17:31:59 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:41:11 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,41 +56,33 @@ void	init_images(t_cub3data *data)
 		final_cleaner(data);
 	data->victory_i->enabled = 0;
 
-	data->minimapfixed.width = MINIMAP_WIDTH;
-	data->minimapfixed.rwidth = MINIMAP_WIDTH * 4;
-	data->minimapfixed.height =  MINIMAP_HEIGHT;
-	data->minimapfixed.img = mlx_new_image(data->mlx, data->minimapfixed.width, data->minimapfixed.height);
-	if (!data->minimapfixed.img)
+	data->minimapfixed = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	if (!data->minimapfixed)
 		img_failure(data);
-	if (mlx_image_to_window(data->mlx, data->minimapfixed.img, WIDTH - MINIMAP_WIDTH, 0) == -1)
+	if (mlx_image_to_window(data->mlx, data->minimapfixed, WIDTH - MINIMAP_WIDTH, 0) == -1)
 		img_failure(data);
 
-	data->player.ray_img.width = MINIMAP_WIDTH;
-	data->player.ray_img.rwidth = MINIMAP_WIDTH * 4;
-	data->player.ray_img.height = MINIMAP_WIDTH;
-	data->player.ray_img.img = mlx_new_image(data->mlx, data->player.ray_img.width, data->player.ray_img.height);
-	if (!data->player.ray_img.img)
+	
+	data->player.ray_img = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	if (!data->player.ray_img)
 		img_failure(data);
-	if (mlx_image_to_window(data->mlx, data->player.ray_img.img, WIDTH - MINIMAP_WIDTH / 2 - data->player.ray_img.width / 2, MINIMAP_HEIGHT / 2 - data->player.ray_img.height / 2) == -1)
+	if (mlx_image_to_window(data->mlx, data->player.ray_img, WIDTH - MINIMAP_WIDTH / 2 - data->player.ray_img->width / 2, MINIMAP_HEIGHT / 2 - data->player.ray_img->height / 2) == -1)
 		img_failure(data);
 
-	data->player.img.width = 50;
-	data->player.img.rwidth = 50 * 4;
-	data->player.img.height = 50;
 	data->player.texture = mlx_load_png("./src/imgs/ufo.png");
 	if (!data->player.texture)
 		img_failure(data);
-	data->player.img.img = mlx_texture_to_image(data->mlx, data->player.texture);
-	if (!data->player.img.img)
+	data->player.img = mlx_texture_to_image(data->mlx, data->player.texture);
+	if (!data->player.img)
 		img_failure(data);
-	if (mlx_image_to_window(data->mlx, data->player.img.img, WIDTH - MINIMAP_WIDTH / 2 - 25, MINIMAP_HEIGHT / 2 - 25) == -1)
+	if (mlx_image_to_window(data->mlx, data->player.img, WIDTH - MINIMAP_WIDTH / 2 - 25, MINIMAP_HEIGHT / 2 - 25) == -1)
 		img_failure(data);
 
 	data->chest_tex = mlx_load_png("./src/imgs/chest.png");
 	if (!data->chest_tex)
 		img_failure(data);
 	data->chest_i = mlx_texture_to_image(data->mlx, data->chest_tex);
-	if (!data->player.img.img)
+	if (!data->player.img)
 		img_failure(data);
 
 	data->time_counter = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_construct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:12:59 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/14 16:49:37 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 19:01:27 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,5 @@ void	map_construct(t_cub3data *data)
 		i += 4;
 	}
 	draw_minimapfixed(data);
-	ufo_rays(data, &data->player.ray_img, data->player.orientation, data->color.golden);
+	ufo_rays(data, data->player.ray_img, data->player.orientation, data->color.golden);
 }

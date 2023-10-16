@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 17:06:05 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:29:08 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define CUB3D_H
 # define WIDTH 1920
 # define HEIGHT 1024
-# define MINIMAP_WIDTH 400
-# define MINIMAP_HEIGHT 400
+# define MINIMAP_WIDTH 800
+# define MINIMAP_HEIGHT 800
 # define PLAYER_SIZE 16
 # define CHEST_SIZE 60
 # define BLOCKSIZE 150
@@ -80,13 +80,13 @@ typedef struct s_colors
 	t_pixels	red;
 }		t_colors;
 
-typedef struct s_img
-{
-	mlx_image_t	*img;
-	int			width;
-	int			rwidth;
-	int			height;
-}		t_img;
+// typedef struct s_img
+// {
+// 	mlx_image_t	*img;
+// 	int			width;
+// 	int			rwidth;
+// 	int			height;
+// }		t_img;
 
 typedef struct s_falseimg
 {
@@ -101,8 +101,8 @@ typedef struct s_player
 	t_coords		pos;
 	double			orientation;
 	mlx_texture_t	*texture;
-	t_img			img;
-	t_img			ray_img;
+	mlx_image_t			*img;
+	mlx_image_t			*ray_img;
 }		t_player;
 
 typedef struct s_cub3data
@@ -116,7 +116,7 @@ typedef struct s_cub3data
 	t_colors		color;
 	t_falseimg		minimap;
 	t_falseimg		minimap_open;
-	t_img			minimapfixed;
+	mlx_image_t		*minimapfixed;
 	mlx_image_t		*time;
 	mlx_texture_t	*chest_tex;
 	mlx_image_t		*chest_i;
@@ -126,6 +126,7 @@ typedef struct s_cub3data
 	mlx_image_t		*galaxy_i;
 	mlx_texture_t	*victory_tex;
 	mlx_image_t		*victory_i;
+
 	bool			finish;
 	bool			door_open;
 	bool			pass_door;
@@ -149,7 +150,6 @@ void	init_images(t_cub3data *data);
 void	initial_cleaner(t_cub3data	*data);
 void	final_cleaner(t_cub3data *data);
 
-
 /*----------------------------UTILS FUNCTIONS----------------------------*/
 
 int		ft_iswall(t_coords p, t_cub3data *data);
@@ -164,7 +164,6 @@ void	time_hook2(void *param);
 /*----------------------------? FUNCTIONS----------------------------*/
 
 void	draw_minimapfixed(t_cub3data *data);
-void	ufo_rays(t_cub3data *data, t_img *img, double angle, t_pixels color);
-
+void	ufo_rays(t_cub3data *data, mlx_image_t *img, double angle, t_pixels color);
 
 #endif
