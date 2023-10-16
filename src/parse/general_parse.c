@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_parse.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:43:40 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/09 19:20:16 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 12:14:29 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,30 @@
 
 static void	ft_check_map(char *m, t_cub3data *data)
 {
-	int				i;
-	int				j;
+	t_coords		p;
 	short int		flag;
+	short int		final_flag;
 
-	i = 0;
-	j = 0;
+	p.x = -1;
+	p.y = 0;
 	flag = 0;
-	while (m[i] && flag <= 1)
+	final_flag = 0;
+	while (m[++p.x] && flag <= 1 && final_flag < 2 )
 	{
-		if (m[i] == 'N' || m[i] == 'S' || m[i] == 'W' || m[i] == 'E')
+		if (m[p.x] == 'N' || m[p.x] == 'S' || m[p.x] == 'W' || m[p.x] == 'E')
 			flag++;
-		else if (m[i] == '\n')
+		else if (m[p.x] == 'F')
+			final_flag++;
+		else if (m[p.x] == '\n')
 		{
-			if (i - j + 1 > data->map_width)
-				data->map_width = i - j + 1;
-			j = i;
+			if (p.x - p.y + 1 > data->map_width)
+				data->map_width = p.x - p.y + 1;
+			p.y = p.x;
 		}
-		else if (m[i] != '0' && m[i] != '1' && m[i] != ' ')
+		else if (m[p.x] != '0' && m[p.x] != '1' && m[p.x] != ' ' && m[p.x] != '2')
 			flag = 2;
-		i++;
 	}
-	if (flag != 1)
+	if (flag != 1 || final_flag > 1)
 		ft_error("Error\nInvalid map\n", 7, m, data->ids[0], \
 data->ids[1], data->ids[2], data->ids[3], data->ids[4], data->ids[5]);
 }

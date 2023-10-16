@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimapfixed.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:44:13 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/12 18:33:35 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/14 14:11:41 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,35 @@ center.x) + (index.y - center.y) * (index.y - center.y);
 			pixelindex = (index.y * image->width + index.x) * 4;
 			if (distance > radius * radius)
 				image->img->pixels[pixelindex + 3] = 0;
-			else
-				image->img->pixels[pixelindex + 3] = 255;
 		}
+	}
+}
+
+void	ufo_rays(t_cub3data *data, t_img *img, double angle, t_pixels color)
+{
+	t_coords	p;
+	double		i;
+	int			t;
+
+	ft_memset(img->img->pixels, 0, img->rwidth * img->height);
+	i = 175;
+	while (i < 185)
+	{
+		t = 1;
+		p.x = img->width / 2 + t * cos(angle + i * PI / 180);
+		p.y = img->height / 2 + t * sin(angle + i * PI / 180);
+		while (p.x >= 0 && p.y >= 0 && p.x < img->width && p.y < img->height && ++t)
+		{
+			if (data->minimapfixed.img->pixels[p.y * img->rwidth + p.x * 4] != 27 || data->minimapfixed.img->pixels[p.y * img->rwidth + p.x * 4 + 3] == 0)
+				break ;
+			img->img->pixels[p.y * img->rwidth + p.x * 4 + 0] = color.r;
+			img->img->pixels[p.y * img->rwidth + p.x * 4 + 1] = color.g;
+			img->img->pixels[p.y * img->rwidth + p.x * 4 + 2] = color.b;
+			img->img->pixels[p.y * img->rwidth + p.x * 4 + 3] = color.a;
+			p.x = img->width / 2 + t * cos(angle + i * PI / 180);
+			p.y = img->height / 2 + t * sin(angle + i * PI / 180);
+		}
+		i += 0.2;
 	}
 }
 
@@ -71,20 +97,5 @@ void	locuraminimap(t_cub3data *data)
 void	draw_minimapfixed(t_cub3data *data)
 {
 	ft_memset(data->minimapfixed.img->pixels, 200, data->minimapfixed.width * data->minimapfixed.height * sizeof(int));
-	// if (mlx_image_to_window(data->mlx, data->minimapfixed.img, WIDTH - MINIMAP_WIDTH, 0) == -1)
-	// {
-	// 	mlx_close_window(data->mlx);
-	// 	puts(mlx_strerror(mlx_errno));
-	// 	cleaner(data);
-	// 	exit(EXIT_FAILURE);
-	// }
 	locuraminimap(data);
-	// if (mlx_image_to_window(data->mlx, data->player.img.img, WIDTH - MINIMAP_WIDTH / 2, MINIMAP_HEIGHT / 2) == -1)
-	// {
-	// 	mlx_close_window(data->mlx);
-	// 	puts(mlx_strerror(mlx_errno));
-	// 	cleaner(data);
-	// 	exit(EXIT_FAILURE);
-	// }
-	// converttocircle(&data->player.img, data->player.img.width / 2);
 }
