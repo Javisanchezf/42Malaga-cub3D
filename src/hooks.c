@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:55:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 21:07:51 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/16 21:49:00 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ void	keyboard_hooks(void *param)
 	{
 		if (data->door_open == 0 && data->open_coldown <= 0)
 		{
-			uint8_t *temp_img = data->map_close.img;
-			data->map_close.img = data->map_open.img;
-			data->map_open.img = temp_img;
+			ft_swap(&data->map_close.img, &data->map_open.img, sizeof(data->map_close.img));
 			check_collision(data, 0, 0);
 			data->door_open = 1;
 			data->open_coldown = data->time_counter + 300;
@@ -96,9 +94,10 @@ void	close_door_hook(void *param)
 		}
 		data->door_open = 0;
 		data->pass_door = 0;
-		uint8_t *temp_img = data->map_close.img;
-		data->map_close.img = data->map_open.img;
-		data->map_open.img = temp_img;
+		ft_swap(&data->map_close.img, &data->map_open.img, sizeof(data->map_close.img));
+		// uint8_t *temp_img = data->map_close.img;
+		// data->map_close.img = data->map_open.img;
+		// data->map_open.img = temp_img;
 		check_collision(data, 0, 0);
 	}
 }
