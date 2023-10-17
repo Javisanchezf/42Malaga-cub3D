@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:55:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/17 17:44:55 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:56:58 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,23 +81,8 @@ void	close_door_hook(void *param)
 		return ;
 	if (data->door_open == 1 && (data->pass_door == 1 || data->open_coldown == 0))
 	{
-		int			i;
-		t_coords	player_abroad[4];
-
-		player_abroad[0].x = data->player.pos.x + PLAYER_SIZE;
-		player_abroad[0].y = data->player.pos.y;
-		player_abroad[1].x = data->player.pos.x - PLAYER_SIZE;
-		player_abroad[1].y = data->player.pos.y;
-		player_abroad[2].x = data->player.pos.x;
-		player_abroad[2].y = data->player.pos.y + PLAYER_SIZE;
-		player_abroad[3].x = data->player.pos.x;
-		player_abroad[3].y = data->player.pos.y - PLAYER_SIZE;
-		i = -1;
-		while (++i < 4)
-		{
-			if (ft_iswall(player_abroad[i], data) != 0)
-				return ;
-		}
+		if (ft_isabroadwall(data->player.pos, PLAYER_SIZE, data) != 0)
+			return ;
 		data->door_open = 0;
 		data->pass_door = 0;
 		ft_swap(&data->map_close.img, &data->map_open.img, sizeof(uint8_t *));

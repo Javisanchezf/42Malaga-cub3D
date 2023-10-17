@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 21:03:26 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:54:25 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,6 @@ void		time_hook2(void *param);
 void		draw_minimap(t_cub3data *data);
 void		ufo_rays(t_cub3data *data, mlx_image_t *img, double angle);
 mlx_image_t	*create_imgtext(t_cub3data *data, char *file, int x, int y);
+int			ft_isabroadwall(t_coords p, int radius, t_cub3data *data);
 
 #endif

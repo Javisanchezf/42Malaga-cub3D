@@ -6,13 +6,13 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 20:40:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 20:56:07 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:53:51 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		ft_iswall(t_coords p, t_cub3data *data)
+int	ft_iswall(t_coords p, t_cub3data *data)
 {
 	t_coords	pcasted;
 
@@ -29,6 +29,27 @@ int		ft_iswall(t_coords p, t_cub3data *data)
 			if (p.y % BLOCKSIZE >= ft_abs(CHEST_SIZE - BLOCKSIZE) / 2 && p.y % BLOCKSIZE <= (BLOCKSIZE - CHEST_SIZE))
 				return (3);
 	return (0);
+}
+
+int	ft_isabroadwall(t_coords p, int radius, t_cub3data *data)
+{
+	t_coords	p_abroad[4];
+	int			i;
+	int			value;
+
+	p_abroad[0].x = p.x + radius;
+	p_abroad[0].y = p.y;
+	p_abroad[1].x = p.x - radius;
+	p_abroad[1].y = p.y;
+	p_abroad[2].x = p.x;
+	p_abroad[2].y = p.y + radius;
+	p_abroad[3].x = p.x;
+	p_abroad[3].y = p.y - radius;
+	i = -1;
+	value = 0;
+	while (++i < 4 && value == 0)
+		value = ft_iswall(p_abroad[i], data);
+	return (value);
 }
 
 void	finish(t_cub3data *data)
