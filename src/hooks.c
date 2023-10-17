@@ -6,11 +6,48 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:55:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 21:49:00 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:44:55 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ft_vision_hooks(t_cub3data *data)
+{
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+	{
+		data->player.orientation -= 10 * 0.01745;
+		ufo_rays(data, data->player.ray_img, data->player.orientation);
+		data->galaxy_i->instances->x -= 50;
+		if (data->galaxy_i->instances->x < (int32_t)(1920 - \
+		data->galaxy_i->width))
+			data->galaxy_i->instances->x = 0;
+	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	{
+		data->player.orientation += 10 * 0.01745;
+		ufo_rays(data, data->player.ray_img, data->player.orientation);
+		data->galaxy_i->instances->x += 50;
+		if (data->galaxy_i->instances->x > 0)
+			data->galaxy_i->instances->x = 1920 - data->galaxy_i->width;
+	}
+}
+
+void	ft_movement_hooks(t_cub3data *data)
+{
+	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		check_collision(data, cos(data->player.orientation + PI), \
+	sin(data->player.orientation + PI));
+	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+		check_collision(data, cos(data->player.orientation), \
+	sin(data->player.orientation));
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		check_collision(data, sin(data->player.orientation + PI), \
+	-cos(data->player.orientation + PI));
+	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		check_collision(data, sin(data->player.orientation), \
+	-cos(data->player.orientation));
+}
 
 void	keyboard_hooks(void *param)
 {
@@ -21,44 +58,13 @@ void	keyboard_hooks(void *param)
 		mlx_close_window(data->mlx);
 	if (data->finish == 1)
 		return ;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-		check_collision(data, cos(data->player.orientation + PI),
-				sin(data->player.orientation + PI));
-	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-		check_collision(data, cos(data->player.orientation),
-				sin(data->player.orientation));
-	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		check_collision(data, sin(data->player.orientation + PI),
-				-cos(data->player.orientation + PI));
-	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-		check_collision(data, sin(data->player.orientation),
-				-cos(data->player.orientation));
-	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-	{
-		data->player.orientation -= 10 * 0.01745;
-		ufo_rays(data, data->player.ray_img, data->player.orientation);
-		data->galaxy_i->instances->x-=50;
-		if (data->galaxy_i->instances->x < (int32_t)(1920 - data->galaxy_i->width))
-			data->galaxy_i->instances->x = 0;
-
-	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-	{
-		data->player.orientation += 10 * 0.01745;
-		ufo_rays(data, data->player.ray_img, data->player.orientation);
-		data->galaxy_i->instances->x+=50;
-		if (data->galaxy_i->instances->x > 0)
-			data->galaxy_i->instances->x = 1920 - data->galaxy_i->width;
-	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_0))
-		data->galaxy_i->enabled = 0;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_1))
-		data->galaxy_i->enabled = 1;
+	ft_movement_hooks(data);
+	ft_vision_hooks(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_SPACE))
 	{
 		if (data->door_open == 0 && data->open_coldown <= 0)
 		{
-			ft_swap(&data->map_close.img, &data->map_open.img, sizeof(data->map_close.img));
+			ft_swap(&data->map_close.img, &data->map_open.img, sizeof(uint8_t *));
 			check_collision(data, 0, 0);
 			data->door_open = 1;
 			data->open_coldown = data->time_counter + 300;
@@ -94,10 +100,7 @@ void	close_door_hook(void *param)
 		}
 		data->door_open = 0;
 		data->pass_door = 0;
-		ft_swap(&data->map_close.img, &data->map_open.img, sizeof(data->map_close.img));
-		// uint8_t *temp_img = data->map_close.img;
-		// data->map_close.img = data->map_open.img;
-		// data->map_open.img = temp_img;
+		ft_swap(&data->map_close.img, &data->map_open.img, sizeof(uint8_t *));
 		check_collision(data, 0, 0);
 	}
 }
