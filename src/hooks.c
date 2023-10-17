@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:55:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/17 17:56:58 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:59:59 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,31 @@ void	ft_movement_hooks(t_cub3data *data)
 	-cos(data->player.orientation));
 }
 
+void	ft_doors_hooks(t_cub3data *data)
+{
+	if (mlx_is_key_down(data->mlx, MLX_KEY_SPACE))
+	{
+		if (data->door_open == 0 && data->open_coldown <= 0)
+		{
+			ft_swap(&data->map_close.img, &data->map_open.img, \
+			sizeof(uint8_t *));
+			check_collision(data, 0, 0);
+			data->door_open = 1;
+			data->open_coldown = data->time_counter + 300;
+		}
+	}
+	if (data->door_open == 1 && (data->pass_door == 1 || \
+	data->open_coldown == 0))
+	{
+		if (ft_isabroadwall(data->player.pos, PLAYER_SIZE, data) != 0)
+			return ;
+		data->door_open = 0;
+		data->pass_door = 0;
+		ft_swap(&data->map_close.img, &data->map_open.img, sizeof(uint8_t *));
+		check_collision(data, 0, 0);
+	}
+}
+
 void	keyboard_hooks(void *param)
 {
 	t_cub3data	*data;
@@ -60,34 +85,7 @@ void	keyboard_hooks(void *param)
 		return ;
 	ft_movement_hooks(data);
 	ft_vision_hooks(data);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_SPACE))
-	{
-		if (data->door_open == 0 && data->open_coldown <= 0)
-		{
-			ft_swap(&data->map_close.img, &data->map_open.img, sizeof(uint8_t *));
-			check_collision(data, 0, 0);
-			data->door_open = 1;
-			data->open_coldown = data->time_counter + 300;
-		}
-	}
-}
-
-void	close_door_hook(void *param)
-{
-	t_cub3data	*data;
-
-	data = param;
-	if (data->finish == 1)
-		return ;
-	if (data->door_open == 1 && (data->pass_door == 1 || data->open_coldown == 0))
-	{
-		if (ft_isabroadwall(data->player.pos, PLAYER_SIZE, data) != 0)
-			return ;
-		data->door_open = 0;
-		data->pass_door = 0;
-		ft_swap(&data->map_close.img, &data->map_open.img, sizeof(uint8_t *));
-		check_collision(data, 0, 0);
-	}
+	ft_doors_hooks(data);
 }
 
 void	time_hook(void *param)

@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 17:09:47 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:58:49 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int32_t	main(int narg, char **argv)
 	map_construct(&data);
 	mlx_loop_hook(data.mlx, &keyboard_hooks, (void *)&data);
 	mlx_loop_hook(data.mlx, &time_hook, (void *)&data);
-	mlx_loop_hook(data.mlx, &close_door_hook, (void *)&data);
+	// mlx_loop_hook(data.mlx, &close_door_hook, (void *)&data);
 	mlx_loop(data.mlx);
 	final_cleaner(&data);
 	return (EXIT_SUCCESS);
