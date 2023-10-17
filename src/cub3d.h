@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/17 17:54:25 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/17 20:51:54 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@
 # include "../libftplus/libftplus.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <math.h>
+# include <stdio.h>
 
 /*----------------------------STRUCTS----------------------------*/
 
@@ -118,7 +119,10 @@ typedef struct s_cub3data
 	mlx_image_t		*galaxy_i;
 	mlx_image_t		*victory_i;
 
+	int				*distances;
+
 	mlx_t			*mlx;
+	mlx_image_t		*full_img;
 	t_colors		color;
 	bool			finish;
 }					t_cub3data;
@@ -160,5 +164,8 @@ void		draw_minimap(t_cub3data *data);
 void		ufo_rays(t_cub3data *data, mlx_image_t *img, double angle);
 mlx_image_t	*create_imgtext(t_cub3data *data, char *file, int x, int y);
 int			ft_isabroadwall(t_coords p, int radius, t_cub3data *data);
+
+/*------------------------RAYCASTING FUNCTIONS------------------------*/
+void	raycasting(t_cub3data *data, mlx_image_t *img, double angle);
 
 #endif

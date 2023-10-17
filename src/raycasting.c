@@ -3,174 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 14:33:28 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/12 16:17:47 by javiersa         ###   ########.fr       */
+/*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
+/*   Updated: 2023/10/17 21:28:13 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "cub3d.h"
+#include "cub3d.h"
 
-// #define mapWidth 24
-// #define mapHeight 24
-// #define screenWidth 640
-// #define screenHeight 480
-// #define WIDTH 5120
-// #define HEIGHT 2880
+void	print_array(int	*array)
+{
+	int	i;
 
-// int	main(void)
-// {
-// 	// VARIABLES
-// 	int	x = 0;
-// 	double posX = 22, posY = 12;  // Posicion inicial jugador
-// 	double dirX = -1, dirY = 0; // Vector director inicial del jugador, a donde mira
-// 	double planeX = 0, planeY = 0.66; // Plano de la camara, ortogonal al vector del jugador
+	i = 0;
+	while (i < 66*5)
+	{
+		ft_printf("%d\n", array[i]);
+		i++;
+	}
+	ft_printf("\n");
+}
 
-// 	double cameraX;
-// 	double rayDirX;
-// 	double rayDirY;
+void	picasso(int t, int col, t_cub3data *data)
+{
+	int	i;
+	t_coords	p;
 
-// 	int	mapX;
-// 	int	mapY;
+	i = -1;
+	col *= (int)round(WIDTH / 512);
+	while (++i < HEIGHT)
+	{
+		if (i < HEIGHT / 2 - t / 2)
+			put_rgbcolor(&(data->full_img->pixels[(i * data->full_img->width + col) * 4]), data->color.blue, 0);
+		else if (i < HEIGHT / 2 + t / 2)
+			put_rgbcolor(&(data->full_img->pixels[(i * data->full_img->width + col) * 4]), data->color.green, 0);
+		else
+			put_rgbcolor(&(data->full_img->pixels[(i * data->full_img->width + col) * 4]), data->color.red, 0);
+	}
+	p.y = 0;
+	while (++p.y < (int)round(WIDTH / 512) )
+	{
+		p.x = -1;
+		while (++p.x < HEIGHT)
+			put_rgbimg(&data->full_img->pixels[(p.x * data->full_img->width + col + p.y) * 4], &data->full_img->pixels[(p.x * data->full_img->width + col) * 4]);
+	}
+}
 
-// 	// Longitud del rayo en ambas dimensiones
-// 	double sideDistX;
-// 	double sideDistY;
-// 	double	deltaDistX;
-// 	double	deltaDistY;
-// 	double perpWallDist;
+void	raycasting(t_cub3data *data, mlx_image_t *img, double angle)
+{
+	t_coords	p;
+	double		iter;
+	int			t;
 
-// 	// Paso en sentido X y sentido Y
-// 	int stepX;
-// 	int stepY;
-
-// 	int hit; // Choque con muro
-// 	int side; // Muro de arriba a abajo o de izquerda a derecha?
-
-// 	int lineHeight; // Altura de la linea vertical que hay que pintar
-
-// 	int drawStart;
-// 	int drawEnd;
-
-// 	int worldMap[mapHeight][mapWidth] =
-// 	{
-// 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-// 		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-// 		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-// 	};
-
-// 	/* LANZAR VENTANA DE MLX*/
-// 	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "Test", true);
-// 	mlx_image_t* img = mlx_new_image(mlx, screenWidth, screenHeight);
-
-// 	while (windowOpen) /* MIENTRAS NO CIERRES LA VENTANA */
-// 	{
-// 		while (x < screenWidth)
-// 		{
-// 			cameraX = 2 * x / (double) screenWidth - 1; // Coordenada X en subespacio de camara
-			
-// 			// Posicion y direccion del rayo
-// 			rayDirX = dirX + planeX * cameraX;
-// 			rayDirY = dirY + planeY * cameraX;
-
-// 			//which box of the map we're in
-// 			mapX = (int) posX;
-// 			mapY = (int) posY;
-
-// 			deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1.0 / rayDirX);
-// 			deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1.0 / rayDirY);
-
-// 			// Para controlar los choques
-// 			hit = 0;
-			
-// 			// Calcular el paso
-// 			if(rayDirX < 0)
-// 			{
-// 				stepX = -1;
-// 				sideDistX = (posX - mapX) * deltaDistX;
-// 			}
-// 			else
-// 			{
-// 				stepX = 1;
-// 				sideDistX = (mapX + 1.0 - posX) * deltaDistX;
-// 			}
-// 			if(rayDirY < 0)
-// 			{
-// 				stepY = -1;
-// 				sideDistY = (posY - mapY) * deltaDistY;
-// 			}
-// 			else
-// 			{
-// 				stepY = 1;
-// 				sideDistY = (mapY + 1.0 - posY) * deltaDistY;
-// 			}
-
-// 			// Algoritmo DDA
-// 			while(hit == 0)
-// 			{
-// 				// jump to next map square, either in x-direction, or in y-direction
-// 				if(sideDistX < sideDistY)
-// 				{
-// 					sideDistX += deltaDistX;
-// 					mapX += stepX;
-// 					side = 0;
-// 				}
-// 				else
-// 				{
-// 					sideDistY += deltaDistY;
-// 					mapY += stepY;
-// 					side = 1;
-// 				}
-// 				// Comprobar choque con el muro
-// 				if(worldMap[mapX][mapY] > 0) hit = 1;
-// 			}
-			
-// 			// Distancia proyectada en el subespacio de la camara, menor distancia desde el jugador hasta el muro con el que ha chocado el rayo en el plano de la camara
-// 			if (side == 0)
-// 				perpWallDist = (sideDistX - deltaDistX);
-// 			else
-// 				perpWallDist = (sideDistY - deltaDistY);
-
-// 			//Calculate height of line to draw on screen
-// 			lineHeight = (int)(screenHeight / perpWallDist);
-
-// 			// Pixel mas alto y mas bajo que hay que pintar para hacer la linea vertical
-// 			drawStart = -lineHeight / 2 + screenHeight / 2;
-// 			if(drawStart < 0) drawStart = 0;
-// 			drawEnd = lineHeight / 2 + screenHeight / 2;
-// 			if(drawEnd >= screenHeight) drawEnd = screenHeight - 1;
-
-// 			//give x and y sides different brightness
-// 			// if(side == 1) {color = color / 2;}
-
-// 			// Hay que dibujar una franja vertical completa desde el centro
-// 			verLine(x, drawStart, drawEnd, color);
-			
-// 			// Aumenta contador
-// 			x++;
-// 		}
-// 	}
-// 	return (0);
-// }
+	iter = 0;
+	ft_memset(img->pixels, 0, img->width * 4 * img->height);
+	while (iter < 64)
+	{
+		t = 1;
+		
+		p.x = img->width / 2 + t * cos(angle + (iter + 147) * PI / 180);
+		p.y = img->height / 2 + t * sin(angle + (iter + 147) * PI / 180);
+		while (p.x >= 0 && p.y >= 0 && p.x < (int) img->width && p.y < (int) img->height && ++t)
+		{
+			if ((ft_iswall(p, data) == 2 && data->door_open == 0) || ft_iswall(p, data) == 1)
+				break;
+			p.x = img->width / 2 + t * cos(angle + (iter + 147) * PI / 180);
+			p.y = img->height / 2 + t * sin(angle + (iter + 147) * PI / 180);
+		}
+		picasso(t, (int)round(iter * 8), data);
+		iter += 0.125;
+	}
+}
