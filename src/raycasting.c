@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/18 16:28:15 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:55:37 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,20 @@ void	print_array(int	*array)
 
 void	picasso(int t, int col, t_cub3data *data)
 {
-	int	i;
+	int			i;
 	t_coords	p;
 
 	i = -1;
 	col *= 2;
-	t = t / 4;
+	t = t / 2;
 	while (++i < HEIGHT - 1)
 	{
-		// if (i <  t && i < (HEIGHT / 2) - 40)
-		// 	put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.blue, 1);
-		// else if (t >= HEIGHT / 2 && i < HEIGHT / 2)
-		// 	put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.gray, 1);
-		// else if (i < HEIGHT - t)
-		// 	put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.white, 0);
-		// else
-		// 	put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.blue, 1);
 		if (i <  t && i < (HEIGHT / 2))
 			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.blue, 1);
 		else if (i < HEIGHT - t)
 			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.white, 0);
 		else
-			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.blue, 1);
+			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.green, 1);
 	}
 	p.y = 0;
 	while (++p.y < 2)
@@ -72,7 +64,6 @@ void	raycasting(t_cub3data *data, t_coords pos)
 	while (iter <= 66.01)
 	{
 		t = 0;
-
 		p.x = pos.x + t * cos(data->player.orientation + (iter + 147) * PI / 180);
 		p.y = pos.y + t * sin(data->player.orientation + (iter + 147) * PI / 180);
 		while (p.x >= 0 && p.y >= 0 && p.x < WIDTH * BLOCKSIZE && p.y < HEIGHT * BLOCKSIZE && ++t)

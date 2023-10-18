@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 20:40:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/18 16:28:18 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/18 18:23:49 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ int	ft_iswall(t_coords p, t_cub3data *data)
 	else if (data->map[pcasted.y][pcasted.x] == '2')
 		return (2);
 	else if (data->map[pcasted.y][pcasted.x] == 'F')
-		if (p.x % BLOCKSIZE >= ft_abs(CHEST_SIZE - BLOCKSIZE) / 2 && p.x % BLOCKSIZE <= (BLOCKSIZE - CHEST_SIZE))
-			if (p.y % BLOCKSIZE >= ft_abs(CHEST_SIZE - BLOCKSIZE) / 2 && p.y % BLOCKSIZE <= (BLOCKSIZE - CHEST_SIZE))
+		if (p.x % BLOCKSIZE >= ft_abs(CHEST_SIZE - BLOCKSIZE) / 2 && \
+		p.x % BLOCKSIZE <= (BLOCKSIZE - CHEST_SIZE))
+			if (p.y % BLOCKSIZE >= ft_abs(CHEST_SIZE - BLOCKSIZE) / 2 && \
+			p.y % BLOCKSIZE <= (BLOCKSIZE - CHEST_SIZE))
 				return (3);
 	return (0);
 }
@@ -74,67 +76,22 @@ void	finish(t_cub3data *data)
 	ft_free_and_null((void **)&str);
 }
 
-void	check_collision(t_cub3data *data, double x, double y)
+void	check_collision(t_cub3data *data, t_coords pos, double x, double y)
 {
-	int			i;
 	int			j;
-	t_coords	player_abroad[4];
 
-	player_abroad[0].x = data->player.pos.x + PLAYER_SIZE + x * PLAYER_SIZE / 2;
-	player_abroad[0].y = data->player.pos.y + y * PLAYER_SIZE / 2;
-	player_abroad[1].x = data->player.pos.x - PLAYER_SIZE + x * PLAYER_SIZE / 2;
-	player_abroad[1].y = data->player.pos.y + y * PLAYER_SIZE / 2;
-	player_abroad[2].x = data->player.pos.x + x * PLAYER_SIZE / 2;
-	player_abroad[2].y = data->player.pos.y + PLAYER_SIZE + y * PLAYER_SIZE / 2;
-	player_abroad[3].x = data->player.pos.x + x * PLAYER_SIZE / 2;
-	player_abroad[3].y = data->player.pos.y - PLAYER_SIZE + y * PLAYER_SIZE / 2;
-	i = -1;
-	while (++i < 4)
-	{
-		j = ft_iswall(player_abroad[i], data);
-		if (j == 1 || (j == 2 && data->door_open == 0))
-			return ;
-		else if (j == 3)
-			return (finish(data));
-	}
-	data->player.pos.x += x * PLAYER_SIZE / 2;
-	data->player.pos.y += y * PLAYER_SIZE / 2;
+	pos.x += x * PLAYER_SIZE / 2;
+	pos.y += y * PLAYER_SIZE / 2;
+	j = ft_isabroadwall(pos, PLAYER_SIZE, data);
+	if (j == 1 || (j == 2 && data->door_open == 0))
+		return ;
+	else if (j == 3)
+		return (finish(data));
+	data->player.pos.x = pos.x;
+	data->player.pos.y = pos.y;
 	draw_minimap(data);
 	ufo_rays(data, data->player.ray_img, data->player.orientation);
 	raycasting(data, data->player.pos);
 	if (j == 2)
 		data->pass_door = 1;
-}
-
-mlx_image_t	*create_imgtext(t_cub3data *data, char *file, int x, int y)
-{
-	mlx_texture_t	*texture;
-	mlx_image_t		*img;
-
-	texture = mlx_load_png(file);
-	if (!texture)
-		img_failure(data);
-	img = mlx_texture_to_image(data->mlx, texture);
-	if (mlx_image_to_window(data->mlx, img, x, y) == -1)
-		img_failure(data);
-	mlx_delete_texture(texture);
-	return (img);
-}
-
-void	put_rgbcolor(uint8_t *pixels, t_pixels color, bool random)
-{
-	pixels[0] = color.r;
-	pixels[1] = color.g;
-	pixels[2] = color.b;
-	pixels[3] = color.a;
-	if (random)
-		pixels[3] = rand() % 106 + 150;
-}
-
-void	put_rgbimg(uint8_t *dest, uint8_t *or)
-{
-	dest[0] = or[0];
-	dest[1] = or[1];
-	dest[2] = or[2];
-	dest[3] = or[3];
 }

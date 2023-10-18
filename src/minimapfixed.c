@@ -49,11 +49,14 @@ void	ufo_rays(t_cub3data *data, mlx_image_t *img, double angle)
 		t = 1;
 		p.x = img->width / 2 + t * cos(angle + i * PI / 180);
 		p.y = img->height / 2 + t * sin(angle + i * PI / 180);
-		while (p.x >= 0 && p.y >= 0 && p.x < (int) img->width && p.y < (int) img->height && ++t)
+		while (p.x >= 0 && p.y >= 0 && p.x < (int) img->width && p.y < \
+		(int)img->height && ++t)
 		{
-			if (data->minimap->pixels[p.y * img->width * 4 + p.x * 4] != 27 || data->minimap->pixels[p.y * img->width * 4 + p.x * 4 + 3] == 0)
+			if (data->minimap->pixels[p.y * img->width * 4 + p.x * 4] != \
+27 || data->minimap->pixels[p.y * img->width * 4 + p.x * 4 + 3] == 0)
 				break ;
-			put_rgbcolor(&img->pixels[p.y * img->width * 4 + p.x * 4], data->color.golden, 0);
+			put_rgbcolor(&img->pixels[p.y * img->width * 4 + p.x * 4], \
+data->color.golden, 0);
 			p.x = img->width / 2 + t * cos(angle + i * PI / 180);
 			p.y = img->height / 2 + t * sin(angle + i * PI / 180);
 		}
@@ -61,31 +64,30 @@ void	ufo_rays(t_cub3data *data, mlx_image_t *img, double angle)
 	}
 }
 
-void	locuramap_close(t_cub3data *data)
+void	locuramap_close(t_cub3data *data, int startx, int start)
 {
-	int	startx;
-	int	starty;
-	int	start;
 	t_coords	p;
 
-	starty = data->player.pos.y - data->minimap->height / 2;
-	startx = (data->player.pos.x - data->minimap->width / 2) * 4;
-	start = starty * data->map_close.width * 4 + startx;
 	p.y = -1;
 	while (++p.y < (int)data->minimap->height)
 	{
-		if (start + p.y * data->map_close.width * 4 > 0 && start + data->map_close.width * 4 * 3 + p.y * data->map_close.width * 4 < data->map_close.height * data->map_close.width * 4)
+		if (start + p.y * data->map_close.width * 4 > 0 && start + \
+data->map_close.width * 4 * 3 + p.y * data->map_close.width * 4 < \
+data->map_close.height * data->map_close.width * 4)
 		{
 			p.x = -1;
 			while (++p.x < (int)data->minimap->width * 4)
 			{
-				if (startx + p.x > 0 && startx + p.x < (int)data->map_close.width * 4)
-					data->minimap->pixels[p.y * data->minimap->width * 4 + p.x] = data->map_close.img[start + p.y * data->map_close.width * 4 + p.x];
+				if (startx + p.x > 0 && startx + p.x < \
+				(int)data->map_close.width * 4)
+					data->minimap->pixels[p.y * data->minimap->width * \
+4 + p.x] = data->map_close.img[start + p.y * data->map_close.width * 4 + p.x];
 				else if (startx + p.x >= data->map_close.width * 4)
 					break ;
 			}
 		}
-		else if (start + data->map_close.width * 4 * 3 + p.y * data->map_close.width * 4 >= data->map_close.height * data->map_close.width * 4)
+		else if (start + data->map_close.width * 4 * 3 + p.y * \
+data->map_close.width * 4 >= data->map_close.height * data->map_close.width * 4)
 			break ;
 	}
 	converttocircle(data->minimap, data->minimap->width / 2);
@@ -93,6 +95,14 @@ void	locuramap_close(t_cub3data *data)
 
 void	draw_minimap(t_cub3data *data)
 {
-	ft_memset(data->minimap->pixels, 200, data->minimap->width * data->minimap->height * sizeof(int));
-	locuramap_close(data);
+	int			startx;
+	int			starty;
+	int			start;
+
+	ft_memset(data->minimap->pixels, 200, data->minimap->width * \
+	data->minimap->height * sizeof(int));
+	starty = (data->player.pos.y - data->minimap->height / 2);
+	startx = (data->player.pos.x - data->minimap->width / 2) * 4;
+	start = starty * data->map_close.width * 4 + startx;
+	locuramap_close(data, startx, start);
 }
