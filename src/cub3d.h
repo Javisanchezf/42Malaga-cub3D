@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/17 20:51:54 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:28:03 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# define WIDTH 1920
+# define WIDTH 1848
 # define HEIGHT 1024
-# define MINIMAP_SIZE 800
+# define MINIMAP_SIZE 400
 # define PLAYER_SIZE 16
 # define CHEST_SIZE 60
 # define BLOCKSIZE 200
@@ -166,6 +166,6 @@ mlx_image_t	*create_imgtext(t_cub3data *data, char *file, int x, int y);
 int			ft_isabroadwall(t_coords p, int radius, t_cub3data *data);
 
 /*------------------------RAYCASTING FUNCTIONS------------------------*/
-void	raycasting(t_cub3data *data, mlx_image_t *img, double angle);
+void	raycasting(t_cub3data *data, t_coords pos);
 
 #endif

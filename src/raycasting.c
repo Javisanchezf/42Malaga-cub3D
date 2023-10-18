@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/17 21:28:13 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:28:15 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,47 +31,59 @@ void	picasso(int t, int col, t_cub3data *data)
 	t_coords	p;
 
 	i = -1;
-	col *= (int)round(WIDTH / 512);
-	while (++i < HEIGHT)
+	col *= 2;
+	t = t / 4;
+	while (++i < HEIGHT - 1)
 	{
-		if (i < HEIGHT / 2 - t / 2)
-			put_rgbcolor(&(data->full_img->pixels[(i * data->full_img->width + col) * 4]), data->color.blue, 0);
-		else if (i < HEIGHT / 2 + t / 2)
-			put_rgbcolor(&(data->full_img->pixels[(i * data->full_img->width + col) * 4]), data->color.green, 0);
+		// if (i <  t && i < (HEIGHT / 2) - 40)
+		// 	put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.blue, 1);
+		// else if (t >= HEIGHT / 2 && i < HEIGHT / 2)
+		// 	put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.gray, 1);
+		// else if (i < HEIGHT - t)
+		// 	put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.white, 0);
+		// else
+		// 	put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.blue, 1);
+		if (i <  t && i < (HEIGHT / 2))
+			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.blue, 1);
+		else if (i < HEIGHT - t)
+			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.white, 0);
 		else
-			put_rgbcolor(&(data->full_img->pixels[(i * data->full_img->width + col) * 4]), data->color.red, 0);
+			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.blue, 1);
 	}
 	p.y = 0;
-	while (++p.y < (int)round(WIDTH / 512) )
+	while (++p.y < 2)
 	{
 		p.x = -1;
-		while (++p.x < HEIGHT)
+		while (++p.x < HEIGHT - 1)
 			put_rgbimg(&data->full_img->pixels[(p.x * data->full_img->width + col + p.y) * 4], &data->full_img->pixels[(p.x * data->full_img->width + col) * 4]);
 	}
 }
 
-void	raycasting(t_cub3data *data, mlx_image_t *img, double angle)
+void	raycasting(t_cub3data *data, t_coords pos)
 {
 	t_coords	p;
 	double		iter;
 	int			t;
+	int			iswall;
 
 	iter = 0;
-	ft_memset(img->pixels, 0, img->width * 4 * img->height);
-	while (iter < 64)
+	pos.x = pos.x + PLAYER_SIZE / 2 * cos(data->player.orientation);
+	pos.y = pos.y + PLAYER_SIZE / 2 * sin(data->player.orientation);
+	while (iter <= 66.01)
 	{
-		t = 1;
-		
-		p.x = img->width / 2 + t * cos(angle + (iter + 147) * PI / 180);
-		p.y = img->height / 2 + t * sin(angle + (iter + 147) * PI / 180);
-		while (p.x >= 0 && p.y >= 0 && p.x < (int) img->width && p.y < (int) img->height && ++t)
+		t = 0;
+
+		p.x = pos.x + t * cos(data->player.orientation + (iter + 147) * PI / 180);
+		p.y = pos.y + t * sin(data->player.orientation + (iter + 147) * PI / 180);
+		while (p.x >= 0 && p.y >= 0 && p.x < WIDTH * BLOCKSIZE && p.y < HEIGHT * BLOCKSIZE && ++t)
 		{
-			if ((ft_iswall(p, data) == 2 && data->door_open == 0) || ft_iswall(p, data) == 1)
+			iswall = ft_iswall(p, data);
+			if ((iswall == 2 && data->door_open == 0) || iswall == 1)
 				break;
-			p.x = img->width / 2 + t * cos(angle + (iter + 147) * PI / 180);
-			p.y = img->height / 2 + t * sin(angle + (iter + 147) * PI / 180);
+			p.x = pos.x + t * cos(data->player.orientation + (iter + 147) * PI / 180);
+			p.y = pos.y + t * sin(data->player.orientation + (iter + 147) * PI / 180);
 		}
-		picasso(t, (int)round(iter * 8), data);
-		iter += 0.125;
+		picasso(t, (int)round(iter * 14), data);
+		iter += 0.0714285714285714;
 	}
 }
