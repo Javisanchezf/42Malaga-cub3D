@@ -3,36 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/18 21:57:42 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/10/18 22:51:21 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 
-void	picasso(int t, int col, t_cub3data *data)
+void	picasso(double t, int col, t_cub3data *data)
 {
 	int			i;
 	t_coords	p;
 
 	i = -1;
 	col *= 2;
-	// t = t / cos
 
-	// ft_printf("%d\n", t % BLOCKSIZE);
-	// t = (HEIGHT / (pow(2, (t / BLOCKSIZE)))) + (HEIGHT * (t % BLOCKSIZE) / BLOCKSIZE);
-	t = (HEIGHT / (pow(2, (t / BLOCKSIZE)) - 1));
-	// t = t - ((((pow(2, ((t) / BLOCKSIZE)) - 1)) - ((pow(2, ((t + BLOCKSIZE) / BLOCKSIZE)) - 1))) * (t % BLOCKSIZE)) / BLOCKSIZE;
+	t =( HEIGHT / pow(2, (t / BLOCKSIZE)) - 1);
 	t = (HEIGHT - t) / 2;
 	while (++i < HEIGHT - 1)
 	{
 		if (i < t)
 			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.blue, 1);
 		else if (i < HEIGHT - t)
-			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.white, 0);
+			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.golden, 1);
 		else
 			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.green, 1);
 	}
