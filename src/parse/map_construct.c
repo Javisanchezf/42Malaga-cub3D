@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:12:59 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/18 17:16:45 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/18 18:39:00 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,20 @@ static void	drawchest(t_cub3data *data, t_coords p)
 	t_coords	i;
 
 	drawsquare(data, p, data->color.blue);
-	p.x = p.x * BLOCKSIZE - 1 + (BLOCKSIZE / 2 - CHEST_SIZE / 2);
-	p.y = p.y * BLOCKSIZE - 1 + (BLOCKSIZE / 2 - CHEST_SIZE / 2);
+	p.x = p.x * BLOCKSIZE - 1 + (BLOCKSIZE / 2 - data->chest_i->width / 2);
+	p.y = p.y * BLOCKSIZE - 1 + (BLOCKSIZE / 2 - data->chest_i->width / 2);
 	i.y = -1;
-	while (++i.y < CHEST_SIZE)
+	while (++i.y < (int)data->chest_i->width)
 	{
 		i.x = -1;
-		while (++i.x < CHEST_SIZE)
+		while (++i.x < (int)data->chest_i->width)
 		{
-			if (data->chest_i->pixels[(i.y * CHEST_SIZE + i.x) * 4 + 3] != 0)
+			if (data->chest_i->pixels[(i.y * \
+			data->chest_i->width + i.x) * 4 + 3] != 0)
 			{
 				put_rgbimg(&data->map_close.img[((p.y + i.y) * \
 data->map_close.width + p.x + i.x) * 4], &data->chest_i->pixels[(i.y * \
-CHEST_SIZE + i.x) * 4]);
+data->chest_i->width + i.x) * 4]);
 			}
 		}
 	}

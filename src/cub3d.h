@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/18 18:24:09 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/18 18:39:59 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # define HEIGHT 1024
 # define MINIMAP_SIZE 400
 # define PLAYER_SIZE 16
-# define CHEST_SIZE 60
 # define BLOCKSIZE 200
 # define PI 3.141592653589793
 
