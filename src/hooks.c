@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:55:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/17 17:59:59 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:28:07 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_vision_hooks(t_cub3data *data)
 		if (data->galaxy_i->instances->x < (int32_t)(1920 - \
 		data->galaxy_i->width))
 			data->galaxy_i->instances->x = 0;
+		raycasting(data, data->player.pos);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
@@ -30,6 +31,7 @@ void	ft_vision_hooks(t_cub3data *data)
 		data->galaxy_i->instances->x += 50;
 		if (data->galaxy_i->instances->x > 0)
 			data->galaxy_i->instances->x = 1920 - data->galaxy_i->width;
+		raycasting(data, data->player.pos);
 	}
 }
 
@@ -60,6 +62,7 @@ void	ft_doors_hooks(t_cub3data *data)
 			check_collision(data, 0, 0);
 			data->door_open = 1;
 			data->open_coldown = data->time_counter + 300;
+			raycasting(data, data->player.pos);
 		}
 	}
 	if (data->door_open == 1 && (data->pass_door == 1 || \

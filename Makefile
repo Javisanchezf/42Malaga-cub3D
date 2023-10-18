@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+         #
+#    By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/18 18:02:29 by javiersa          #+#    #+#              #
-#    Updated: 2023/10/16 17:07:40 by javiersa         ###   ########.fr        #
+#    Updated: 2023/10/17 20:15:31 by antdelga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = cub3D.a
 PROGRAM = cub3D
 CFLAGS = -Wall -Werror -Wextra
-PERSONALNAME = Minishell
+PERSONALNAME = Cub3D
 LIBFTPLUS = libftplus
 LIBFTPLUS_LIB = $(LIBFTPLUS)/libftplus.a
 MLX42 = MLX42

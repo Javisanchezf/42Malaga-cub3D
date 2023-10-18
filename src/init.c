@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/17 17:34:54 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/17 20:30:28 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ void	init_images(t_cub3data *data)
 	data->map_open.img = ft_calloc(data->map_close.rwidth * data->map_close.height, sizeof(uint8_t));
 
 	data->galaxy_i = create_imgtext(data, "./src/imgs/galaxy.png", 0, 0);
+	
+	data->full_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (!data->full_img)
+		img_failure(data);
+	if (mlx_image_to_window(data->mlx, data->full_img, 0, 0) == -1)
+		img_failure(data);
 
 	data->victory_i = create_imgtext(data, "./src/imgs/victory.png", 0, 0);
 	data->victory_i->enabled = 0;

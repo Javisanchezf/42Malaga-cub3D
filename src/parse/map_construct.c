@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_construct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:12:59 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 20:52:33 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/17 20:30:40 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

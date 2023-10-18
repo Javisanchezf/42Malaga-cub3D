@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 20:40:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/17 17:53:51 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:28:18 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	check_collision(t_cub3data *data, double x, double y)
 	data->player.pos.y += y * PLAYER_SIZE / 2;
 	draw_minimap(data);
 	ufo_rays(data, data->player.ray_img, data->player.orientation);
+	raycasting(data, data->player.pos);
 	if (j == 2)
 		data->pass_door = 1;
 }
