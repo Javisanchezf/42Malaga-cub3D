@@ -3,27 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/18 17:55:37 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/18 21:57:42 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	print_array(int	*array)
-{
-	int	i;
-
-	i = 0;
-	while (i < 66*5)
-	{
-		ft_printf("%d\n", array[i]);
-		i++;
-	}
-	ft_printf("\n");
-}
 
 void	picasso(int t, int col, t_cub3data *data)
 {
@@ -32,10 +20,16 @@ void	picasso(int t, int col, t_cub3data *data)
 
 	i = -1;
 	col *= 2;
-	t = t / 2;
+	// t = t / cos
+
+	// ft_printf("%d\n", t % BLOCKSIZE);
+	// t = (HEIGHT / (pow(2, (t / BLOCKSIZE)))) + (HEIGHT * (t % BLOCKSIZE) / BLOCKSIZE);
+	t = (HEIGHT / (pow(2, (t / BLOCKSIZE)) - 1));
+	// t = t - ((((pow(2, ((t) / BLOCKSIZE)) - 1)) - ((pow(2, ((t + BLOCKSIZE) / BLOCKSIZE)) - 1))) * (t % BLOCKSIZE)) / BLOCKSIZE;
+	t = (HEIGHT - t) / 2;
 	while (++i < HEIGHT - 1)
 	{
-		if (i <  t && i < (HEIGHT / 2))
+		if (i < t)
 			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.blue, 1);
 		else if (i < HEIGHT - t)
 			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.white, 0);
@@ -55,7 +49,7 @@ void	raycasting(t_cub3data *data, t_coords pos)
 {
 	t_coords	p;
 	double		iter;
-	int			t;
+	double		t;
 	int			iswall;
 
 	iter = 0;
@@ -64,15 +58,15 @@ void	raycasting(t_cub3data *data, t_coords pos)
 	while (iter <= 66.01)
 	{
 		t = 0;
-		p.x = pos.x + t * cos(data->player.orientation + (iter + 147) * PI / 180);
-		p.y = pos.y + t * sin(data->player.orientation + (iter + 147) * PI / 180);
+		p.x = pos.x + (t * cos(data->player.orientation + (iter + 147) * PI / 180)) / cos((iter - 33)	* PI / 180);
+		p.y = pos.y + (t * sin(data->player.orientation + (iter + 147) * PI / 180)) / cos((iter - 33)	* PI / 180);
 		while (p.x >= 0 && p.y >= 0 && p.x < WIDTH * BLOCKSIZE && p.y < HEIGHT * BLOCKSIZE && ++t)
 		{
 			iswall = ft_iswall(p, data);
 			if ((iswall == 2 && data->door_open == 0) || iswall == 1)
 				break;
-			p.x = pos.x + t * cos(data->player.orientation + (iter + 147) * PI / 180);
-			p.y = pos.y + t * sin(data->player.orientation + (iter + 147) * PI / 180);
+			p.x = pos.x + (t * cos(data->player.orientation + (iter + 147) * PI / 180)) / cos((iter - 33)	* PI / 180);
+			p.y = pos.y + (t * sin(data->player.orientation + (iter + 147) * PI / 180)) / cos((iter - 33)	* PI / 180);
 		}
 		picasso(t, (int)round(iter * 14), data);
 		iter += 0.0714285714285714;
