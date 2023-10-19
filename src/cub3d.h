@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/18 18:39:59 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:02:32 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define PLAYER_SIZE 16
 # define BLOCKSIZE 200
 # define PI 3.141592653589793
+# define ANGLE 60
+# define SAMPLE 2
 
 /*----------------------------HEADER----------------------------*/
 
@@ -166,6 +168,6 @@ mlx_image_t	*create_imgtext(t_cub3data *data, char *file, int x, int y);
 int			ft_isabroadwall(t_coords p, int radius, t_cub3data *data);
 
 /*------------------------RAYCASTING FUNCTIONS------------------------*/
-void		raycasting(t_cub3data *data, t_coords pos);
+void	raycasting(t_cub3data *data, t_coords pos);
 
 #endif

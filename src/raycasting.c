@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/19 17:24:40 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:10:24 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	picasso(double t, int col, t_cub3data *data)
 			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.green, 1);
 	}
 	p.y = 0;
-	while (++p.y < 2)
+	while (++p.y < SAMPLE)
 	{
 		p.x = -1;
 		while (++p.x < HEIGHT - 1)
@@ -49,21 +49,24 @@ void	raycasting(t_cub3data *data, t_coords pos)
 	iter = 0;
 	pos.x = pos.x + PLAYER_SIZE / 2 * cos(data->player.orientation);
 	pos.y = pos.y + PLAYER_SIZE / 2 * sin(data->player.orientation);
-	while (iter <= 66.01)
+	while (iter <= ANGLE)
 	{
 		t = 0;
-		p.x = pos.x + (t * cos(data->player.orientation + (iter + 147) * PI / 180)) / cos((iter - 33)	* PI / 180);
-		p.y = pos.y + (t * sin(data->player.orientation + (iter + 147) * PI / 180)) / cos((iter - 33)	* PI / 180);
+		p.x = pos.x + (t * cos(data->player.orientation + (iter + 180 - (ANGLE / 2)) * PI / 180)) / cos((iter - (ANGLE / 2)) * PI / 180);
+		p.y = pos.y + (t * sin(data->player.orientation + (iter + 180 - (ANGLE / 2)) * PI / 180)) / cos((iter - (ANGLE / 2)) * PI / 180);
 		while (p.x >= 0 && p.y >= 0 && p.x < WIDTH * BLOCKSIZE && p.y < HEIGHT * BLOCKSIZE && ++t)
 		{
 			(void)iswall;
 			iswall = ft_iswall(p, data);
 			if ((iswall == 2 && data->door_open == 0) || iswall == 1)
 				break;
-			p.x = pos.x + (t * cos(data->player.orientation + (iter + 147) * PI / 180)) / cos((iter - 33)	* PI / 180);
-			p.y = pos.y + (t * sin(data->player.orientation + (iter + 147) * PI / 180)) / cos((iter - 33)	* PI / 180);
+			p.x = pos.x + (t * cos(data->player.orientation + (iter + 180 - (ANGLE / 2)) * PI / 180)) / cos((iter - (ANGLE / 2)) * PI / 180);
+			p.y = pos.y + (t * sin(data->player.orientation + (iter + 180 - (ANGLE / 2)) * PI / 180)) / cos((iter - (ANGLE / 2)) * PI / 180);
 		}
-		picasso(t, (int)round(iter * 14), data);
-		iter += 0.0714285714285714;
+		picasso(t, (int) round(iter * (WIDTH / (ANGLE * SAMPLE))), data);
+		iter += (1.0 / (WIDTH / (ANGLE * SAMPLE)));
 	}
-}
+} 
+
+/*  WIDTH = ANGLE * SAMPLE * X
+ ITER+ * X = 1 */
