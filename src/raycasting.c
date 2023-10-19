@@ -6,12 +6,11 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/19 17:11:49 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/19 17:24:40 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 void	picasso(double t, int col, t_cub3data *data)
 {
@@ -20,8 +19,7 @@ void	picasso(double t, int col, t_cub3data *data)
 
 	i = -1;
 	col *= 2;
-
-	t =( HEIGHT / pow(2, (t / BLOCKSIZE) - 1) - 1);
+	t =( HEIGHT / pow(2, (t / BLOCKSIZE) - 1));
 	t = (HEIGHT - t) / 2;
 	while (++i < HEIGHT - 1)
 	{
@@ -58,8 +56,6 @@ void	raycasting(t_cub3data *data, t_coords pos)
 		p.y = pos.y + (t * sin(data->player.orientation + (iter + 147) * PI / 180)) / cos((iter - 33)	* PI / 180);
 		while (p.x >= 0 && p.y >= 0 && p.x < WIDTH * BLOCKSIZE && p.y < HEIGHT * BLOCKSIZE && ++t)
 		{
-			if (t > 1000)
-				break;
 			(void)iswall;
 			iswall = ft_iswall(p, data);
 			if ((iswall == 2 && data->door_open == 0) || iswall == 1)
