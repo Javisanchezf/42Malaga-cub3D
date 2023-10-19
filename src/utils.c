@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 20:40:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/18 22:33:01 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/19 17:14:04 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ int	ft_iswall(t_coords p, t_cub3data *data)
 
 	pcasted.x = p.x / BLOCKSIZE;
 	pcasted.y = p.y / BLOCKSIZE;
-	if (pcasted.x > data->width || pcasted.y > data->height)
-		return (0);
+	if (pcasted.x >= data->width || pcasted.y >= data->height || \
+	pcasted.x < 0 || pcasted.y < 0)
+		return (1);
 	else if (data->map[pcasted.y][pcasted.x] == '1')
 		return (1);
 	else if (data->map[pcasted.y][pcasted.x] == '2')

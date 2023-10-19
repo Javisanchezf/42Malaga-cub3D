@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:12:59 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/18 18:39:00 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/19 17:16:47 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	drawchest(t_cub3data *data, t_coords p)
 		while (++i.x < (int)data->chest_i->width)
 		{
 			if (data->chest_i->pixels[(i.y * \
-			data->chest_i->width + i.x) * 4 + 3] != 0)
+			data->chest_i->width + i.x) * 4 + 3] > 60)
 			{
 				put_rgbimg(&data->map_close.img[((p.y + i.y) * \
 data->map_close.width + p.x + i.x) * 4], &data->chest_i->pixels[(i.y * \
