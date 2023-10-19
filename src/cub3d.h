@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/19 19:02:32 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:07:42 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,14 @@ typedef struct s_player
 	mlx_image_t			*ray_img;
 }		t_player;
 
+typedef struct s_wall_texture
+{
+	mlx_image_t			*n;
+	mlx_image_t			*s;
+	mlx_image_t			*w;
+	mlx_image_t			*e;
+}		t_wall_texture;
+
 typedef struct s_cub3data
 {
 	char			*ids[6];
@@ -127,6 +135,7 @@ typedef struct s_cub3data
 
 	t_colors		color;
 	bool			finish;
+	t_wall_texture	wall;
 }					t_cub3data;
 
 /*----------------------------PARSE FUNCTIONS----------------------------*/
@@ -168,6 +177,6 @@ mlx_image_t	*create_imgtext(t_cub3data *data, char *file, int x, int y);
 int			ft_isabroadwall(t_coords p, int radius, t_cub3data *data);
 
 /*------------------------RAYCASTING FUNCTIONS------------------------*/
-void	raycasting(t_cub3data *data, t_coords pos);
+void		raycasting(t_cub3data *data, t_coords pos);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:05:58 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/18 18:06:08 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:04:58 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,18 @@ mlx_image_t	*create_imgtext(t_cub3data *data, char *file, int x, int y)
 {
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
+	t_coords		pos;
+	char			*aux;
 
-	texture = mlx_load_png(file);
+	pos.x = 0;
+	while (ft_isspace(file[pos.x]))
+		pos.x++;
+	pos.y = ft_strlen(file) - 1;
+	while (ft_isspace(file[pos.y]) && pos.y > 0)
+		pos.y--;
+	aux = ft_substr(file, pos.x, pos.y - pos.x + 1);
+	texture = mlx_load_png(aux);
+	ft_free_and_null((void **)&aux);
 	if (!texture)
 		img_failure(data);
 	img = mlx_texture_to_image(data->mlx, texture);
