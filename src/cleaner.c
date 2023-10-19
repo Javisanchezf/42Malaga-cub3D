@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 10:41:54 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/18 17:08:46 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:21:25 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,9 @@ void	final_cleaner(t_cub3data *data)
 	mlx_delete_image(data->mlx, data->time);
 	mlx_delete_image(data->mlx, data->player.ray_img);
 	mlx_delete_image(data->mlx, data->full_img);
+	mlx_delete_image(data->mlx, data->wall.n);
+	mlx_delete_image(data->mlx, data->wall.s);
+	mlx_delete_image(data->mlx, data->wall.w);
+	mlx_delete_image(data->mlx, data->wall.e);
 	mlx_terminate(data->mlx);
 }
