@@ -1,7 +1,7 @@
-NO ./maps/m1.png
-SO ./maps/m1.png
-WE ./maps/m1.png
-EA ./maps/m1.png
+NO ./textures/asteroids.png
+SO ./textures/asteroids.png
+WE ./textures/asteroids.png
+EA ./textures/asteroids.png
 
 F 220,100,0
 C 225,30,0
