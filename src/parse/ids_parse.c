@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:37:43 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/23 14:28:47 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:30:40 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*ft_ids_parse(int fd, t_cub3data *data, char *line)
 		ft_free_and_null((void **)&line);
 		line = get_next_line(fd);
 	}
-	if (!line || !ft_extract_color(data->ids[4], &data->color.floor) ||
+	if (!line || !ft_extract_color(data->ids[4], &data->color.floor) || \
 	!ft_extract_color(data->ids[5], &data->color.ceiling))
 		ft_error("Error\nFile doesn't contain valid map\n", 7, line, \
 data->ids[0], data->ids[1], data->ids[2], data->ids[3], data->ids[4], \
