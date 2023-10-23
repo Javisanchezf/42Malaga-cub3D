@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/23 22:15:42 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/24 00:23:54 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct s_falseimg
 typedef struct s_player
 {
 	t_coords			pos;
-	double				orientation;
+	double				angle;
 	mlx_texture_t		*texture;
 	mlx_image_t			*img;
 	mlx_image_t			*ray_img;

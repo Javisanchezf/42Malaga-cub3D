@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:55:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/23 14:43:55 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/24 00:23:36 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	ft_vision_hooks(t_cub3data *data)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
-		data->player.orientation -= 10 * 0.01745;
-		ufo_rays(data, data->player.ray_img, data->player.orientation);
+		data->player.angle -= 10 * 0.01745;
+		ufo_rays(data, data->player.ray_img, data->player.angle);
 		data->galaxy_i->instances->x -= 50;
 		if (data->galaxy_i->instances->x < (int32_t)(1920 - \
 		data->galaxy_i->width))
@@ -26,8 +26,8 @@ void	ft_vision_hooks(t_cub3data *data)
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
-		data->player.orientation += 10 * 0.01745;
-		ufo_rays(data, data->player.ray_img, data->player.orientation);
+		data->player.angle += 10 * 0.01745;
+		ufo_rays(data, data->player.ray_img, data->player.angle);
 		data->galaxy_i->instances->x += 50;
 		if (data->galaxy_i->instances->x > 0)
 			data->galaxy_i->instances->x = 1920 - data->galaxy_i->width;
@@ -39,16 +39,16 @@ void	ft_movement_hooks(t_cub3data *data)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 		check_collision(data, data->player.pos, \
-cos(data->player.orientation + PI), sin(data->player.orientation + PI));
+cos(data->player.angle + PI), sin(data->player.angle + PI));
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 		check_collision(data, data->player.pos, \
-cos(data->player.orientation), sin(data->player.orientation));
+cos(data->player.angle), sin(data->player.angle));
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 		check_collision(data, data->player.pos, \
-sin(data->player.orientation + PI), -cos(data->player.orientation + PI));
+sin(data->player.angle + PI), -cos(data->player.angle + PI));
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		check_collision(data, data->player.pos, \
-sin(data->player.orientation), -cos(data->player.orientation));
+sin(data->player.angle), -cos(data->player.angle));
 }
 
 void	ft_doors_hooks(t_cub3data *data)
