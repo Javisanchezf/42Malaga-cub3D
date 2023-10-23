@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:55:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/18 18:20:31 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:43:55 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	ft_doors_hooks(t_cub3data *data)
 		{
 			ft_swap(&data->map_close.img, &data->map_open.img, \
 			sizeof(uint8_t *));
-			check_collision(data, data->player.pos, 0, 0);
 			data->door_open = 1;
+			check_collision(data, data->player.pos, 0, 0);
 			data->open_coldown = data->time_counter + 300;
 		}
 	}
