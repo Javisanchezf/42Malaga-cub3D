@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/19 20:07:42 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:02:13 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ typedef struct s_colors
 	t_pixels	green;
 	t_pixels	golden;
 	t_pixels	red;
+	t_pixels	ceiling;
+	t_pixels	floor;
 }		t_colors;
 
 typedef struct s_falseimg

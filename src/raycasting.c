@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/19 19:10:24 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:29:29 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	picasso(double t, int col, t_cub3data *data)
 	while (++i < HEIGHT - 1)
 	{
 		if (i < t)
-			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.blue, 1);
+			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.ceiling, 1);
 		else if (i < HEIGHT - t)
 			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.golden, 1);
 		else
-			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.green, 1);
+			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.floor, 1);
 	}
 	p.y = 0;
 	while (++p.y < SAMPLE)
