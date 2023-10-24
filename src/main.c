@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/19 18:59:02 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/10/24 21:22:35 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int32_t	main(int narg, char **argv)
 	raycasting(&data, data.player.pos);
 	mlx_loop_hook(data.mlx, &keyboard_hooks, (void *)&data);
 	mlx_loop_hook(data.mlx, &time_hook, (void *)&data);
+	mlx_cursor_hook(data.mlx, &cursor_hook, (void *)&data);
 	mlx_loop(data.mlx);
 	final_cleaner(&data);
 	return (EXIT_SUCCESS);

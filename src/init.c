@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/19 20:20:46 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/24 21:17:15 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ void	init_values(t_cub3data	*data)
 	data->door_open = 0;
 	data->pass_door = 0;
 	data->width = 0;
+	data->cursor_hook = 0;
 	init_colors(data);
 }

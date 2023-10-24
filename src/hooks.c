@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:55:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/24 00:23:36 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/24 21:42:34 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,16 @@ void	keyboard_hooks(void *param)
 	ft_movement_hooks(data);
 	ft_vision_hooks(data);
 	ft_doors_hooks(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_0) && !data->cursor_hook)
+	{
+		data->cursor_hook = 1;
+		mlx_set_cursor_mode(data->mlx, MLX_MOUSE_DISABLED);
+	}
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_1) && data->cursor_hook)
+	{
+		data->cursor_hook = 0;
+		mlx_set_cursor_mode(data->mlx, MLX_MOUSE_NORMAL);
+	}
 }
 
 void	time_hook(void *param)

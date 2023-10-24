@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/24 00:23:54 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/24 21:14:35 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,9 @@ typedef struct s_cub3data
 	mlx_image_t		*full_img;
 
 	t_colors		color;
-	bool			finish;
 	t_wall_texture	wall;
+	bool			finish;
+	bool			cursor_hook;
 }					t_cub3data;
 
 /*----------------------------PARSE FUNCTIONS----------------------------*/
@@ -168,8 +169,7 @@ void		put_rgbimg(uint8_t *dest, uint8_t *or);
 /*----------------------------HOOKS FUNCTIONS----------------------------*/
 void		keyboard_hooks(void *param);
 void		time_hook(void *param);
-void		close_door_hook(void *param);
-void		time_hook2(void *param);
+void		cursor_hook(double xpos, double ypos, void *data);
 
 /*----------------------------? FUNCTIONS----------------------------*/
 
