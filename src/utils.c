@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 20:40:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/24 00:23:36 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/24 21:46:14 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,27 @@ int	ft_isabroadwall(t_coords p, int radius, t_cub3data *data)
 	return (value);
 }
 
+int	ft_isabroadwall2(t_coords p, int radius, t_cub3data *data)
+{
+	t_coords	p_abroad[4];
+	int			i;
+	int			value;
+
+	p_abroad[0].x = p.x + radius;
+	p_abroad[0].y = p.y;
+	p_abroad[1].x = p.x - radius;
+	p_abroad[1].y = p.y;
+	p_abroad[2].x = p.x;
+	p_abroad[2].y = p.y + radius;
+	p_abroad[3].x = p.x;
+	p_abroad[3].y = p.y - radius;
+	i = -1;
+	value = 0;
+	while ((++i < 4 && value == 0) || (i < 4 && value == 2 && data->door_open))
+		value = ft_iswall(p_abroad[i], data);
+	return (value);
+}
+
 void	finish(t_cub3data *data)
 {
 	char		*str;
@@ -83,7 +104,7 @@ void	check_collision(t_cub3data *data, t_coords pos, double x, double y)
 
 	pos.x += x * PLAYER_SIZE / 2;
 	pos.y += y * PLAYER_SIZE / 2;
-	j = ft_isabroadwall(pos, PLAYER_SIZE, data);
+	j = ft_isabroadwall2(pos, PLAYER_SIZE, data);
 	if (j == 1 || (j == 2 && data->door_open == 0))
 		return ;
 	else if (j == 3)
