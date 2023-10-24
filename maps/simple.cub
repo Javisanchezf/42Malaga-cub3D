@@ -3,8 +3,8 @@ SO ./textures/asteroids.png
 WE ./textures/asteroids.png
 EA ./textures/asteroids.png
 
-F 220,100,0
-C 225,30,0
+C 0,0,0
+F 0,0,0
 
 111
 1N1
