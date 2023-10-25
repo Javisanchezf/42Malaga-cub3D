@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:05:58 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/25 21:26:18 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/25 21:27:58 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,12 @@ void	put_rgbcolor(uint8_t *pixels, t_pixels color, bool random)
 	pixels[0] = color.r;
 	pixels[1] = color.g;
 	pixels[2] = color.b;
-	pixels[3] = color.a;
 	if (random)
+	{
 		pixels[3] = rand() % 106 + 150;
+		return ;
+	}
+	pixels[3] = color.a;
 }
 
 void	put_rgbimg(uint8_t *dest, uint8_t *or)
