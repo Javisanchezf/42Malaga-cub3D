@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/24 21:52:59 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/25 13:54:00 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ void	picasso(double t, int col, t_cub3data *data)
 
 	i = -1;
 	col *= 2;
-	t = (HEIGHT / pow(2, (t / (BLOCKSIZE)) - 1));
+	t = (HEIGHT / ((t + (BLOCKSIZE * 0.8)) / (BLOCKSIZE)));
 	t = (HEIGHT - t) / 2;
 	while (++i < HEIGHT - 1)
 	{
 		if (i < t)
-			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.ceiling, 1);
+			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.ceiling, 0);
 		else if (i < HEIGHT - t)
 			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.golden, 1);
 		else
-			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.floor, 1);
+			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.floor, 0);
 	}
 	p.y = 0;
 	while (++p.y < SAMPLE)
