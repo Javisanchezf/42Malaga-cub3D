@@ -6,11 +6,11 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:16:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/25 21:16:39 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/25 21:26:04 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	time_hook(void *param)
 {

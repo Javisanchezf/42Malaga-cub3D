@@ -6,11 +6,11 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 10:41:54 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/19 20:21:25 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/25 21:26:12 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	initial_cleaner(t_cub3data *data)
 {

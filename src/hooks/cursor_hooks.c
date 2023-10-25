@@ -6,11 +6,11 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 20:38:47 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/24 21:41:46 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/25 21:25:55 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	cursor_hook(double x2, double y2, void *param)
 {
