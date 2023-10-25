@@ -6,13 +6,13 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:16:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/25 21:26:04 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/25 21:39:30 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	time_hook(void *param)
+void	ft_time_hook(void *param)
 {
 	t_cub3data	*data;
 	char		*str;

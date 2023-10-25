@@ -6,13 +6,13 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:55:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/25 21:26:01 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/25 21:39:06 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	ft_vision_hooks(t_cub3data *data)
+static void	ft_vision_hooks(t_cub3data *data)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
@@ -35,7 +35,7 @@ void	ft_vision_hooks(t_cub3data *data)
 	}
 }
 
-void	ft_movement_hooks(t_cub3data *data)
+static void	ft_movement_hooks(t_cub3data *data)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 		check_collision(data, data->player.pos, \
@@ -51,7 +51,7 @@ sin(data->player.angle + PI), -cos(data->player.angle + PI));
 sin(data->player.angle), -cos(data->player.angle));
 }
 
-void	ft_doors_hooks(t_cub3data *data)
+static void	ft_doors_hooks(t_cub3data *data)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_SPACE))
 	{
@@ -76,7 +76,7 @@ void	ft_doors_hooks(t_cub3data *data)
 	}
 }
 
-void	keyboard_hooks(void *param)
+void	ft_keyboard_hooks(void *param)
 {
 	t_cub3data	*data;
 

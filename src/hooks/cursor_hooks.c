@@ -6,13 +6,13 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 20:38:47 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/25 21:25:55 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/25 21:37:42 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	cursor_hook(double x2, double y2, void *param)
+void	ft_cursor_hook(double x2, double y2, void *param)
 {
 	t_cub3data		*data;
 	static double	y1 = 0;

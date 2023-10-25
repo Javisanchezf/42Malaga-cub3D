@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/25 21:25:01 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/25 21:37:59 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,9 +167,9 @@ void		put_rgbcolor(uint8_t *pixels, t_pixels color, bool random);
 void		put_rgbimg(uint8_t *dest, uint8_t *or);
 
 /*----------------------------HOOKS FUNCTIONS----------------------------*/
-void		keyboard_hooks(void *param);
-void		time_hook(void *param);
-void		cursor_hook(double xpos, double ypos, void *data);
+void		ft_keyboard_hooks(void *param);
+void		ft_time_hook(void *param);
+void		ft_cursor_hook(double xpos, double ypos, void *data);
 
 /*----------------------------? FUNCTIONS----------------------------*/
 
