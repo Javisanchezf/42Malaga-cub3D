@@ -6,11 +6,36 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:37:43 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/23 14:30:40 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/25 13:51:02 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+static bool	ft_extract_color_with_alpha(char **aux, t_pixels *color)
+{
+	t_coords	p;
+
+	if (!aux || ft_split_size(aux) != 4)
+		return (ft_split_free(aux), 0);
+	p.y = -1;
+	while (++p.y < 4)
+	{
+		p.x = -1;
+		while (aux[p.y][++p.x])
+			if (!ft_isdigit(aux[p.y][p.x]) || p.x > 2)
+				return (ft_split_free(aux), 0);
+	}
+	if (ft_atoi(aux[0]) > 255 || ft_atoi(aux[1]) > 255 || \
+	ft_atoi(aux[2]) > 255 || ft_atoi(aux[3]) > 255)
+		return (ft_split_free(aux), 0);
+	color->r = ft_atoi(aux[0]);
+	color->g = ft_atoi(aux[1]);
+	color->b = ft_atoi(aux[2]);
+	color->a = ft_atoi(aux[3]);
+	ft_split_free(aux);
+	return (1);
+}
 
 static bool	ft_extract_color(char *color_str, t_pixels *color)
 {
@@ -22,7 +47,7 @@ static bool	ft_extract_color(char *color_str, t_pixels *color)
 		;
 	aux = ft_split(&color_str[p.x], ',');
 	if (!aux || ft_split_size(aux) != 3)
-		return (ft_split_free(aux), 0);
+		return (ft_extract_color_with_alpha(aux, color));
 	p.y = -1;
 	while (++p.y < 3)
 	{
