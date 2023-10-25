@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/25 13:54:00 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/25 19:18:53 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	picasso(double t, int col, t_cub3data *data)
 
 	i = -1;
 	col *= 2;
-	t = (HEIGHT / ((t + (BLOCKSIZE * 0.8)) / (BLOCKSIZE)));
+	t = (HEIGHT / (t / BLOCKSIZE));
 	t = (HEIGHT - t) / 2;
 	while (++i < HEIGHT - 1)
 	{

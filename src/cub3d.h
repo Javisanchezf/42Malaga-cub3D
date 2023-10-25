@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/24 21:14:35 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/25 18:46:50 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define BLOCKSIZE 200
 # define PI 3.141592653589793
 # define ANGLE 60
-# define SAMPLE 2
+# define SAMPLE 1
 
 /*----------------------------HEADER----------------------------*/
 
