@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:12:59 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/24 00:23:36 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/26 11:41:36 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	map_construct(t_cub3data *data)
 			put_rgbcolor(&data->map_open.img[i], data->color.green, 1);
 		i += 4;
 	}
-	draw_minimap(data);
-	ufo_rays(data, data->player.ray_img, data->player.angle);
+	ft_draw_minimap(data);
+	ft_draw_ufo_rays(data, data->player.ray_img, data->player.angle);
+	raycasting(data, data->player.pos);
 }

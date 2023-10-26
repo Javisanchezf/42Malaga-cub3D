@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_dynamics.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 20:40:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/24 21:46:14 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/26 11:41:36 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	ft_iswall(t_coords p, t_cub3data *data)
 {
@@ -34,53 +34,56 @@ int	ft_iswall(t_coords p, t_cub3data *data)
 	return (0);
 }
 
-int	ft_isabroadwall(t_coords p, int radius, t_cub3data *data)
+int	ft_check_player_abroad(t_coords p, t_cub3data *data, bool doors)
 {
 	t_coords	p_abroad[4];
 	int			i;
 	int			value;
 
-	p_abroad[0].x = p.x + radius;
+	p_abroad[0].x = p.x + PLAYER_SIZE;
 	p_abroad[0].y = p.y;
-	p_abroad[1].x = p.x - radius;
+	p_abroad[1].x = p.x - PLAYER_SIZE;
 	p_abroad[1].y = p.y;
 	p_abroad[2].x = p.x;
-	p_abroad[2].y = p.y + radius;
+	p_abroad[2].y = p.y + PLAYER_SIZE;
 	p_abroad[3].x = p.x;
-	p_abroad[3].y = p.y - radius;
+	p_abroad[3].y = p.y - PLAYER_SIZE;
 	i = -1;
 	value = 0;
-	while (++i < 4 && value == 0)
-		value = ft_iswall(p_abroad[i], data);
-	return (value);
-}
-
-int	ft_isabroadwall2(t_coords p, int radius, t_cub3data *data)
-{
-	t_coords	p_abroad[4];
-	int			i;
-	int			value;
-
-	p_abroad[0].x = p.x + radius;
-	p_abroad[0].y = p.y;
-	p_abroad[1].x = p.x - radius;
-	p_abroad[1].y = p.y;
-	p_abroad[2].x = p.x;
-	p_abroad[2].y = p.y + radius;
-	p_abroad[3].x = p.x;
-	p_abroad[3].y = p.y - radius;
-	i = -1;
-	value = 0;
+	if (!doors)
+	{
+		while (++i < 4 && value == 0)
+			value = ft_iswall(p_abroad[i], data);
+		return (value);
+	}
 	while ((++i < 4 && value == 0) || (i < 4 && value == 2 && data->door_open))
 		value = ft_iswall(p_abroad[i], data);
 	return (value);
 }
 
-void	finish(t_cub3data *data)
+void	ft_redraw(t_cub3data *data, double angle)
+{
+	if (angle != 0)
+	{
+		data->player.angle += angle;
+		data->galaxy_i->instances->x -= (int)(angle * 300);
+		if (data->galaxy_i->instances->x > 0)
+			data->galaxy_i->instances->x = 1920 - data->galaxy_i->width;
+		else if (data->galaxy_i->instances->x < (int32_t)(1920 - \
+			data->galaxy_i->width))
+			data->galaxy_i->instances->x = 0;
+	}
+	else
+		ft_draw_minimap(data);
+	ft_draw_ufo_rays(data, data->player.ray_img, data->player.angle);
+	raycasting(data, data->player.pos);
+}
+
+static void	finish(t_cub3data *data)
 {
 	char		*str;
 
-	data->finish = 1;
+	data->pause = 1;
 	data->player.img->enabled = 0;
 	data->galaxy_i->enabled = 0;
 	data->chest_i->enabled = 0;
@@ -98,22 +101,20 @@ void	finish(t_cub3data *data)
 	ft_free_and_null((void **)&str);
 }
 
-void	check_collision(t_cub3data *data, t_coords pos, double x, double y)
+void	ft_move(t_cub3data *data, t_coords pos, double x, double y)
 {
 	int			j;
 
 	pos.x += x * PLAYER_SIZE / 2;
 	pos.y += y * PLAYER_SIZE / 2;
-	j = ft_isabroadwall2(pos, PLAYER_SIZE, data);
+	j = ft_check_player_abroad(pos, data, 1);
 	if (j == 1 || (j == 2 && data->door_open == 0))
 		return ;
 	else if (j == 3)
 		return (finish(data));
 	data->player.pos.x = pos.x;
 	data->player.pos.y = pos.y;
-	draw_minimap(data);
-	ufo_rays(data, data->player.ray_img, data->player.angle);
-	raycasting(data, data->player.pos);
+	ft_redraw(data, 0);
 	if (j == 2)
 		data->pass_door = 1;
 }

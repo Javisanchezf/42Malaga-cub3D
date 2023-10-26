@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils_img.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:05:58 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/25 21:27:58 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/26 11:40:49 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-mlx_image_t	*img_by_text(t_cub3data *data, char *file, int x, int y)
+mlx_image_t	*ft_img_by_text(t_cub3data *data, char *file, int x, int y)
 {
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;

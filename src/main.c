@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/25 21:38:04 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/26 11:29:47 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int32_t	main(int narg, char **argv)
 	ft_parse_data(argv[1], &data);
 	init_images(&data);
 	map_construct(&data);
-	raycasting(&data, data.player.pos);
 	mlx_loop_hook(data.mlx, &ft_keyboard_hooks, (void *)&data);
 	mlx_loop_hook(data.mlx, &ft_time_hook, (void *)&data);
 	mlx_cursor_hook(data.mlx, &ft_cursor_hook, (void *)&data);

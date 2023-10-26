@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+         #
+#    By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/18 18:02:29 by javiersa          #+#    #+#              #
-#    Updated: 2023/10/25 21:25:32 by javiersa         ###   ########.fr        #
+#    Updated: 2023/10/26 11:34:52 by javiersa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ MLX_LIB = MLX42/libmlx42.a
 MLX_FLAGS = -lm -I include -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 CC = gcc
 CLEAN = rm -Rf
-SRC = $(wildcard src/*.c src/parse/*.c src/hooks/*.c src/utils/*.c)
+SRC = $(wildcard src/*.c src/parse/*.c src/hooks/*.c src/utils/*.c src/picasso/*.c)
 OBJS := $(SRC:.c=.o)
 
 # Personal use variables

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time_hooks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:16:21 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/25 21:39:30 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/26 10:27:15 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_time_hook(void *param)
 	int			i;
 
 	data = param;
-	if (data->finish == 1)
+	if (data->pause == 1)
 		return ;
 	data->time_counter++;
 	mlx_delete_image(data->mlx, data->time);

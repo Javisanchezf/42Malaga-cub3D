@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.c                                     :+:      :+:    :+:   */
+/*   draw_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/11 19:44:13 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/16 18:56:20 by javiersa         ###   ########.fr       */
+/*   Created: 2023/10/26 11:35:13 by javiersa          #+#    #+#             */
+/*   Updated: 2023/10/26 11:35:16 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	converttocircle(mlx_image_t *image, int radius)
 {
@@ -36,35 +36,7 @@ center.x) + (index.y - center.y) * (index.y - center.y);
 	}
 }
 
-void	ufo_rays(t_cub3data *data, mlx_image_t *img, double angle)
-{
-	t_coords	p;
-	double		i;
-	int			t;
-
-	ft_memset(img->pixels, 0, img->width * 4 * img->height);
-	i = 175;
-	while (i < 185)
-	{
-		t = 1;
-		p.x = img->width / 2 + t * cos(angle + i * PI / 180);
-		p.y = img->height / 2 + t * sin(angle + i * PI / 180);
-		while (p.x >= 0 && p.y >= 0 && p.x < (int) img->width && p.y < \
-		(int)img->height && ++t)
-		{
-			if (data->minimap->pixels[p.y * img->width * 4 + p.x * 4] != \
-27 || data->minimap->pixels[p.y * img->width * 4 + p.x * 4 + 3] == 0)
-				break ;
-			put_rgbcolor(&img->pixels[p.y * img->width * 4 + p.x * 4], \
-data->color.golden, 0);
-			p.x = img->width / 2 + t * cos(angle + i * PI / 180);
-			p.y = img->height / 2 + t * sin(angle + i * PI / 180);
-		}
-		i += 0.2;
-	}
-}
-
-void	locuramap_close(t_cub3data *data, int startx, int start)
+static void	ft_crop_minimap(t_cub3data *data, int startx, int start)
 {
 	t_coords	p;
 
@@ -93,7 +65,7 @@ data->map_close.width * 4 >= data->map_close.height * data->map_close.width * 4)
 	converttocircle(data->minimap, data->minimap->width / 2);
 }
 
-void	draw_minimap(t_cub3data *data)
+void	ft_draw_minimap(t_cub3data *data)
 {
 	int			startx;
 	int			starty;
@@ -104,5 +76,5 @@ void	draw_minimap(t_cub3data *data)
 	starty = (data->player.pos.y - data->minimap->height / 2);
 	startx = (data->player.pos.x - data->minimap->width / 2) * 4;
 	start = starty * data->map_close.width * 4 + startx;
-	locuramap_close(data, startx, start);
+	ft_crop_minimap(data, startx, start);
 }

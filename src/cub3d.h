@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/25 21:37:59 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/26 11:41:36 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 # define MINIMAP_SIZE 400
 # define PLAYER_SIZE 16
 # define BLOCKSIZE 200
+# define COLDOWN 3
 # define PI 3.141592653589793
 # define ANGLE 60
-# define SAMPLE 1
+# define SAMPLE 2
 
 /*----------------------------HEADER----------------------------*/
 
@@ -137,7 +138,7 @@ typedef struct s_cub3data
 
 	t_colors		color;
 	t_wall_texture	wall;
-	bool			finish;
+	bool			pause;
 	bool			cursor_hook;
 }					t_cub3data;
 
@@ -161,22 +162,22 @@ void		img_failure(t_cub3data *data);
 
 /*----------------------------UTILS FUNCTIONS----------------------------*/
 
+void		ft_move(t_cub3data *data, t_coords pos, double x, double y);
 int			ft_iswall(t_coords p, t_cub3data *data);
-void		check_collision(t_cub3data *data, t_coords pos, double x, double y);
+int			ft_check_player_abroad(t_coords p, t_cub3data *data, bool doors);
+void		ft_redraw(t_cub3data *data, double angle);
 void		put_rgbcolor(uint8_t *pixels, t_pixels color, bool random);
 void		put_rgbimg(uint8_t *dest, uint8_t *or);
+mlx_image_t	*ft_img_by_text(t_cub3data *data, char *file, int x, int y);
 
 /*----------------------------HOOKS FUNCTIONS----------------------------*/
 void		ft_keyboard_hooks(void *param);
 void		ft_time_hook(void *param);
 void		ft_cursor_hook(double xpos, double ypos, void *data);
 
-/*----------------------------? FUNCTIONS----------------------------*/
-
-void		draw_minimap(t_cub3data *data);
-void		ufo_rays(t_cub3data *data, mlx_image_t *img, double angle);
-mlx_image_t	*img_by_text(t_cub3data *data, char *file, int x, int y);
-int			ft_isabroadwall(t_coords p, int radius, t_cub3data *data);
+/*----------------------------DRAW FUNCTIONS----------------------------*/
+void		ft_draw_minimap(t_cub3data *data);
+void		ft_draw_ufo_rays(t_cub3data *data, mlx_image_t *img, double angle);
 
 /*------------------------RAYCASTING FUNCTIONS------------------------*/
 void		raycasting(t_cub3data *data, t_coords pos);
