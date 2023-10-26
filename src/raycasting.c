@@ -6,7 +6,7 @@
 /*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/26 21:35:36 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/10/26 21:44:30 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ void	raycasting(t_cub3data *data, t_coords pos)
 			aux.p.y = pos.y + (aux.dist * aux.sin) / aux.correction;
 		}
 		aux.niidea = (aux.p.y * data->width * BLOCKSIZE + aux.p.x) * 4;
-		if (data->map_close.img[aux.niidea] == 254 && ((data->map_close.img[aux.niidea + 4 * data->width * BLOCKSIZE] != 252) || (data->map_close.img[aux.niidea - 4 * data->width * BLOCKSIZE] != 252)))
+		if (data->map_close.img[aux.niidea] == 254 && ((data->map_close.img[aux.niidea + 8 * 4 * data->width * BLOCKSIZE] != 252) || (data->map_close.img[aux.niidea - 8 * 4 * data->width * BLOCKSIZE] != 252)) && ((data->map_close.img[aux.niidea + 8 * 4 * data->width * BLOCKSIZE] != 251) || (data->map_close.img[aux.niidea - 8 * 4 * data->width * BLOCKSIZE] != 251)))
 			picasso(aux.dist, aux.iter * (WIDTH / (ANGLE * SAMPLE)), data, data->color.red);
-		else if (data->map_close.img[aux.niidea] == 253)
+		else if (data->map_close.img[aux.niidea] == 253 && ((data->map_close.img[aux.niidea + 8 * 4 * data->width * BLOCKSIZE] != 252) || (data->map_close.img[aux.niidea - 8 * 4 * data->width * BLOCKSIZE] != 252)) && ((data->map_close.img[aux.niidea + 8 * 4 * data->width * BLOCKSIZE] != 251) || (data->map_close.img[aux.niidea - 8 * 4 * data->width * BLOCKSIZE] != 251)))
 			picasso(aux.dist, aux.iter * (WIDTH / (ANGLE * SAMPLE)), data, data->color.golden);
-		else if (data->map_close.img[aux.niidea] == 252)
+		else if (data->map_close.img[aux.niidea] == 252 || ((data->map_close.img[aux.niidea] == 254 || data->map_close.img[aux.niidea] == 253) && ((data->map_close.img[aux.niidea + 8 * 4 * data->width * BLOCKSIZE] == 252) || (data->map_close.img[aux.niidea - 8 * 4 * data->width * BLOCKSIZE] == 252))))
 			picasso(aux.dist, aux.iter * (WIDTH / (ANGLE * SAMPLE)), data, data->color.blue);
-		else if (data->map_close.img[aux.niidea] == 251)
+		else if (data->map_close.img[aux.niidea] == 251 || ((data->map_close.img[aux.niidea] == 254 || data->map_close.img[aux.niidea] == 253) && ((data->map_close.img[aux.niidea + 8 * 4 * data->width * BLOCKSIZE] == 251) || (data->map_close.img[aux.niidea - 8 * 4 * data->width * BLOCKSIZE] == 251))))
 			picasso(aux.dist, aux.iter * (WIDTH / (ANGLE * SAMPLE)), data, data->color.green);
 		else
 			picasso(aux.dist, aux.iter * (WIDTH / (ANGLE * SAMPLE)), data, data->color.white);
