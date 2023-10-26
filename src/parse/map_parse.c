@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:45:00 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/24 00:23:36 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:08:22 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	ft_map_parse(t_cub3data *data)
 	}
 	if (error)
 	{
-		initial_cleaner(data);
+		ft_initial_cleaner(data);
 		ft_error("ERROR\n This map is not valid\n", 0);
 	}
 	ft_extract_player_position(data);

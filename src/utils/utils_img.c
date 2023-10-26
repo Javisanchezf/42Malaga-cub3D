@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:05:58 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/26 11:40:49 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:08:44 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ mlx_image_t	*ft_img_by_text(t_cub3data *data, char *file, int x, int y)
 	texture = mlx_load_png(aux);
 	ft_free_and_null((void **)&aux);
 	if (!texture)
-		img_failure(data);
+		ft_img_failure(data);
 	img = mlx_texture_to_image(data->mlx, texture);
 	if (mlx_image_to_window(data->mlx, img, x, y) == -1)
-		img_failure(data);
+		ft_img_failure(data);
 	mlx_delete_texture(texture);
 	return (img);
 }

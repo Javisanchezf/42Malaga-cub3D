@@ -6,13 +6,13 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 11:35:13 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/26 11:35:16 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:04:48 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	converttocircle(mlx_image_t *image, int radius)
+static void	ft_convert_to_circle(mlx_image_t *image, int radius)
 {
 	t_coords	center;
 	t_coords	index;
@@ -62,7 +62,7 @@ data->map_close.height * data->map_close.width * 4)
 data->map_close.width * 4 >= data->map_close.height * data->map_close.width * 4)
 			break ;
 	}
-	converttocircle(data->minimap, data->minimap->width / 2);
+	ft_convert_to_circle(data->minimap, data->minimap->width / 2);
 }
 
 void	ft_draw_minimap(t_cub3data *data)

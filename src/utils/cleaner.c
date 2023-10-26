@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cleaner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 10:41:54 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/25 21:26:12 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:08:44 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	initial_cleaner(t_cub3data *data)
+void	ft_initial_cleaner(t_cub3data *data)
 {
 	int	i;
 
@@ -24,17 +24,17 @@ void	initial_cleaner(t_cub3data *data)
 	ft_free_and_null((void **)&data->map_open.img);
 }
 
-void	img_failure(t_cub3data *data)
+void	ft_img_failure(t_cub3data *data)
 {
 	mlx_close_window(data->mlx);
 	ft_error("Error\nImage/Texture failure", 0);
-	initial_cleaner(data);
+	ft_initial_cleaner(data);
 	exit(EXIT_FAILURE);
 }
 
-void	final_cleaner(t_cub3data *data)
+void	ft_final_cleaner(t_cub3data *data)
 {
-	initial_cleaner(data);
+	ft_initial_cleaner(data);
 	mlx_delete_image(data->mlx, data->player.img);
 	mlx_delete_image(data->mlx, data->galaxy_i);
 	mlx_delete_image(data->mlx, data->chest_i);

@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/26 11:41:36 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:08:44 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,9 +156,9 @@ void		init_images(t_cub3data *data);
 
 /*----------------------------CLEANER FUNCTIONS----------------------------*/
 
-void		initial_cleaner(t_cub3data	*data);
-void		final_cleaner(t_cub3data *data);
-void		img_failure(t_cub3data *data);
+void		ft_initial_cleaner(t_cub3data	*data);
+void		ft_final_cleaner(t_cub3data *data);
+void		ft_img_failure(t_cub3data *data);
 
 /*----------------------------UTILS FUNCTIONS----------------------------*/
 
