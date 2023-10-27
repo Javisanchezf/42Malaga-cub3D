@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_construct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:12:59 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/26 21:34:46 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:28:48 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	ft_draw_square(t_cub3data *data, t_coords p, t_pixels color)
 {
 	int			i;
 	int			j;
-	t_pixels	color2;
 
 	p.x *= BLOCKSIZE;
 	p.y *= BLOCKSIZE;
@@ -29,36 +28,12 @@ static void	ft_draw_square(t_cub3data *data, t_coords p, t_pixels color)
 	if (p.y + BLOCKSIZE > data->map_close.height)
 		p.y = data->map_close.height - BLOCKSIZE;
 	i = p.y - 1;
-	color2.r = color.r;
-	color2.g = color.g;
-	color2.b = color.b;
-	color2.a = color.a;
 	while (++i < p.y + BLOCKSIZE)
 	{
 		j = p.x - 1;
-		if (color.r == 255)
-		{
-			if (i <= p.y + 2)
-				color2.r = 254; //ESTA ES LA NORTE
-			else if (i >= p.y + BLOCKSIZE - 3)
-				color2.r = 253; //ESTA ES LA SUR
-			else
-				color2 = data->color.white;
-		}
 		while (++j < p.x + BLOCKSIZE)
-		{
-			if (color.r == 255 && i > p.y + 2 && i < p.y + BLOCKSIZE - 3)
-			{
-				if (j >= p.x + 2)
-					color2.r = 252; //ESTA ES LA OESTE
-				else if (j <= p.x + BLOCKSIZE - 3)
-					color2.r = 251; //ESTA ES LA ESTE
-				else
-					color2 = data->color.white;
-			}
 			put_rgbcolor(&(data->map_close.img[(i * \
-		data->map_close.width + j) * 4]), color2, 1);
-		}
+		data->map_close.width + j) * 4]), color, 1);
 	}
 }
 
