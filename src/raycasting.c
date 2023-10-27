@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/27 10:27:49 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:46:28 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_aux
 	double		sin;
 	int			este;
 	int			norte;
+	int			otro;
 }		t_aux;
 
 void	picasso(double t, int col, t_cub3data *data, t_pixels color)
@@ -74,11 +75,12 @@ void	raycasting(t_cub3data *data, t_coords pos)
 			aux.p.x = pos.x + (aux.dist * aux.cos) / aux.correction;
 			aux.p.y = pos.y + (aux.dist * aux.sin) / aux.correction;
 		}
+		aux.otro = (aux.p.y * data->width * BLOCKSIZE + aux.p.x) * 4;
 		aux.este = (aux.p.y * data->width * BLOCKSIZE + aux.p.x) % BLOCKSIZE;
 		aux.norte = aux.p.y % BLOCKSIZE;
-		if (aux.este <= 2)
+		if (aux.este <= 2 && data->map_close.img[aux.otro - 8 * 4] != 255)
 			picasso(aux.dist, aux.iter * (WIDTH / (ANGLE * SAMPLE)), data, data->color.red);
-		else if (aux.este >= BLOCKSIZE - 2)
+		else if (aux.este >= BLOCKSIZE - 2 && data->map_close.img[aux.otro + 8 * 4] != 255)
 			picasso(aux.dist, aux.iter * (WIDTH / (ANGLE * SAMPLE)), data, data->color.golden);
 		else if (aux.norte <= 2)
 			picasso(aux.dist, aux.iter * (WIDTH / (ANGLE * SAMPLE)), data, data->color.blue);
