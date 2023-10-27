@@ -6,91 +6,92 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/27 10:51:46 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/27 17:21:22 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-typedef struct s_aux
-{
-	t_coords	p;
-	double		iter;
-	double		dist;
-	int			iswall;
-	double		correction;
-	double		cos;
-	double		sin;
-	int			este;
-	int			norte;
-	int			otro;
-}		t_aux;
-
 void	picasso(double t, int col, t_cub3data *data, t_pixels color)
 {
 	int			i;
-	t_coords	p;
 
-	i = -1;
-	col *= 2;
 	t = (HEIGHT / (t / BLOCKSIZE));
 	t = (HEIGHT - t) / 2;
+	i = -1;
 	while (++i < HEIGHT - 1)
 	{
 		if (i < t)
 			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.ceiling, 0);
 		else if (i < HEIGHT - t)
-			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), color, 1);
+			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), color, 0);
 		else
 			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.floor, 0);
+		put_rgbimg(&data->full_img->pixels[(i * WIDTH + col + 1) * 4], &data->full_img->pixels[(i * WIDTH + col) * 4]);
 	}
-	p.y = 0;
-	while (++p.y < SAMPLE)
+}
+
+static void	ft_wall_direction(t_cub3data *data, t_coords p, int dist, double iter)
+{
+	int	rest_y;
+	int rest_x;
+	int	aux;
+
+	if (ft_iswall(p, data) == 2)
 	{
-		p.x = -1;
-		while (++p.x < HEIGHT - 1)
-			put_rgbimg(&data->full_img->pixels[(p.x * data->full_img->width + col + p.y) * 4], &data->full_img->pixels[(p.x * data->full_img->width + col) * 4]);
+		picasso(dist, iter * (WIDTH / ANGLE), data, data->color.white); // DOORS
+		return ;
 	}
+	aux = (p.y * data->width * BLOCKSIZE + p.x) * 4;
+	rest_x = p.x % BLOCKSIZE;
+	rest_y = p.y % BLOCKSIZE;
+	if (rest_x <= 2 && data->map_close.img[aux - 2 * 4] != 255)
+		picasso(dist, iter * (WIDTH / ANGLE), data, data->color.red); //EAST?
+	else if (rest_x >= BLOCKSIZE - 2 && data->map_close.img[aux + 2 * 4] != 255)
+		picasso(dist, iter * (WIDTH / ANGLE), data, data->color.golden); //WEST?
+	else if (rest_y <= 2)
+		picasso(dist, iter * (WIDTH / ANGLE), data, data->color.blue); //SOUTH
+	else if (rest_y >= BLOCKSIZE - 2)
+		picasso(dist, iter * (WIDTH / ANGLE), data, data->color.green); //NORTH
+}
+
+static int	ft_take_dist(t_cub3data *data, double iter, t_coords *p)
+{
+	int			dist;
+	double		fix;
+	double		cos_c;
+	double		sin_c;
+	int			iswall;
+
+	dist = 1;
+	fix = cos((iter + 180 - (ANGLE / 2)) * TORADIANS);
+	cos_c = (cos(data->player.angle + (iter - (ANGLE / 2)) * TORADIANS)) / fix;
+	sin_c = (sin(data->player.angle + (iter - (ANGLE / 2)) * TORADIANS)) / fix;
+	p->x = data->player.pos.x + dist * cos_c;
+	p->y = data->player.pos.y + dist * sin_c;
+	while (p->x >= 0 && p->y >= 0 && p->x < WIDTH * BLOCKSIZE && \
+	p->y < HEIGHT * BLOCKSIZE && ++dist)
+	{
+		iswall = ft_iswall(*p, data);
+		if ((iswall == 2 && data->door_open == 0) || iswall == 1)
+			break ;
+		p->x = data->player.pos.x + dist * cos_c;
+		p->y = data->player.pos.y + dist * sin_c;
+	}
+	return (dist);
 }
 
 void	raycasting(t_cub3data *data, t_coords pos)
 {
-	t_aux	aux;
+	static const double	iter_variation = 1.0 / (WIDTH / ANGLE);
+	double				iter;
+	int					dist;
 
-	aux.iter = 0;
-	while (aux.iter <= ANGLE)
+	iter = 0;
+	while (iter <= ANGLE)
 	{
-		aux.dist = 1;
-		aux.correction = cos((aux.iter + 180 - (ANGLE / 2)) * PI / 180);
-		aux.cos = cos(data->player.angle + (aux.iter - (ANGLE / 2)) * PI / 180);
-		aux.sin = sin(data->player.angle + (aux.iter - (ANGLE / 2)) * PI / 180);
-		aux.p.x = pos.x + (aux.dist * aux.cos) / aux.correction;
-		aux.p.y = pos.y + (aux.dist * aux.sin) / aux.correction;
-		while (aux.p.x >= 0 && aux.p.y >= 0 && aux.p.x < WIDTH * BLOCKSIZE && \
-		aux.p.y < HEIGHT * BLOCKSIZE && ++aux.dist)
-		{
-			aux.iswall = ft_iswall(aux.p, data);
-			if ((aux.iswall == 2 && data->door_open == 0) || aux.iswall == 1)
-				break ;
-			aux.p.x = pos.x + (aux.dist * aux.cos) / aux.correction;
-			aux.p.y = pos.y + (aux.dist * aux.sin) / aux.correction;
-		}
-		aux.otro = (aux.p.y * data->width * BLOCKSIZE + aux.p.x) * 4;
-		aux.este = (aux.p.y * data->width * BLOCKSIZE + aux.p.x) % BLOCKSIZE;
-		aux.norte = aux.p.y % BLOCKSIZE;
-		if (aux.este <= 2 && data->map_close.img[aux.otro - 2 * 4] != 255)
-			picasso(aux.dist, aux.iter * (WIDTH / (ANGLE * SAMPLE)), data, data->color.red);
-		else if (aux.este >= BLOCKSIZE - 2 && data->map_close.img[aux.otro + 2 * 4] != 255)
-			picasso(aux.dist, aux.iter * (WIDTH / (ANGLE * SAMPLE)), data, data->color.golden);
-		else if (aux.norte <= 2)
-			picasso(aux.dist, aux.iter * (WIDTH / (ANGLE * SAMPLE)), data, data->color.blue);
-		else if (aux.norte >= BLOCKSIZE - 2)
-			picasso(aux.dist, aux.iter * (WIDTH / (ANGLE * SAMPLE)), data, data->color.green);
-		else
-			picasso(aux.dist, aux.iter * (WIDTH / (ANGLE * SAMPLE)), data, data->color.white);
-		aux.iter += (1.0 / (WIDTH / (ANGLE * SAMPLE)));
+		dist = ft_take_dist(data, iter, &pos);
+		ft_wall_direction(data, pos, dist, iter); //Esta se puede hacer que sea tipo img y que devuelva la textura correspondiente para llamar luego a la que pinta con la textura
+		iter += iter_variation;
 	}
 }
-
-/*  WIDTH = ANGLE * SAMPLE * X
- ITER+ * X = 1 */

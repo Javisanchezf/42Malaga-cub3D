@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:45:00 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/26 12:08:22 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:48:41 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ static void	ft_extract_player_position(t_cub3data *data)
 				data->player.pos.x = p.x * BLOCKSIZE + BLOCKSIZE / 2;
 				data->player.pos.y = p.y * BLOCKSIZE + BLOCKSIZE / 2;
 				if (data->map[p.y][p.x] == 'N')
-					data->player.angle = 90 * PI / 180;
+					data->player.angle = 90 * TORADIANS;
 				else if (data->map[p.y][p.x] == 'S')
-					data->player.angle = 270 * PI / 180;
+					data->player.angle = 270 * TORADIANS;
 				else if (data->map[p.y][p.x] == 'W')
-					data->player.angle = 180 * PI / 180;
+					data->player.angle = 180 * TORADIANS;
 				else
 					data->player.angle = 0;
 				return ;

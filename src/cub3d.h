@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/26 12:08:44 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:48:26 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 # define PLAYER_SIZE 16
 # define BLOCKSIZE 200
 # define COLDOWN 3
-# define PI 3.141592653589793
 # define ANGLE 60
-# define SAMPLE 2
+# define PI 3.141592653589793
+# define TORADIANS 0.017453292519943295
 
 /*----------------------------HEADER----------------------------*/
 
