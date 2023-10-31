@@ -1,7 +1,7 @@
-NO ./textures/asteroids.png
-SO ./textures/asteroids.png
-WE ./textures/asteroids.png
-EA ./textures/asteroids.png
+NO ./textures/d.png
+SO ./textures/d.png
+WE ./textures/d.png
+EA ./textures/d.png
 
 C 0,0,0,0
 F 69,24,4

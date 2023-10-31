@@ -3,31 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/27 17:21:22 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/10/31 21:12:43 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	picasso(double t, int col, t_cub3data *data, t_pixels color)
+void	picasso(double t, int col, t_cub3data *data, mlx_image_t *img, int rest)
 {
 	int			i;
+	int			col2;
 
 	t = (HEIGHT / (t / BLOCKSIZE));
 	t = (HEIGHT - t) / 2;
 	i = -1;
+	col2 = rest * img->width / BLOCKSIZE;
 	while (++i < HEIGHT - 1)
 	{
 		if (i < t)
-			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.ceiling, 0);
-		else if (i < HEIGHT - t)
-			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), color, 0);
+			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]),\
+			data->color.ceiling, 0);
+		else if (i < HEIGHT - t - 1)
+			put_rgbimg(&(data->full_img->pixels[(i * WIDTH + col) * 4]), &img->pixels[(col2 + (i - (int)(t)) * img->width / (HEIGHT - 2 * (int)t) * img->width) * 4]);
 		else
-			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]), data->color.floor, 0);
-		put_rgbimg(&data->full_img->pixels[(i * WIDTH + col + 1) * 4], &data->full_img->pixels[(i * WIDTH + col) * 4]);
+			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]),\
+			data->color.floor, 0);
+		put_rgbimg(&data->full_img->pixels[(i * WIDTH + col + 1) * 4], \
+		&data->full_img->pixels[(i * WIDTH + col) * 4]);
 	}
 }
 
@@ -37,22 +42,22 @@ static void	ft_wall_direction(t_cub3data *data, t_coords p, int dist, double ite
 	int rest_x;
 	int	aux;
 
-	if (ft_iswall(p, data) == 2)
-	{
-		picasso(dist, iter * (WIDTH / ANGLE), data, data->color.white); // DOORS
-		return ;
-	}
+	// if (ft_iswall(p, data) == 2)
+	// {
+	// 	picasso(dist, iter * (WIDTH / ANGLE), data, data->wall.n->pixels, ); // DOORS
+	// 	return ;
+	// }
 	aux = (p.y * data->width * BLOCKSIZE + p.x) * 4;
 	rest_x = p.x % BLOCKSIZE;
 	rest_y = p.y % BLOCKSIZE;
 	if (rest_x <= 2 && data->map_close.img[aux - 2 * 4] != 255)
-		picasso(dist, iter * (WIDTH / ANGLE), data, data->color.red); //EAST?
+		picasso(dist, iter * (WIDTH / ANGLE), data,data->wall.e, rest_y); //EAST?
 	else if (rest_x >= BLOCKSIZE - 2 && data->map_close.img[aux + 2 * 4] != 255)
-		picasso(dist, iter * (WIDTH / ANGLE), data, data->color.golden); //WEST?
+		picasso(dist, iter * (WIDTH / ANGLE), data,data->wall.w, rest_y); //WEST?
 	else if (rest_y <= 2)
-		picasso(dist, iter * (WIDTH / ANGLE), data, data->color.blue); //SOUTH
+		picasso(dist, iter * (WIDTH / ANGLE), data,data->wall.s, rest_x); //SOUTH
 	else if (rest_y >= BLOCKSIZE - 2)
-		picasso(dist, iter * (WIDTH / ANGLE), data, data->color.green); //NORTH
+		picasso(dist, iter * (WIDTH / ANGLE), data,data->wall.n, rest_x); //NORTH
 }
 
 static int	ft_take_dist(t_cub3data *data, double iter, t_coords *p)
@@ -91,7 +96,7 @@ void	raycasting(t_cub3data *data, t_coords pos)
 	while (iter <= ANGLE)
 	{
 		dist = ft_take_dist(data, iter, &pos);
-		ft_wall_direction(data, pos, dist, iter); //Esta se puede hacer que sea tipo img y que devuelva la textura correspondiente para llamar luego a la que pinta con la textura
+		ft_wall_direction(data, pos, dist, iter);
 		iter += iter_variation;
 	}
 }

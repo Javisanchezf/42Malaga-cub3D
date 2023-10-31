@@ -1,10 +1,10 @@
-NO ./textures/asteroids.png
-SO ./textures/asteroids.png
-WE ./textures/asteroids.png
-EA ./textures/asteroids.png
+NO ./textures/a.png
+SO ./textures/a.png
+WE ./textures/a.png
+EA ./textures/a.png
 
-F 69,24,4
-C 0,0,0,0
+F 69,255,0
+C 0,0,255
 
 1111111111111111111111111
 1000000001110000000000001
