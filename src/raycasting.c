@@ -6,7 +6,7 @@
 /*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/10/31 21:12:43 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/11/02 20:17:02 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void	picasso(double t, int col, t_cub3data *data, mlx_image_t *img, int rest)
 			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]),\
 			data->color.ceiling, 0);
 		else if (i < HEIGHT - t - 1)
-			put_rgbimg(&(data->full_img->pixels[(i * WIDTH + col) * 4]), &img->pixels[(col2 + (i - (int)(t)) * img->width / (HEIGHT - 2 * (int)t) * img->width) * 4]);
+			put_rgbimg(&(data->full_img->pixels[(i * WIDTH + col) * 4]), \
+			&img->pixels[(col2 + (i - (int)(t)) * \
+			img->width / (HEIGHT - 2 * (int)t) * img->width) * 4]);
 		else
 			put_rgbcolor(&(data->full_img->pixels[(i * WIDTH + col) * 4]),\
 			data->color.floor, 0);

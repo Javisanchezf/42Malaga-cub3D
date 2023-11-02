@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/27 15:48:26 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/11/02 20:16:50 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 \n\
 		 A simple FPS project implemented in C\n\
 		                 By\n\
-		        --- javiersa && ?? ---\n\
+		        --- javiersa && antdelga ---\n\
 \n\033[0m")
 
 /*----------------------------COLORS----------------------------*/

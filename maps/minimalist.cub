@@ -1,10 +1,10 @@
-NO ./textures/a.png
-SO ./textures/g.png
-WE ./textures/g.png
-EA ./textures/a.png
+NO ./textures/luna.png
+SO ./textures/b.png
+WE ./textures/luna.png
+EA ./textures/b.png
 
-F 69,255,0
-C 0,0,255
+F 40,40,0,100
+C 0,0,0,30
 
         1111111111111111111111111
         1000000001110000000000001
