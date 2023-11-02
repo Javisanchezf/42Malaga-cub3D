@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 20:40:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/11/02 20:50:27 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/11/02 20:55:44 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	ft_move(t_cub3data *data, t_coords pos, double x, double y)
 	int			j;
 	int			i;
 
-	i = PLAYER_SIZE / 2;
+	i = 3;
 	pos.x += x * i;
 	pos.y += y * i;
 	j = ft_check_player_abroad(pos, data, 1);
@@ -119,7 +119,7 @@ void	ft_move(t_cub3data *data, t_coords pos, double x, double y)
 		pos.y = data->player.pos.y + y * i;
 		j = ft_check_player_abroad(pos, data, 1);
 	}
-	if (i <= PLAYER_SIZE / 2)
+	if (i <= 3)
 		return ;
 	data->player.pos.x = pos.x;
 	data->player.pos.y = pos.y;
