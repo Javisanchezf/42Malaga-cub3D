@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 20:40:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/26 11:41:36 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/11/02 20:27:53 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ void	ft_move(t_cub3data *data, t_coords pos, double x, double y)
 {
 	int			j;
 
-	pos.x += x * PLAYER_SIZE / 2;
-	pos.y += y * PLAYER_SIZE / 2;
+	pos.x += x * VELOCITY;
+	pos.y += y * VELOCITY;
 	j = ft_check_player_abroad(pos, data, 1);
 	if (j == 1 || (j == 2 && data->door_open == 0))
 		return ;
