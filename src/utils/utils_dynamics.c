@@ -6,7 +6,7 @@
 /*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 20:40:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/11/02 20:27:53 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/11/02 20:50:27 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,23 @@ static void	finish(t_cub3data *data)
 void	ft_move(t_cub3data *data, t_coords pos, double x, double y)
 {
 	int			j;
+	int			i;
 
-	pos.x += x * VELOCITY;
-	pos.y += y * VELOCITY;
+	i = PLAYER_SIZE / 2;
+	pos.x += x * i;
+	pos.y += y * i;
 	j = ft_check_player_abroad(pos, data, 1);
-	if (j == 1 || (j == 2 && data->door_open == 0))
+	while ((j == 0 || (j == 2 && data->door_open == 1) || \
+	j == 3) && ++i < VELOCITY)
+	{
+		if (j == 3)
+			return (finish(data));
+		pos.x = data->player.pos.x + x * i;
+		pos.y = data->player.pos.y + y * i;
+		j = ft_check_player_abroad(pos, data, 1);
+	}
+	if (i <= PLAYER_SIZE / 2)
 		return ;
-	else if (j == 3)
-		return (finish(data));
 	data->player.pos.x = pos.x;
 	data->player.pos.y = pos.y;
 	ft_redraw(data, 0);
