@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/11/02 20:16:50 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/11/02 20:22:51 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_wall_texture
 	mlx_image_t			*s;
 	mlx_image_t			*w;
 	mlx_image_t			*e;
+	mlx_image_t			*door;
 }		t_wall_texture;
 
 typedef struct s_cub3data

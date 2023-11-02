@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/10/31 20:32:16 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/11/02 20:23:22 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	init_ids_imgs(t_cub3data *data)
 	data->wall.s->enabled = 0;
 	data->wall.w->enabled = 0;
 	data->wall.e->enabled = 0;
+	data->wall.door = ft_img_by_text(data, "./src/imgs/door_close.png", 0, 0);
+	data->wall.door->enabled = 0;
 }
 
 void	init_images_aux(t_cub3data *data)

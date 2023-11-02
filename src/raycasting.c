@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:40:45 by antdelga          #+#    #+#             */
-/*   Updated: 2023/11/02 20:17:02 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/11/02 20:22:23 by javiersa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,17 @@ static void	ft_wall_direction(t_cub3data *data, t_coords p, int dist, double ite
 	int rest_x;
 	int	aux;
 
-	// if (ft_iswall(p, data) == 2)
-	// {
-	// 	picasso(dist, iter * (WIDTH / ANGLE), data, data->wall.n->pixels, ); // DOORS
-	// 	return ;
-	// }
 	aux = (p.y * data->width * BLOCKSIZE + p.x) * 4;
 	rest_x = p.x % BLOCKSIZE;
 	rest_y = p.y % BLOCKSIZE;
+	if (ft_iswall(p, data) == 2)
+	{
+		if ((rest_x <= 2 && data->map_close.img[aux - 2 * 4] != 255) || (rest_x >= BLOCKSIZE - 2 && data->map_close.img[aux + 2 * 4] != 255))
+			picasso(dist, iter * (WIDTH / ANGLE), data, data->wall.door, rest_y); // DOORS
+		else
+			picasso(dist, iter * (WIDTH / ANGLE), data, data->wall.door, rest_x); // DOORS
+		return ;
+	}
 	if (rest_x <= 2 && data->map_close.img[aux - 2 * 4] != 255)
 		picasso(dist, iter * (WIDTH / ANGLE), data,data->wall.e, rest_y); //EAST?
 	else if (rest_x >= BLOCKSIZE - 2 && data->map_close.img[aux + 2 * 4] != 255)
