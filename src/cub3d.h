@@ -6,7 +6,7 @@
 /*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/11/06 21:13:31 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/11/06 21:21:05 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ void		ft_cursor_hook(double xpos, double ypos, void *data);
 /*----------------------------DRAW FUNCTIONS----------------------------*/
 void		ft_draw_minimap(t_cub3data *data);
 void		ft_draw_ufo_rays(t_cub3data *data, mlx_image_t *img, double angle);
+
 
 /*------------------------RAYCASTING FUNCTIONS------------------------*/
 void		raycasting(t_cub3data *data, t_coords pos);
