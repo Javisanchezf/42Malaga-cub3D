@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: javiersa <javiersa@student.42malaga.com>   +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/02/26 21:32:49 by W2Wizard      #+  #+#    #+#              #
-#    Updated: 2023/03/30 20:31:08 by javiersa         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
+#                                                    +#+                       #
+#    Created: 2022/02/26 21:32:49 by W2Wizard      #+#    #+#                  #
+#    Updated: 2022/08/10 12:42:39 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,7 @@ INCLUDE_DIR	:= include
 override HEADERS += -I $(INCLUDE_DIR)
 
 CFLAGS :=	-Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Wno-sign-compare \
-			-DLODEPNG_NO_COMPILE_ANCILLARY_CHUNKS -DLODEPNG_NO_COMPILE_ENCODER \
-			-Wunreachable-code -Ofast
+			-DLODEPNG_NO_COMPILE_ANCILLARY_CHUNKS -DLODEPNG_NO_COMPILE_ENCODER
 ifdef DEBUG
 	CFLAGS += -g
 else

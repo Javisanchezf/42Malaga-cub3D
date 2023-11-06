@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/11/02 20:34:09 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/11/06 21:13:31 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # define WIDTH 1980
-# define HEIGHT 1024
+# define HEIGHT 1020
 # define MINIMAP_SIZE 400
 # define PLAYER_SIZE 16
 # define BLOCKSIZE 200
@@ -25,7 +25,7 @@
 
 /*----------------------------HEADER----------------------------*/
 
-# define HEADER ("\n\033[34;1m\
+# define HEADER "\n\033[34;1m\
 		 ██████╗██╗   ██╗██████╗ ██████╗ ██████╗ \n\
 		██╔════╝██║   ██║██╔══██╗╚════██╗██╔══██╗\n\
 		██║     ██║   ██║██████╔╝ █████╔╝██║  ██║\n\
@@ -36,7 +36,7 @@
 		 A simple FPS project implemented in C\n\
 		                 By\n\
 		        --- javiersa && antdelga ---\n\
-\n\033[0m")
+\n\033[0m"
 
 /*----------------------------COLORS----------------------------*/
 # define BOLD		"\033[1m"
@@ -134,6 +134,7 @@ typedef struct s_cub3data
 	mlx_image_t		*victory_i;
 
 	int				*distances;
+	double			aux;
 
 	mlx_t			*mlx;
 	mlx_image_t		*full_img;

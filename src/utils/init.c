@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javiersa <javiersa@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/11/02 20:23:22 by javiersa         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:50:54 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ data->player.ray_img->height / 2) == -1)
 
 void	init_images(t_cub3data *data)
 {
-	data->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D 42", true);
+	data->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D 42", false);
 	if (!data->mlx)
 	{
 		ft_error("Error\nMLX init failure", 0);
