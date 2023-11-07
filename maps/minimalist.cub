@@ -1,9 +1,9 @@
-NO ./textures/c.png
-SO ./textures/c.png
-WE ./textures/c.png
-EA ./textures/c.png
+NO ./textures/j.png
+SO ./textures/j.png
+WE ./textures/j.png
+EA ./textures/j.png
 
-F 40,40,0,100
+F 200,200,200,30
 C 0,0,0,30
 
         1111111111111111111111111

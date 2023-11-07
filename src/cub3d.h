@@ -6,14 +6,14 @@
 /*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:36:05 by javiersa          #+#    #+#             */
-/*   Updated: 2023/11/06 21:21:05 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/11/07 20:28:42 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # define WIDTH 1980
-# define HEIGHT 1020
+# define HEIGHT 1024
 # define MINIMAP_SIZE 400
 # define PLAYER_SIZE 16
 # define BLOCKSIZE 200
