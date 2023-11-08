@@ -6,7 +6,7 @@
 #    By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/18 18:02:29 by javiersa          #+#    #+#              #
-#    Updated: 2023/11/08 20:03:38 by antdelga         ###   ########.fr        #
+#    Updated: 2023/11/08 20:10:00 by antdelga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,12 +88,12 @@ $(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
 	@echo "$(MAGENTA)Library $(NAME) created successfully.$(DEFAULT)"
 clean: libftplusclean mlx42clean mlx42fclean
-	@$(CLEAN) ./$(OBJS) $(OBJS_BONUS)
+	@$(CLEAN) ./$(OBJS) $(OBJS_BONUS) ./$(NAME_BONUS) ./$(NAME)
 	@echo "$(RED)Removing:$(DEFAULT) All objects from $(PERSONALNAME)."
-fclean: libftplusfclean mlx42fclean clean
-	@$(CLEAN) ./$(NAME) ./$(PROGRAM) ./$(NAME_BONUS)
 	@echo "$(RED)Removing:$(DEFAULT) Library $(NAME)."
 	@echo "$(RED)Removing:$(DEFAULT) Library $(NAME_BONUS)."
+fclean: libftplusfclean mlx42fclean clean
+	@$(CLEAN) ./$(PROGRAM) ./$(PROGRAM_BONUS)
 	@echo "$(RED)Removing:$(DEFAULT) Program $(PROGRAM)."
 	@echo "$(RED)Removing:$(DEFAULT) Program $(PROGRAM_BONUS)."
 re: fclean all
