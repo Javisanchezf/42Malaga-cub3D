@@ -6,7 +6,7 @@
 /*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:35:28 by javiersa          #+#    #+#             */
-/*   Updated: 2023/11/06 19:54:07 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/11/08 19:53:05 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int32_t	main(int narg, char **argv)
 {
 	t_cub3data	data;
 
-	atexit(ft_leaks);
 	ft_printf("%s", &(HEADER));
 	if (narg != 2 || !argv[1])
 		ft_error("Error: Invalid number of arguments", 0);

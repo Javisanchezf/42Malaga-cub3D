@@ -6,13 +6,15 @@
 #    By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/18 18:02:29 by javiersa          #+#    #+#              #
-#    Updated: 2023/11/06 21:22:20 by antdelga         ###   ########.fr        #
+#    Updated: 2023/11/08 20:03:38 by antdelga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # General variables
 NAME = cub3D.a
+NAME_BONUS = cub3D_bonus.a
 PROGRAM = cub3D
+PROGRAM_BONUS = cub3D_bonus
 CFLAGS = -Wall -Werror -Wextra
 PERSONALNAME = Cub3D
 LIBFTPLUS = libftplus
@@ -37,8 +39,27 @@ SRC = 	src/picasso/draw_raycasting.c \
 		src/hooks/cursor_hooks.c \
 		src/hooks/keyboard_hooks.c \
 		src/hooks/time_hooks.c
+
+
+SRC_BONUS = src_bonus/picasso/draw_raycasting_bonus.c \
+		src_bonus/main_bonus.c \
+		src_bonus/parse/map_parse_bonus.c \
+		src_bonus/parse/map_construct_bonus.c \
+		src_bonus/parse/ids_parse_bonus.c \
+		src_bonus/parse/general_parse_bonus.c \
+		src_bonus/utils/cleaner_bonus.c \
+		src_bonus/utils/init_bonus.c \
+		src_bonus/utils/utils_dynamics_bonus.c \
+		src_bonus/utils/utils_img_bonus.c \
+		src_bonus/picasso/draw_minimap_bonus.c \
+		src_bonus/picasso/draw_ufo_rays_bonus.c \
+		src_bonus/hooks/cursor_hooks_bonus.c \
+		src_bonus/hooks/keyboard_hooks_bonus.c \
+		src_bonus/hooks/time_hooks_bonus.c
 		
 OBJS := $(SRC:.c=.o)
+
+OBJS_BONUS := $(SRC_BONUS:.c=.o)
 
 # Personal use variables
 PARAMS = maps/minimalist.cub
@@ -51,10 +72,13 @@ GITIGNORE = .gitignore
 
 all: $(PROGRAM)
 
+bonus: $(PROGRAM_BONUS)
+
 
 $(PROGRAM): $(LIBFTPLUS_LIB) $(MLX_LIB) $(NAME)
 	@$(CC) $(CFLAGS) $(NAME) $(LIBFTPLUS_LIB) $(MLX_LIB) $(MLX_FLAGS) -o $(PROGRAM)
 	@echo "$(MAGENTA)Program $(PERSONALNAME) created successfully.$(DEFAULT)"
+
 
 .c.o:
 	@$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
@@ -64,15 +88,24 @@ $(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
 	@echo "$(MAGENTA)Library $(NAME) created successfully.$(DEFAULT)"
 clean: libftplusclean mlx42clean mlx42fclean
-	@$(CLEAN) ./$(OBJS)
+	@$(CLEAN) ./$(OBJS) $(OBJS_BONUS)
 	@echo "$(RED)Removing:$(DEFAULT) All objects from $(PERSONALNAME)."
 fclean: libftplusfclean mlx42fclean clean
-	@$(CLEAN) ./$(NAME) ./$(PROGRAM)
+	@$(CLEAN) ./$(NAME) ./$(PROGRAM) ./$(NAME_BONUS)
 	@echo "$(RED)Removing:$(DEFAULT) Library $(NAME)."
+	@echo "$(RED)Removing:$(DEFAULT) Library $(NAME_BONUS)."
 	@echo "$(RED)Removing:$(DEFAULT) Program $(PROGRAM)."
+	@echo "$(RED)Removing:$(DEFAULT) Program $(PROGRAM_BONUS)."
 re: fclean all
 
 # Lib rules
+$(PROGRAM_BONUS): $(LIBFTPLUS_LIB) $(MLX_LIB) $(NAME_BONUS)
+	@$(CC) $(CFLAGS) $(NAME_BONUS) $(LIBFTPLUS_LIB) $(MLX_LIB) $(MLX_FLAGS) -o $(PROGRAM_BONUS)
+	@echo "$(MAGENTA)Program $(PERSONALNAME) created successfully.$(DEFAULT)"
+
+$(NAME_BONUS): $(OBJS_BONUS)
+	@ar rcs $(NAME_BONUS) $(OBJS_BONUS)
+	@echo "$(MAGENTA)Library $(NAME_BONUS) created successfully.$(DEFAULT)"
 
 $(LIBFTPLUS_LIB): libftplusmake
 
@@ -128,6 +161,6 @@ CYAN	:= \033[36;1m
 WHITE	:= \033[37;1m
 DEFAULT	:= \033[0m
 
-.PHONY : all clean fclean re \
+.PHONY : all clean fclean re bonus-\
 libftplusmake libftplusclean libftplusfclean libftplusre \
 git submodules gitignore 42prepare valgrind_datarace valgrind_leaks

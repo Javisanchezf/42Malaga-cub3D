@@ -1,9 +1,9 @@
-NO ./textures/j.png
-SO ./textures/j.png
-WE ./textures/j.png
-EA ./textures/j.png
+NO ./textures/rays.png
+SO ./textures/rays.png
+WE ./textures/rays.png
+EA ./textures/rays.png
 
-F 200,200,200,30
+F 0,110,180,40
 C 0,0,0,30
 
         1111111111111111111111111

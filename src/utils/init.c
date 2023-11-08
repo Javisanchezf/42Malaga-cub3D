@@ -6,7 +6,7 @@
 /*   By: antdelga <antdelga@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:46:49 by javiersa          #+#    #+#             */
-/*   Updated: 2023/11/07 20:51:39 by antdelga         ###   ########.fr       */
+/*   Updated: 2023/11/08 19:03:13 by antdelga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_ids_imgs(t_cub3data *data)
 	data->wall.s->enabled = 0;
 	data->wall.w->enabled = 0;
 	data->wall.e->enabled = 0;
-	data->wall.door = ft_img_by_text(data, "./src/imgs/i.png", 0, 0);
+	data->wall.door = ft_img_by_text(data, "./src/imgs/door_ciel.png", 0, 0);
 	data->wall.door->enabled = 0;
 }
 
