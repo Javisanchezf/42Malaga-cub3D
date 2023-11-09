@@ -1,5 +1,5 @@
 <div id="header" align="center">
-  <img src="https://github.com/Javisanchezf/media/blob/main/cub3d_logo.png" width="200"/>
+  <img src="https://github.com/Javisanchezf/media/blob/main/pc-gif.webp" width="200"/>
 </div>
 
 <h1 align="center">cub3D</h1>
