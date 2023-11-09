@@ -119,7 +119,7 @@ To run the program, use the following command:
 - Additional features implemented in the bonus section.
 - Check the [subject](https://github.com/Javisanchezf/42Malaga-pdfs/blob/main/cub3d_subject.pdf) for details.
 
-## Author
+## Authors
 
 - Names: Javier Sánchez | Antonio Delgado
 - 42 Logins: @javiersa | @antdelga
