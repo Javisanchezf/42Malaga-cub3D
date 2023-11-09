@@ -41,9 +41,6 @@ This is the result of the program:
 <div align = center>
   <img src="https://github.com/Javisanchezf/42Malaga-cub3d/blob/main/screenshots/galaxy.webp" width="800"/>
 </div>
-<div align = center>
-  <img src="https://github.com/Javisanchezf/42Malaga-cub3d/blob/main/screenshots/minecraft.webp" width="800"/>
-</div>
 
 
 ## Requirements
