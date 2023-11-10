@@ -106,9 +106,10 @@ To run the program, use the following command:
 ## Controls
 
 - `W` `A` `S` `D` - Move forward, left, backward, right.
+- Arrow keys - Rotate the view.
+- `SPACE` - Open the doors.
 - `0` - Active mouse control.
 - `1` - Desactive mouse control.
-- Arrow keys - Rotate the view.
 - `Esc` - Close the program.
 
 ## Bonus
